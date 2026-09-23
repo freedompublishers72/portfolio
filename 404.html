@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Page not found — Technical Engineering Portfolio</title>
+<title>Page not found — Marc</title>
 <meta name="description" content="The requested page could not be found.">
 <!-- 404 pages are served for missing paths at any depth, so links here
      must be root-relative to the site base (/portfolio/) rather than
@@ -15,20 +15,23 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="site-title" href="/portfolio/index.html">Technical Engineering Portfolio</a>
-    <!-- NAV -->
+    <a class="site-brand" href="/portfolio/index.html" aria-label="Marc, home">
+      <span class="brand-prompt">marc@</span><span>freedom-publishers</span>
+      <span class="brand-tagline">build / solve / share</span>
+    </a>
     <nav aria-label="Primary">
       <ul class="nav-list">
+        <li><a href="/portfolio/index.html">Home</a></li>
         <li><a href="/portfolio/index.html#work">Work</a></li>
         <li><a href="/portfolio/about.html">About</a></li>
         <li><a href="/portfolio/about.html#contact">Contact</a></li>
+        <li><a href="https://github.com/freedompublishers72/portfolio" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li>
       </ul>
     </nav>
-    <!-- /NAV -->
   </div>
 </header>
 
-<main id="main" class="wrap">
+<main id="main" class="wrap prose-page">
   <h1>Page not found</h1>
   <p>
     The page you requested does not exist or may have moved.
@@ -37,8 +40,9 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p>Hand-built static site — plain HTML and CSS, no frameworks, no JavaScript, no tracking.</p>
+  <div class="wrap footer-inner">
+    <p>&copy; 2026 Marc <span aria-hidden="true">|</span> freedom-publishers</p>
+    <p>Plain HTML and CSS. No frameworks, no tracking.</p>
   </div>
 </footer>
 
