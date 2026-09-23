@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verification &amp; Certification as a Deliverable — Technical Engineering Portfolio</title>
+<meta name="description" content="Case study: the verification and certification process behind the systems in this portfolio — dedicated test harnesses, static analysis, runtime verification, evidence collection, adversarial audit, and explicit certification gates, with remediation and deferral as recorded outcomes.">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-title" href="../index.html">Technical Engineering Portfolio</a>
+    <!-- NAV -->
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../about.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- /NAV -->
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <p class="breadcrumb"><a href="../index.html#work">&larr; All work</a></p>
+
+  <article>
+    <header>
+      <h1>Verification &amp; Certification as a Deliverable</h1>
+      <p class="lede">
+        The delivery process behind the systems in this portfolio:
+        implementation is only the middle of the work. Every substantive
+        change passes through dedicated tests, runtime verification,
+        evidence collection, and adversarial audit before an independent
+        certification gate decides whether it is done — and remediation or
+        deferral are recorded outcomes, never failures hidden as passes.
+      </p>
+      <p class="note">
+        Drawn from the engineering practice behind the private production
+        systems described in this portfolio. Project names, domains, and
+        operational details are anonymized; the process described is real
+        and documented within those systems.
+      </p>
+    </header>
+
+    <section aria-labelledby="context-heading">
+      <h2 id="context-heading">Context</h2>
+      <p>
+        Two long-lived private systems are built and maintained under this
+        process: a production WordPress publishing platform and a
+        framework-independent research and data engine. Both are operated
+        systems — they run unattended, collect and serve real data, and
+        accumulate changes over years.
+      </p>
+      <p>
+        In systems like these, the real risk is not that work is unfinished —
+        it is that unfinished work <em>looks</em> finished. A feature that
+        "should work", a test that used to pass, a certification issued
+        months ago: none of these prove current behavior. The process
+        described here exists so that "done" always means demonstrated.
+      </p>
+    </section>
+
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading">Problem</h2>
+      <p>The engineering problems a verification process has to solve:</p>
+      <ul>
+        <li><strong>Knowing what "done" means</strong> — every unit of work needs explicit requirements to be checked against, not a general impression that it looks right.</li>
+        <li><strong>Checking implementation, not intention</strong> — code and configuration are verified as they actually are, including against the boundaries the task prohibited crossing.</li>
+        <li><strong>Verifying runtime behavior</strong> — a scheduled job existing in a repository is not the same as that job running; some claims can only be settled by observing the live system.</li>
+        <li><strong>Exercising failure and recovery</strong> — systems must be tested for what happens when things break, and recovery paths must be proven rather than assumed.</li>
+        <li><strong>Resisting rubber-stamping</strong> — verification by the same session that wrote the code finds what the author expected to find; independent review has to be structural, not a courtesy.</li>
+        <li><strong>Keeping the record honest</strong> — certifications, remediations, and deferrals are preserved as written so the history stays auditable, including when later evidence invalidates an earlier verdict.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="constraints-heading">
+      <h2 id="constraints-heading">Constraints</h2>
+      <ul>
+        <li>
+          <strong>Evidence over assumption.</strong> Verdicts cite verifiable
+          evidence — source inspection, test results, runtime observation.
+          Assumptions are explicitly not evidence.
+        </li>
+        <li>
+          <strong>Independence.</strong> Independent verification runs in a
+          fresh review context against the exact authorized requirements;
+          certification is performed by a reviewer that did not implement
+          the work.
+        </li>
+        <li>
+          <strong>Current state wins.</strong> Current runtime and source
+          evidence outrank historical documents — a past certification is
+          reference material, not proof of present behavior.
+        </li>
+        <li>
+          <strong>No manufactured evidence.</strong> Synthetic records,
+          fixtures, or staged results are never presented as production
+          behavior.
+        </li>
+        <li>
+          <strong>Honest outcomes.</strong> "Not certified" is a legitimate
+          verdict. Defects become recorded remediation or explicitly
+          deferred items — never silently absorbed into a pass.
+        </li>
+        <li>
+          <strong>Audit is read-only.</strong> An audit reports what it
+          finds; it does not quietly repair it.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="built-heading">
+      <h2 id="built-heading">What was built</h2>
+      <p>
+        A defined delivery lifecycle that applies the same discipline to
+        every substantive change. Work begins with a scope and its explicit
+        requirements; implementation follows; then independent verification
+        compares the result — source, tests, runtime behavior, and
+        documentation — against those requirements, remediating what fails.
+        Only then does a separate certification review render a verdict.
+      </p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 660 545" role="img" aria-labelledby="vc-diagram-title vc-diagram-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="vc-diagram-title">Verification and certification lifecycle</title>
+          <desc id="vc-diagram-desc">A requirement or change flows through implementation, automated and dedicated tests, runtime verification, evidence collection, and audit and failure testing to a certification gate. The gate's outcomes are certified, remediation, or deferred; remediation and deferral re-enter the lifecycle rather than being converted into passes.</desc>
+          <defs>
+            <marker id="vc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+
+            <rect x="180" y="8" width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="32">Requirement / change</text>
+            <line x1="330" y1="46" x2="330" y2="60" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="180" y="62" width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="86">Implementation</text>
+            <line x1="330" y1="100" x2="330" y2="114" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="180" y="116" width="300" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="134">Automated / dedicated tests</text>
+            <text x="330" y="152" font-size="12">harnesses · static analysis · regression</text>
+            <line x1="330" y1="160" x2="330" y2="174" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="180" y="176" width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="200">Runtime verification</text>
+            <line x1="330" y1="214" x2="330" y2="228" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="180" y="230" width="300" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="248">Evidence collection</text>
+            <text x="330" y="266" font-size="12">manifests · inventories · run records</text>
+            <line x1="330" y1="274" x2="330" y2="288" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="180" y="290" width="300" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="308">Audit / failure testing</text>
+            <text x="330" y="326" font-size="12">adversarial re-checks · recovery verification</text>
+            <line x1="330" y1="334" x2="330" y2="348" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="180" y="350" width="300" height="48" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="372">Certification gate</text>
+            <text x="330" y="390" font-size="12">independent verdict against the evidence</text>
+
+            <!-- three-way outcome -->
+            <line x1="255" y1="398" x2="140" y2="426" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+            <line x1="330" y1="398" x2="330" y2="426" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+            <line x1="405" y1="398" x2="520" y2="426" stroke="currentColor" marker-end="url(#vc-arrow)"/>
+
+            <rect x="60" y="428" width="140" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="130" y="452">Certified</text>
+
+            <rect x="260" y="428" width="140" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="452">Remediation</text>
+
+            <rect x="460" y="428" width="140" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="530" y="452">Deferred</text>
+
+            <!-- re-entry paths: remediation and deferral loop back -->
+            <path d="M330,468 L330,494 L612,494 L612,81 L483,81" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.7" marker-end="url(#vc-arrow)"/>
+            <path d="M530,468 L530,494 L612,494" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.7"/>
+
+            <text x="330" y="530" font-size="12" opacity="0.8">Certification is evidence-based: remediation and deferral are recorded outcomes that re-enter the lifecycle — not passes.</text>
+          </g>
+        </svg>
+        <figcaption>
+          The verification lifecycle. The certification gate has three
+          legitimate outcomes; remediation and deferral re-enter the cycle
+          rather than being silently converted into a pass.
+        </figcaption>
+      </figure>
+
+      <p>
+        Around the lifecycle sits the machinery that makes it verifiable:
+        dedicated per-subsystem test harnesses, static analysis, regression
+        suites, runtime health checks, and evidence manifests that record
+        what a system actually contains — checksums, inventories of hooks,
+        classes, configuration, and endpoints — alongside the certification
+        itself. Deferral is a managed state: deferred items are classified
+        and revisited rather than dropped.
+      </p>
+      <p>
+        The record itself is part of the deliverable. Prompt records define
+        exactly what was authorized; decision logs preserve why choices were
+        made; verification, certification, remediation, and freeze reports
+        record what was checked and what the evidence showed — so the
+        process can be audited, not just trusted.
+      </p>
+    </section>
+
+    <section aria-labelledby="outcome-heading">
+      <h2 id="outcome-heading">Outcome</h2>
+      <ul>
+        <li>
+          A substantial auditable record exists across the systems in this
+          portfolio: hundreds of verification, audit, certification, and
+          remediation documents, including formal certification-and-freeze
+          records for major subsystems.
+        </li>
+        <li>
+          Dedicated test suites accompany each subsystem — dozens of bespoke
+          test files on the publishing platform, and over a hundred engine
+          test files plus a TypeScript spec suite — alongside static
+          analysis configured at a strict level.
+        </li>
+        <li>
+          Certification records state scope honestly: each carries a verdict,
+          the certified scope, and what was explicitly <em>not</em>
+          certified — including deferrals and known limitations.
+        </li>
+        <li>
+          The strongest evidence for the process is internal: an adversarial
+          re-audit once overturned a previous "all verified" conclusion by
+          re-checking every claim against current code and runtime behavior —
+          and the record of that correction is itself preserved.
+        </li>
+        <li>
+          History and present state stay distinct: certified baselines are
+          preserved as historical evidence, and the record documents cases
+          where a certified configuration value later drifted from the
+          shipped code — which is exactly why the distinction exists.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">Technical evidence</h2>
+      <p>
+        In summary: a staged lifecycle (discovery, implementation,
+        independent verification, independent certification, frozen
+        baseline), layered checks at each stage, explicit certification
+        records with declared scope and exclusions, and a preserved
+        historical record that separates what was verified then from what is
+        true now.
+      </p>
+
+      <details>
+        <summary>Verification architecture</summary>
+        <ul>
+          <li><strong>Staged lifecycle</strong> — discovery establishes scope, evidence, and decisions (no implementation); implementation makes only the authorized changes; independent verification checks the result against the exact requirements and remediates failures; independent certification renders the verdict; certified work becomes a frozen baseline.</li>
+          <li><strong>Structural independence</strong> — verification runs in a fresh review context; certification is performed by a reviewer that did not implement the work, and a material defect found at certification returns the work to verification rather than being passed through.</li>
+          <li><strong>Requirements-to-evidence checking</strong> — verification walks an explicit requirements matrix, including negative boundaries: what the authorized work prohibited.</li>
+          <li><strong>Evidence classification</strong> — findings are classified (documented, source-verified, runtime-verified, test-verified, engineering hypothesis, or blocked on insufficient evidence); a hypothesis is never presented as an established cause.</li>
+          <li><strong>Operational evidence levels</strong> — for anything claimed to run automatically, evidence is tiered: declared, installed, enabled, executed organically, persisted. A configuration file in a repository proves nothing about runtime.</li>
+          <li><strong>Current-system truth standard</strong> — when evidence conflicts, current observed behavior outranks prior certification; superseded verdicts are preserved as history rather than rewritten.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Implementation &amp; test harnesses</summary>
+        <ul>
+          <li><strong>Per-subsystem suites</strong> — dedicated test harnesses per subsystem rather than one catch-all suite: bespoke PHP harnesses and PHPUnit tests on the publishing platform; a Python test suite plus a TypeScript spec suite for the client on the engine.</li>
+          <li><strong>Property-targeted tests</strong> — invalidation coverage, state-agreement invariants, concurrency, reconciliation, end-to-end recovery, and alert/remediation behavior each have dedicated tests.</li>
+          <li><strong>Boundaries enforced by test</strong> — architectural boundaries carry dedicated tests (for example, a test that the engine has no framework dependencies), not just conventions.</li>
+          <li><strong>Static analysis</strong> — a configured strictness level on the publishing platform's theme; certification audits additionally run dependency/import scans to detect prohibited coupling.</li>
+          <li><strong>Regression discipline</strong> — certification requires focused tests and relevant broader regressions to pass; reopened components are regression-tested and runtime-validated before recertification.</li>
+          <li><strong>Counts are breadth, not health</strong> — suite sizes cited on this site are file counts from the project record: evidence of coverage breadth, not a claim that every historical suite passes today.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Evidence &amp; audit process</summary>
+        <ul>
+          <li><strong>Prompt records</strong> — each unit of work begins from a recorded prompt stating exactly what was authorized; verification compares evidence against that scope.</li>
+          <li><strong>Evidence manifests</strong> — certifications ship with artifact inventories: checksums, hook/class/configuration inventories, endpoint inventories, and dependency graphs — "what the system contains" is itself recorded evidence.</li>
+          <li><strong>Independent audits</strong> — the record includes formal independent audits of major subsystems, including a dedicated reconciliation audit.</li>
+          <li><strong>Hostile re-audits</strong> — audits are specifically instructed to attack prior conclusions; one re-audit re-checked every claim of an earlier "all verified" report and downgraded what current evidence did not support, and that correction remains in the record.</li>
+          <li><strong>Failure and recovery verification</strong> — dedicated tests exercise failed generation, stale state, orphaned entries, alerting, and end-to-end recovery; recovery is a tested behavior, not a hope.</li>
+          <li><strong>Runtime evidence</strong> — health checks and a watchdog observe the running systems; claims that a mechanism runs automatically require proof it was installed, enabled, executed by the scheduler itself, and produced its durable output.</li>
+          <li><strong>Decision preservation</strong> — a decision log records each significant decision with context, alternatives, and rationale; prompt records and phase archives keep authorized scope and engineering history auditable.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Certification gates</summary>
+        <ul>
+          <li><strong>Explicit verdicts</strong> — a gate renders certified, not certified, or blocked; certification is never implied by completed code.</li>
+          <li><strong>Gate requirements</strong> — implementation complete, focused tests and relevant regressions passing, runtime verification where required, integrity checks, current documentation, and a clean version-control state.</li>
+          <li><strong>Scoped records</strong> — each certification record states its verdict, the certified scope, and what was explicitly not certified; exclusions are part of the record, not an omission.</li>
+          <li><strong>Freeze and reopening</strong> — freeze documents close a baseline; reopening requires authorized scope, preserves the prior certification as history, and ends in regression testing, runtime validation, and recertification.</li>
+          <li><strong>Managed deferral</strong> — outstanding items are classified (verified production risk, deferred improvement, technical debt, intentional divergence) with impact and justification; carry-over is reviewed at subsequent gates.</li>
+          <li><strong>Two distinct statuses</strong> — implementation status ("the change exists") and certification status ("the change passed its gate at a recorded point") are tracked separately, and only the second may be cited as certification.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Limits</summary>
+        <ul>
+          <li><strong>Certification is a point-in-time record.</strong> The archive documents what passed a gate when it ran; it is not a claim that every component or historical test suite is currently healthy — and the record itself documents values that later drifted from what was certified.</li>
+          <li>Suite sizes describe coverage breadth, not a guarantee of passing state.</li>
+          <li>The process is heavyweight by design — proportionate for long-lived production systems, deliberately heavy for trivial changes.</li>
+          <li>Much of the verification is scripted harnesses invoked within the lifecycle rather than a third-party CI pipeline; the discipline lives in the gates, not in a status badge.</li>
+          <li>The systems and their records are private. This page describes the process without publishing internal reports, and omits names, identifiers, and operational data.</li>
+        </ul>
+      </details>
+    </section>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Hand-built static site — plain HTML and CSS, no frameworks, no JavaScript, no tracking.</p>
+  </div>
+</footer>
+
+</body>
+</html>
