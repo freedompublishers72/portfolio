@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical Engineering Portfolio</title>
+<meta name="description" content="Selected technical work from larger private production systems: WordPress engineering, web performance, data pipelines, and automation.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-title" href="index.html">Technical Engineering Portfolio</a>
+    <!-- NAV -->
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- /NAV -->
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <section class="intro" aria-labelledby="intro-heading">
+    <h1 id="intro-heading">I build and maintain production web systems.</h1>
+    <p class="lede">
+      Practical engineering work across WordPress, PHP, Python, web performance,
+      data processing, and automation — with an emphasis on systems that are
+      measurable, testable, and recoverable.
+    </p>
+    <p>
+      This portfolio presents selected work from larger private production
+      systems. Examples are deliberately limited and anonymized to demonstrate
+      engineering capability without exposing proprietary business logic,
+      credentials, or operational data.
+    </p>
+  </section>
+
+  <section aria-labelledby="capabilities-heading">
+    <h2 id="capabilities-heading">What I can help with</h2>
+    <ul class="cluster-list">
+      <li>
+        <h3>WordPress build &amp; repair</h3>
+        <p>Custom themes and plugins, multilingual content, custom administration
+        interfaces, migrations, and production fixes.</p>
+      </li>
+      <li>
+        <h3>Speed &amp; reliability</h3>
+        <p>Full-page caching, performance diagnosis, failure and recovery
+        testing, and reliability hardening for live sites.</p>
+      </li>
+      <li>
+        <h3>Data &amp; automation</h3>
+        <p>Python data pipelines, API integrations, scheduled collection jobs,
+        and automation that runs unattended and reports its own health.</p>
+      </li>
+      <li>
+        <h3>Debugging &amp; technical investigation</h3>
+        <p>Root-cause analysis, forensic investigation, verification, and
+        audit work on systems that are already in production.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="work" aria-labelledby="work-heading">
+    <h2 id="work-heading">Selected work</h2>
+    <p>
+      Four case studies are in preparation. Each describes a real production
+      system — the problem, what was built, and the engineering evidence
+      behind it.
+    </p>
+    <ul class="work-list">
+      <li class="work-card">
+        <h3>
+          <a href="case-studies/multilingual-publishing-architecture.html">Multilingual publishing architecture</a>
+          <span class="tag">in preparation</span>
+        </h3>
+        <p>
+          A custom multilingual content system for WordPress: language-prefixed
+          routing, native-language URLs, an automated translation pipeline, and
+          the administrative tooling to manage it.
+        </p>
+      </li>
+      <li class="work-card">
+        <h3>
+          <a href="case-studies/event-driven-full-page-cache.html">Event-driven full-page caching</a>
+          <span class="tag">in preparation</span>
+        </h3>
+        <p>
+          A custom page-caching system that serves pre-generated HTML early in
+          the WordPress lifecycle, with atomic writes, event-driven
+          invalidation, stale-while-revalidate handling, and self-verifying
+          regeneration.
+        </p>
+      </li>
+      <li class="work-card">
+        <h3>
+          <a href="case-studies/research-data-engine.html">Framework-independent research &amp; data engine</a>
+          <span class="tag">in preparation</span>
+        </h3>
+        <p>
+          A Python engine that acquires, normalizes, stores, and analyzes
+          external data through source-specific adapters — kept independent of
+          WordPress behind a small REST boundary, with scheduled collection and
+          empirical accuracy scoring.
+        </p>
+      </li>
+      <li class="work-card">
+        <h3>
+          <a href="case-studies/verification-and-certification.html">Verification &amp; certification as a deliverable</a>
+          <span class="tag">in preparation</span>
+        </h3>
+        <p>
+          A formal engineering workflow in which changes pass through
+          verification gates, dedicated test harnesses, and certification
+          records before they are considered complete.
+        </p>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="approach-heading">
+    <h2 id="approach-heading">Engineering approach</h2>
+    <p>
+      Production systems should be measurable, testable, recoverable,
+      documented, secure, and maintainable. Work is verified against evidence —
+      test harnesses, runtime behavior, and explicit verification gates —
+      rather than assumed correct from a passing glance. Changes are not
+      treated as complete until their behavior has been demonstrated.
+    </p>
+  </section>
+
+  <section aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact</h2>
+    <p>
+      This portfolio is being built out incrementally. Contact details will be
+      published here once they are available; case studies are being added
+      as each one is completed and sanitized for public release.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Hand-built static site — plain HTML and CSS, no frameworks, no JavaScript, no tracking.</p>
+  </div>
+</footer>
+
+</body>
+</html>
