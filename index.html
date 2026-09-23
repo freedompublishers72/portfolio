@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marc — Web Application Engineering</title>
-<meta name="description" content="Marc builds the systems behind web applications: real publishing projects, performance work, data systems, automation, and verification.">
+<meta name="description" content="Marc builds complex web application systems with WordPress, PHP, Python, performance engineering, automation, data systems, and verification.">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -19,124 +19,114 @@
     <nav aria-label="Primary">
       <ul class="nav-list">
         <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="index.html#work">Work</a></li>
+        <li><a href="#work">Work</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="#contact">Contact</a></li>
         <li><a href="https://github.com/freedompublishers72/portfolio" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li>
       </ul>
     </nav>
   </div>
 </header>
 
-<main id="main" class="wrap home-main">
+<main id="main" class="wrap home-main home-main--simple">
 
-  <section class="hero-cover" aria-labelledby="hero-heading">
-    <div class="hero-copy">
-      <p class="eyebrow">Web application engineering</p>
-      <h1 id="hero-heading">I build the systems behind web applications.</h1>
-      <p class="hero-lede">Architecture, performance, automation, and data systems — built, tested, and maintained.</p>
-      <div class="hero-actions">
-        <a class="button" href="#work">See the work <span aria-hidden="true">&rarr;</span></a>
-        <a class="text-link" href="about.html">About the approach <span aria-hidden="true">&rarr;</span></a>
-      </div>
-      <p class="hero-note"><span>01</span> real projects <span aria-hidden="true">/</span> technical evidence</p>
-    </div>
-    <figure class="hero-visual">
-      <img src="assets/images/sria-homepage.jpg" alt="Siem Reap Inside Asia homepage with Angkor Wat at sunset" width="1600" height="760">
-      <figcaption><span>Live project</span> Siem Reap Inside Asia</figcaption>
-    </figure>
+  <section class="title-section" aria-labelledby="page-title">
+    <h1 id="page-title">Complex Web Application Development For Complicated Times.</h1>
   </section>
 
-  <section id="work" class="projects-section" aria-labelledby="projects-heading">
-    <div class="section-heading">
-      <p class="eyebrow">Projects</p>
-      <h2 id="projects-heading">Complete systems, built for real use.</h2>
-      <p>Production work first. The technical systems below show how the larger pieces are designed and verified.</p>
+  <section id="work" class="feature-section" aria-labelledby="feature-heading">
+    <div class="simple-section-heading">
+      <p class="eyebrow">Feature Project</p>
+      <h2 id="feature-heading">Siem Reap Inside Asia</h2>
     </div>
 
-    <!-- Add future project cards inside .project-grid using the same structure. -->
-    <div class="projects-stack">
-      <article class="project-card project-card--primary">
-        <div class="project-card-visual">
-          <img src="assets/images/sria-homepage.jpg" alt="Siem Reap Inside Asia homepage with Angkor Wat at sunset" width="1600" height="760" loading="lazy">
-        </div>
-        <div class="project-card-body">
-          <p class="project-label">01 / Live project</p>
-          <h3>Siem Reap Inside Asia</h3>
-          <p class="project-description">A live travel-publishing platform combining independent local content with custom publishing, multilingual, and performance systems.</p>
-          <ul class="project-facts" aria-label="Project details">
-            <li>WordPress</li>
-            <li>Multilingual publishing</li>
-            <li>Custom development</li>
-          </ul>
-          <a class="text-link project-link" href="https://siemreapinside.asia/" target="_blank" rel="noopener noreferrer">Visit the live site <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-        </div>
-      </article>
-
-      <div class="project-grid">
-        <article class="project-card project-card--secondary">
-          <div class="project-card-mark" aria-hidden="true">
-            <span>SRIA / 02</span>
-            <strong>Travel<br>Bonanza!</strong>
-            <span class="project-mark-arrow">↗</span>
-          </div>
-          <div class="project-card-body">
-            <p class="project-label">02 / Live project</p>
-            <h3>Travel Bonanza!</h3>
-            <p class="project-description">A separate public travel experience connected to the SRIA publishing work, with its own destination and visitor journey.</p>
-            <a class="text-link project-link" href="https://siemreapinside.asia/travel-bonanza/" target="_blank" rel="noopener noreferrer">Explore Travel Bonanza <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-          </div>
-        </article>
+    <article class="feature-project">
+      <div class="feature-project-image">
+        <img src="assets/images/sria-homepage.jpg" alt="Siem Reap Inside Asia homepage with Angkor Wat at sunset" width="1600" height="760">
       </div>
+      <div class="feature-project-copy">
+        <p class="project-label">01 / Live production project</p>
+        <h3>Siem Reap Inside Asia</h3>
+        <p>A live travel-publishing platform built around custom WordPress systems for publishing, multilingual content, performance, and operational control.</p>
+        <ul class="project-facts" aria-label="Project details">
+          <li>WordPress</li>
+          <li>PHP</li>
+          <li>Multilingual</li>
+          <li>Performance</li>
+        </ul>
+        <a class="text-link" href="https://siemreapinside.asia/" target="_blank" rel="noopener noreferrer">Visit SRIA <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+
+    <div class="project-brief">
+      <p class="eyebrow">Project brief</p>
+      <p>SRIA is a live publishing platform whose public travel site is only one part of the system. The portfolio examples below show selected engines and engineering work from the larger platform.</p>
     </div>
   </section>
 
-  <section class="systems-section" aria-labelledby="systems-heading">
-    <div class="section-heading section-heading--systems">
-      <p class="eyebrow">Selected technical systems</p>
-      <h2 id="systems-heading">Focused engineering from larger systems.</h2>
-      <p>Four evidence-backed demonstrations from SRIA and MIOS. Each case study contains the technical detail and verification trail.</p>
+  <section class="technical-paper-section" aria-labelledby="paper-heading">
+    <div class="simple-section-heading">
+      <p class="eyebrow">Technical paper</p>
+      <h2 id="paper-heading">Travel Bonanza!</h2>
+      <p>A technical look at a subsystem of SRIA rather than a separate portfolio project.</p>
     </div>
-    <ul class="system-grid">
-      <li class="system-card">
+
+    <article class="technical-paper-card">
+      <div>
+        <p class="project-label">SRIA subsystem / architecture</p>
+        <h3>Travel Bonanza</h3>
+        <p>The public Travel Bonanza experience is treated here as an engineering facet of SRIA. Its portfolio presentation is intentionally limited to the technical paper, architecture, and diagrams rather than presenting it as a second standalone product.</p>
+      </div>
+      <div class="technical-paper-mark" aria-hidden="true">
+        <span>SRIA</span>
+        <strong>ENGINE</strong>
+        <span>ARCHITECTURE / FLOW / DATA</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="demos-section" aria-labelledby="demos-heading">
+    <div class="simple-section-heading">
+      <p class="eyebrow">Code Examples &amp; Demos</p>
+      <h2 id="demos-heading">Selected engineering examples.</h2>
+      <p>Self-contained demonstrations extracted and sanitized from larger private systems.</p>
+    </div>
+
+    <ul class="demo-grid">
+      <li class="demo-card">
         <span class="card-number">01</span>
         <h3>Multilingual publishing</h3>
-        <p>Language-aware content with protected tokens, intelligent routing, and a scalable publishing architecture.</p>
-        <div class="card-meta"><span>Used in</span> <strong>SRIA</strong></div>
-        <ul class="tag-list" aria-label="Technologies: WordPress, PHP, multilingual">
-          <li>WordPress</li><li>PHP</li><li>Multilingual</li>
-        </ul>
-        <a class="card-link" href="case-studies/multilingual-publishing-architecture.html">View details <span aria-hidden="true">&rarr;</span></a>
+        <p>Locale matching, protected translation tokens, and language-aware routing.</p>
+        <span class="demo-meta">PHP · WordPress</span>
+        <a class="card-link" href="case-studies/multilingual-publishing-architecture.html">Explore <span aria-hidden="true">→</span></a>
       </li>
-      <li class="system-card">
+      <li class="demo-card">
         <span class="card-number">02</span>
         <h3>Full-page caching</h3>
-        <p>Event-driven caching with bounded staleness, reliable invalidation, and regeneration handling.</p>
-        <div class="card-meta"><span>Used in</span> <strong>SRIA</strong></div>
-        <ul class="tag-list" aria-label="Technologies: PHP, nginx, performance">
-          <li>PHP</li><li>nginx</li><li>Performance</li>
-        </ul>
-        <a class="card-link" href="case-studies/event-driven-full-page-cache.html">View details <span aria-hidden="true">&rarr;</span></a>
+        <p>Bounded staleness, invalidation, pending generations, and controlled regeneration.</p>
+        <span class="demo-meta">PHP · WordPress</span>
+        <a class="card-link" href="case-studies/event-driven-full-page-cache.html">Explore <span aria-hidden="true">→</span></a>
       </li>
-      <li class="system-card">
+      <li class="demo-card">
         <span class="card-number">03</span>
         <h3>Research &amp; data engine</h3>
-        <p>Flexible data collection and processing with provider abstraction, resilient primitives, and calibration metrics.</p>
-        <div class="card-meta"><span>Used in</span> <strong>MIOS</strong></div>
-        <ul class="tag-list" aria-label="Technologies: Python, data, automation">
-          <li>Python</li><li>Data</li><li>Automation</li>
-        </ul>
-        <a class="card-link" href="case-studies/research-data-engine.html">View details <span aria-hidden="true">&rarr;</span></a>
+        <p>Provider contracts, resilient collection primitives, and calibration metrics.</p>
+        <span class="demo-meta">Python · Data</span>
+        <a class="card-link" href="case-studies/research-data-engine.html">Explore <span aria-hidden="true">→</span></a>
       </li>
-      <li class="system-card">
+      <li class="demo-card">
         <span class="card-number">04</span>
         <h3>Verification &amp; certification</h3>
-        <p>Immutable domain primitives and reproducible verification to support trust, transparency, and maintainability.</p>
-        <div class="card-meta"><span>Used in</span> <strong>SRIA + MIOS</strong></div>
-        <ul class="tag-list" aria-label="Technologies: testing, validation, reliability">
-          <li>Testing</li><li>Validation</li><li>Reliability</li>
-        </ul>
-        <a class="card-link" href="case-studies/verification-and-certification.html">View details <span aria-hidden="true">&rarr;</span></a>
+        <p>Immutable primitives, reproducible tests, evidence collection, and certification gates.</p>
+        <span class="demo-meta">Python · PHP · Testing</span>
+        <a class="card-link" href="case-studies/verification-and-certification.html">Explore <span aria-hidden="true">→</span></a>
+      </li>
+      <li class="demo-card">
+        <span class="card-number">05</span>
+        <h3>Resilient collection primitives</h3>
+        <p>Pagination, pacing, bounded backoff, retry handling, and crash-safe run locking.</p>
+        <span class="demo-meta">Python · Data collection</span>
+        <a class="card-link" href="case-studies/research-data-engine.html">Explore <span aria-hidden="true">→</span></a>
       </li>
     </ul>
   </section>
@@ -169,24 +159,14 @@
     </svg>
   </div>
 
-  <section class="capabilities-strip" aria-labelledby="capabilities-heading">
-    <div class="capabilities-heading">
-      <p class="eyebrow">Capability strip</p>
-      <h2 id="capabilities-heading">The tools change. The engineering standard does not.</h2>
-    </div>
-    <p class="capability-line">
-      <span>WordPress &amp; PHP</span><span>Application architecture</span><span>Performance &amp; caching</span><span>Python &amp; data systems</span><span>Automation</span><span>Verification</span>
-    </p>
-  </section>
-
-  <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+  <section id="contact" class="contact-section contact-section--simple" aria-labelledby="contact-heading">
     <div>
       <p class="eyebrow">Contact</p>
       <h2 id="contact-heading">Have a system that needs careful engineering?</h2>
       <p>Tell me what you are building, repairing, or trying to understand.</p>
     </div>
     <div class="contact-actions">
-      <a class="button" href="mailto:freedompublishers72@gmail.com">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+      <a class="button" href="mailto:freedompublishers72@gmail.com">Start a conversation <span aria-hidden="true">→</span></a>
       <a class="text-link" href="https://t.me/marc_dev72" target="_blank" rel="noopener noreferrer">Telegram <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
     </div>
   </section>
