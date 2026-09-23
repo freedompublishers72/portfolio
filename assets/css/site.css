@@ -10,7 +10,8 @@
   --accent: #1f5fa8;
   --accent-visited: #5a3f8c;
   --rule: #d8d6cd;
-  --measure: 70ch;
+  --measure: 72rem;
+  --text-measure: 70ch;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,18 +52,21 @@ body {
 }
 
 main {
-  padding-block: 2.5rem;
+  padding-block: 3.5rem 4rem;
 }
 
 section {
-  margin-block-end: 3rem;
+  margin-block-end: 4rem;
 }
 
 /* ─── Header & navigation ────────────────────────────────────────────────── */
 
 .site-header {
   border-bottom: 1px solid var(--rule);
-  background: var(--surface);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .header-inner {
@@ -92,7 +96,8 @@ section {
 /* ─── Typography ─────────────────────────────────────────────────────────── */
 
 h1 {
-  font-size: 1.9rem;
+  max-width: 18ch;
+  font-size: clamp(2.2rem, 5vw, 4rem);
   line-height: 1.25;
   margin: 0 0 1rem;
 }
@@ -116,7 +121,8 @@ p {
 }
 
 .lede {
-  font-size: 1.2rem;
+  max-width: var(--text-measure);
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
 }
 
 a {
@@ -131,6 +137,24 @@ a:visited {
 a:hover {
   text-decoration-thickness: 2px;
 }
+
+.site-prompt { color: var(--accent); }
+.intro-note { max-width: var(--text-measure); color: var(--ink-muted); }
+.eyebrow { margin-bottom: .35rem; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.featured-project { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; padding: 1.5rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.featured-project h2 { border: 0; padding: 0; margin-bottom: .55rem; }
+.featured-copy { max-width: 62ch; }
+.featured-meta { display: flex; align-items: flex-start; justify-content: flex-end; flex-wrap: wrap; gap: .45rem; max-width: 18rem; }
+.featured-meta span { border: 1px solid var(--rule); border-radius: 999px; padding: .25rem .55rem; font-size: .78rem; color: var(--ink-muted); }
+.text-link { font-weight: 650; }
+.pacman-strip { margin-top: -1.5rem; }
+.pacman-track { position: relative; min-height: 5rem; display: flex; align-items: center; justify-content: center; gap: .55rem; overflow: hidden; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.pacman { width: 2rem; height: 2rem; border-radius: 50%; background: #e7c52f; clip-path: polygon(50% 50%, 100% 20%, 100% 80%); animation: chomp .45s steps(2,end) infinite; }
+.dot { width: .35rem; height: .35rem; border-radius: 50%; background: var(--accent); }
+.ghost { width: 1.65rem; height: 1.65rem; border-radius: .9rem .9rem .35rem .35rem; background: var(--accent); position: relative; }
+.ghost::after { content: "••"; position: absolute; inset: .18rem 0 0; text-align: center; font-size: .75rem; letter-spacing: .15rem; color: var(--paper); }
+@keyframes chomp { 50% { clip-path: polygon(50% 50%, 100% 35%, 100% 65%); } }
+@media (prefers-reduced-motion: reduce) { .pacman { animation: none; } }
 
 /* ─── Capability clusters ────────────────────────────────────────────────── */
 
@@ -290,6 +314,11 @@ figcaption {
 }
 
 /* ─── Larger screens: two-column clusters/cards ──────────────────────────── */
+
+@media (max-width: 42rem) {
+  .featured-project { grid-template-columns: 1fr; }
+  .featured-meta { justify-content: flex-start; max-width: none; }
+}
 
 @media (min-width: 42rem) {
   .cluster-list {
