@@ -269,6 +269,26 @@ figcaption {
   outline-offset: 2px;
 }
 
+/* ─── Case-study components ──────────────────────────────────────────────── */
+
+.breadcrumb {
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+.diagram svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  color: var(--ink);
+}
+
 /* ─── Larger screens: two-column clusters/cards ──────────────────────────── */
 
 @media (min-width: 42rem) {
