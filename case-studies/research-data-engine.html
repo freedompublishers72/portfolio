@@ -262,6 +262,42 @@
       </ul>
     </section>
 
+    <section aria-labelledby="demo-heading">
+      <h2 id="demo-heading">Sanitized code examples</h2>
+      <p>
+        These small, self-contained examples isolate public-safe engineering
+        patterns from the larger private engine. They are representative of
+        the design approach, not a publication of the complete research
+        system.
+      </p>
+      <ul>
+        <li>
+          <a href="../examples/capability-contracts/README.md">Capability-contract provider layer</a>
+          shows structural provider contracts, capability flags, immutable
+          query objects, and provider-neutral errors. Code:
+          <a href="../examples/capability-contracts/contracts.py">contracts</a>,
+          <a href="../examples/capability-contracts/test_contracts.py">tests</a>.
+        </li>
+        <li>
+          <a href="../examples/resilient-collector-primitives/README.md">Resilient collector primitives</a>
+          shows pagination, pacing, retry backoff, and advisory locking as
+          isolated reliability components for scheduled collection. Code:
+          <a href="../examples/resilient-collector-primitives/pagination.py">pagination</a>,
+          <a href="../examples/resilient-collector-primitives/interval_pacer.py">pacer</a>,
+          <a href="../examples/resilient-collector-primitives/backoff.py">backoff</a>,
+          <a href="../examples/resilient-collector-primitives/run_lock.py">run lock</a>,
+          <a href="../examples/resilient-collector-primitives/test_primitives.py">tests</a>.
+        </li>
+        <li>
+          <a href="../examples/calibration-metrics/README.md">Calibration metrics</a>
+          shows defensive probability validation and standard forecast
+          evaluation metrics in a standalone numerical module. Code:
+          <a href="../examples/calibration-metrics/metrics.py">metrics</a>,
+          <a href="../examples/calibration-metrics/test_metrics.py">tests</a>.
+        </li>
+      </ul>
+    </section>
+
     <section aria-labelledby="evidence-heading">
       <h2 id="evidence-heading">Technical evidence</h2>
 

@@ -222,6 +222,32 @@
       </ul>
     </section>
 
+    <section aria-labelledby="demo-heading">
+      <h2 id="demo-heading">Sanitized code examples</h2>
+      <p>
+        Two small, self-contained examples isolate public-safe parts of this
+        architecture. They are representative engineering patterns from the
+        larger private system, not the complete production implementation.
+      </p>
+      <ul>
+        <li>
+          <a href="../examples/protected-token-validator/README.md">Protected-token translation validator</a>
+          shows how translated text is checked for missing, duplicated, or
+          altered inline markers before protected URLs, shortcodes, and
+          entities are reconstructed. Code:
+          <a href="../examples/protected-token-validator/token_validator.php">validator</a>,
+          <a href="../examples/protected-token-validator/test_token_validator.php">tests</a>.
+        </li>
+        <li>
+          <a href="../examples/accept-language-matcher/README.md">Accept-Language locale matcher</a>
+          shows the allowlisted browser-language negotiation used only when a
+          request has no explicit language prefix. Code:
+          <a href="../examples/accept-language-matcher/accept_language.php">matcher</a>,
+          <a href="../examples/accept-language-matcher/test_accept_language.php">tests</a>.
+        </li>
+      </ul>
+    </section>
+
     <section aria-labelledby="evidence-heading">
       <h2 id="evidence-heading">Technical evidence</h2>
 

@@ -241,6 +241,25 @@
       </ul>
     </section>
 
+    <section aria-labelledby="demo-heading">
+      <h2 id="demo-heading">Sanitized code example</h2>
+      <p>
+        This small, self-contained example isolates the cache serving decision
+        table from the larger private WordPress implementation. It demonstrates
+        the representative bounded-staleness pattern without publishing the
+        complete production cache engine.
+      </p>
+      <ul>
+        <li>
+          <a href="../examples/bounded-staleness-cache/README.md">Bounded-staleness cache serve cascade</a>
+          shows how a route resolves to HIT, STALE, or MISS across valid,
+          TTL-expired, invalidated, and pending-regeneration states. Code:
+          <a href="../examples/bounded-staleness-cache/cache_serve_cascade.php">serve cascade</a>,
+          <a href="../examples/bounded-staleness-cache/test_cache_serve_cascade.php">tests</a>.
+        </li>
+      </ul>
+    </section>
+
     <section aria-labelledby="evidence-heading">
       <h2 id="evidence-heading">Technical evidence</h2>
 
