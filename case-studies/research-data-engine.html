@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Framework-Independent Research &amp; Data Engine — Technical Engineering Portfolio</title>
+<meta name="description" content="Case study: a framework-independent Python research and data engine — source-specific acquisition adapters, normalization and persistence, staged analysis, empirical forecast scoring, scheduled collection, and a thin WordPress presentation client behind a REST boundary.">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-title" href="../index.html">Technical Engineering Portfolio</a>
+    <!-- NAV -->
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../about.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- /NAV -->
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <p class="breadcrumb"><a href="../index.html#work">&larr; All work</a></p>
+
+  <article>
+    <header>
+      <h1>Framework-Independent Research &amp; Data Engine</h1>
+      <p class="lede">
+        A Python research and data engine that acquires, normalizes, stores,
+        and evaluates external data through source-specific adapters — kept
+        deliberately independent of WordPress behind a small REST boundary,
+        with scheduled unattended collection and empirical scoring of its
+        own probabilistic forecasts.
+      </p>
+      <p class="note">
+        Part of a larger private production system. Project names, domains,
+        provider identities, and operational details are anonymized; the
+        engineering described is real and verifiable within that system.
+      </p>
+    </header>
+
+    <section aria-labelledby="context-heading">
+      <h2 id="context-heading">Context</h2>
+      <p>
+        The system is a private research platform: a WordPress site presents
+        research outputs to its operator, but the analytical core had to be
+        able to outlive any single CMS, run unattended, and be testable
+        without a web framework underneath it.
+      </p>
+      <p>
+        The engine continuously acquires data from multiple external sources,
+        keeps a durable and auditable record of what was collected, runs a
+        staged analysis pipeline over that data, and — critically — measures
+        the accuracy of the probabilistic forecasts it produces rather than
+        assuming they are good.
+      </p>
+    </section>
+
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading">Problem</h2>
+      <p>The engineering problems a system like this must solve:</p>
+      <ul>
+        <li><strong>Acquiring heterogeneous external data</strong> — multiple sources with different APIs, authentication schemes, cadences, and payload shapes, without letting any source's quirks leak into the core.</li>
+        <li><strong>Normalizing incompatible representations</strong> — every source describes similar underlying concepts differently; analysis needs one canonical model.</li>
+        <li><strong>Persisting data so analysis is auditable</strong> — what was collected, when, from which source, and whether it arrived intact all have to be reconstructable later.</li>
+        <li><strong>Evaluating forecasts empirically</strong> — probabilistic outputs are only meaningful if the system can score its own past predictions against resolved outcomes.</li>
+        <li><strong>Keeping the engine framework-independent</strong> — the runtime must not depend on WordPress, even though a WordPress site is how results are presented.</li>
+        <li><strong>Running unattended</strong> — collection happens on schedules around the clock, so locking, rate limiting, and failure isolation are requirements, not niceties.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="constraints-heading">
+      <h2 id="constraints-heading">Constraints</h2>
+      <ul>
+        <li>
+          <strong>Framework independence is a hard boundary.</strong> The
+          engine must run from the command line and over REST with zero
+          WordPress dependencies — and that property is enforced by a
+          dedicated test, not by convention.
+        </li>
+        <li>
+          <strong>WordPress is a client, not a dependency.</strong> All
+          PHP-to-Python traffic crosses a single token-authenticated REST
+          boundary; the WordPress plugin contains presentation and control
+          logic only.
+        </li>
+        <li>
+          <strong>Per-source isolation.</strong> Each data source is an
+          adapter pair — a collector and a storage module — written against
+          a shared contract, so a source change cannot ripple into the core.
+        </li>
+        <li>
+          <strong>Scheduling is orchestration, not engine internals.</strong>
+          Collection is driven by external schedulers against a per-source
+          cadence registry; collectors are lock-guarded so overlapping runs
+          cannot corrupt a store.
+        </li>
+        <li>
+          <strong>Automation stops at drafts.</strong> The pipeline produces
+          private draft research outputs for human review; the engine never
+          publishes or acts on its own conclusions.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="built-heading">
+      <h2 id="built-heading">What was built</h2>
+      <p>
+        A framework-independent Python engine — roughly 59,000 lines across
+        about 200 modules — exposed through a CLI and a small
+        token-authenticated HTTP server. That server is the sole boundary
+        between the WordPress world and the engine: it runs the staged
+        research pipeline as background jobs and reports status back.
+      </p>
+      <p>
+        <strong>Acquisition is adapter-based.</strong> Nine source-specific
+        adapter packages each provide a collector and a storage module (plus
+        backfill where a source supports history), all written against a
+        shared adapter contract. A collection framework supplies what every
+        collector needs but none should reinvent: per-source collection
+        specifications, run locks, rate limiting, and pagination. A separate
+        provider framework — contracts, a registry, a capability model, and
+        a normalization boundary — integrates two external market-data
+        providers behind the same discipline.
+      </p>
+      <p>
+        <strong>Persistence is layered.</strong> Per-source storage modules
+        write canonical records; a recorded-ingestion catalog tracks what
+        was collected, when, and with what integrity checks; schemas are
+        managed through SQL migrations rather than ad-hoc changes.
+        <strong>Analysis sits behind formal boundaries:</strong> a valuation
+        engine built on immutable domain objects, a recommendation engine
+        behind its own public boundary, and a calibration layer with
+        metrics and significance testing.
+      </p>
+      <p>
+        <strong>The engine scores itself.</strong> A forecast-scoring
+        pipeline records every probabilistic output in a ledger, resolves
+        forecasts against observed outcomes, and computes Brier scores —
+        with counterfactual evaluation alongside — so accuracy is measured,
+        not claimed.
+      </p>
+      <p>
+        <strong>Around the core</strong>, cron dispatchers, a per-source
+        cadence registry, lifecycle cleanup, and a health watchdog run
+        collection unattended. On the WordPress side, a thin client
+        (~10,500 lines) talks to the engine only over REST — administrative
+        views, health pages, and a set of REST endpoints — and pipeline
+        output arrives as private draft posts awaiting human review.
+      </p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 660 490" role="img" aria-labelledby="rde-diagram-title rde-diagram-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="rde-diagram-title">Research and data engine architecture</title>
+          <desc id="rde-diagram-desc">External data sources feed acquisition adapters inside a framework-independent engine boundary; data flows through normalization, persistence, and analysis/evaluation to research outputs, which cross a REST boundary to a WordPress presentation client. Scheduling is shown as external orchestration driving acquisition, outside the engine boundary.</desc>
+          <defs>
+            <marker id="rde-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+
+            <rect x="190" y="8" width="280" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="32">External data sources</text>
+            <line x1="330" y1="48" x2="330" y2="66" stroke="currentColor" marker-end="url(#rde-arrow)"/>
+
+            <!-- Engine boundary frame -->
+            <rect x="170" y="66" width="320" height="322" rx="6" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.55"/>
+            <text x="330" y="86" font-size="12" opacity="0.8">Framework-independent engine — CLI + REST, no WordPress dependencies</text>
+
+            <rect x="195" y="94" width="270" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="112">Acquisition adapters</text>
+            <text x="330" y="130" font-size="12">collector + storage pair per source, shared contract</text>
+            <line x1="330" y1="138" x2="330" y2="152" stroke="currentColor" marker-end="url(#rde-arrow)"/>
+
+            <rect x="195" y="154" width="270" height="38" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="178">Normalization</text>
+            <line x1="330" y1="192" x2="330" y2="206" stroke="currentColor" marker-end="url(#rde-arrow)"/>
+
+            <rect x="195" y="208" width="270" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="226">Persistence</text>
+            <text x="330" y="244" font-size="12">canonical stores + ingestion catalog + migrations</text>
+            <line x1="330" y1="252" x2="330" y2="266" stroke="currentColor" marker-end="url(#rde-arrow)"/>
+
+            <rect x="195" y="268" width="270" height="48" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="288">Analysis / evaluation</text>
+            <text x="330" y="306" font-size="12">valuation · recommendation · Brier self-scoring</text>
+            <line x1="330" y1="316" x2="330" y2="330" stroke="currentColor" marker-end="url(#rde-arrow)"/>
+
+            <rect x="195" y="332" width="270" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="350">Research outputs</text>
+            <text x="330" y="368" font-size="12">private drafts for human review</text>
+
+            <!-- REST boundary crossing -->
+            <line x1="330" y1="376" x2="330" y2="404" stroke="currentColor" marker-end="url(#rde-arrow)"/>
+            <text x="368" y="396" font-size="12">REST</text>
+
+            <rect x="190" y="406" width="280" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="424">WordPress presentation</text>
+            <text x="330" y="442" font-size="12">thin client — admin views, health, REST endpoints</text>
+
+            <!-- External orchestration side box -->
+            <rect x="8" y="86" width="142" height="86" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4 3"/>
+            <text x="79" y="106" font-size="12">External</text>
+            <text x="79" y="122" font-size="12">orchestration</text>
+            <text x="79" y="140" font-size="12">cron · cadence</text>
+            <text x="79" y="156" font-size="12">registry · watchdog</text>
+            <line x1="150" y1="126" x2="193" y2="118" stroke="currentColor" stroke-dasharray="4 3" marker-end="url(#rde-arrow)"/>
+
+            <text x="330" y="476" font-size="12" opacity="0.8">Scheduling lives outside the engine; WordPress is a client, not a dependency.</text>
+          </g>
+        </svg>
+        <figcaption>
+          Architectural separation. The engine boundary contains acquisition,
+          normalization, persistence, analysis, and output generation;
+          scheduling is external orchestration and WordPress is a
+          presentation client behind the REST boundary.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="outcome-heading">
+      <h2 id="outcome-heading">Outcome</h2>
+      <ul>
+        <li>
+          A framework-independent Python engine of roughly
+          <strong>59,000 lines</strong> across about 200 modules, plus a
+          <strong>~10,500-line</strong> WordPress thin client that contains
+          presentation and control logic only.
+        </li>
+        <li>
+          <strong>Nine source adapters</strong> behind a shared contract, a
+          provider framework with two external provider implementations, and
+          a collection framework supplying specs, locks, rate limiting, and
+          pagination.
+        </li>
+        <li>
+          An empirical self-evaluation loop: forecast ledger, outcome
+          resolution, versioned <strong>Brier scoring</strong>, and
+          counterfactual evaluation — the system's accuracy is a measured
+          quantity inside it.
+        </li>
+        <li>
+          More than <strong>130 Python test files</strong> plus a TypeScript
+          spec suite for the WordPress client, including a dedicated test
+          that enforces the engine's independence from WordPress.
+        </li>
+        <li>
+          The project record contains formal <strong>certification and
+          freeze</strong> documents for the engine's major subsystems. These
+          are cited as <em>historical project evidence</em>: they document
+          what passed verification gates at the time, not the current
+          runtime state.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">Technical evidence</h2>
+
+      <details>
+        <summary>Architecture</summary>
+        <ul>
+          <li><strong>Framework-independent core</strong> — the engine has no WordPress imports; it is operable from the CLI and over a token-authenticated HTTP interface that runs pipeline stages as background jobs.</li>
+          <li><strong>Staged research pipeline</strong> — a canonical runtime executes ordered stages (discovery, qualification, evidence collection, analysis, recommendation, draft output) as discrete, inspectable units.</li>
+          <li><strong>Adapter contract</strong> — each source supplies a collector/storage pair against a shared contract; indexers sit above the stores rather than inside collectors.</li>
+          <li><strong>Collection framework</strong> — per-source collection specifications record each dataset's approved cadence and invocation mechanism; run locks and rate limiting are shared infrastructure.</li>
+          <li><strong>Provider framework</strong> — contracts, a registry, a capability model, and a normalization boundary, with two provider implementations carrying their own authentication and normalization.</li>
+          <li><strong>Analysis boundaries</strong> — valuation and recommendation each sit behind a formal public boundary object over immutable domain types; calibration contributes metrics and significance testing.</li>
+          <li><strong>WordPress thin client</strong> — an engine client that speaks REST only, administration pages, REST endpoints, and a health-check framework; no engine logic lives in PHP.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Implementation</summary>
+        <p>Selected engineering decisions:</p>
+        <ul>
+          <li><strong>One REST boundary</strong> — a single token-authenticated server is the only path between WordPress and the engine, so the framework boundary has exactly one door to audit.</li>
+          <li><strong>Cadence as data</strong> — collection schedules live in a per-source registry with explicit due-checks; a frequent wake-up tick asks each dataset whether it is due rather than hard-coding intervals per job.</li>
+          <li><strong>Lock-guarded collectors</strong> — overlapping runs of the same collector are prevented by design, so a slow source cannot corrupt its own store.</li>
+          <li><strong>Recorded ingestion</strong> — acquisition is cataloged with integrity tracking, making later analysis auditable against what was actually collected.</li>
+          <li><strong>Immutable domain objects</strong> — valuation inputs and results are modeled as immutable types, keeping analysis stages free of hidden mutation.</li>
+          <li><strong>Versioned scoring</strong> — forecast scoring is implemented as a named, versioned method over a persistent forecast ledger, so scores are reproducible and the scoring rule itself is explicit.</li>
+          <li><strong>Drafts, not decisions</strong> — the pipeline's last automated step produces a private draft for human review; editorial and action decisions stay outside the system.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Verification</summary>
+        <p>Evidence held in the private project record:</p>
+        <ul>
+          <li>More than 130 dedicated Python test files across the engine, collection framework, providers, and workflow — including a test that verifies the engine carries no WordPress dependencies.</li>
+          <li>A TypeScript spec suite covering the WordPress client.</li>
+          <li>Formal certification and freeze records for major subsystems, produced under a documented lifecycle (designed → authorized → implemented → verified → certified → frozen).</li>
+          <li>An extensive certification archive: verification reports, remediation records, and independent audit documents.</li>
+        </ul>
+        <p>
+          These are historical project documents: they establish that the
+          work passed formal verification gates when certified, and are not
+          presented as a claim that every component or historical test is
+          currently passing. Suite sizes are file counts from the project
+          record — evidence of coverage breadth, not a runtime guarantee.
+        </p>
+      </details>
+
+      <details>
+        <summary>Limits</summary>
+        <ul>
+          <li>The production codebase is private; this page describes the architecture rather than publishing it.</li>
+          <li>No accuracy percentages, performance benchmarks, or business outcomes are claimed — internal scoring exists, but this page does not publish its figures.</li>
+          <li>Certification evidence is historical — it should not be read as current runtime verification.</li>
+          <li>The collection cadences and source set are configured for one deployment; this is not a general-purpose product.</li>
+          <li>The WordPress component is a thin client for this engine — not a portable plugin for arbitrary WordPress sites.</li>
+        </ul>
+      </details>
+    </section>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Hand-built static site — plain HTML and CSS, no frameworks, no JavaScript, no tracking.</p>
+  </div>
+</footer>
+
+</body>
+</html>
