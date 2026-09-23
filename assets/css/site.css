@@ -325,3 +325,49 @@ figcaption {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+
+/* ─── Redesigned architecture diagrams ───────────────────────────────────── */
+.diagram-system svg { width: 100%; max-width: 760px; }
+.diagram-system .diagram-box rect,
+.diagram-system .diagram-note rect,
+.diagram-system .diagram-boundary {
+  fill: var(--paper);
+  stroke: var(--rule);
+  stroke-width: 1.5;
+}
+.diagram-system .diagram-key rect,
+.diagram-system .diagram-key .diagram-decision {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 1.8;
+}
+.diagram-system .diagram-decision {
+  fill: var(--surface);
+  stroke: var(--rule);
+  stroke-width: 1.5;
+}
+.diagram-system .diagram-flow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.7;
+}
+.diagram-system .diagram-dash {
+  fill: none;
+  stroke: var(--ink-muted);
+  stroke-width: 1.4;
+  stroke-dasharray: 5 4;
+}
+.diagram-system .diagram-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  fill: var(--ink-muted);
+}
+.diagram-system .diagram-small {
+  font-size: 11px;
+  fill: var(--ink-muted);
+}
+.diagram-system .diagram-box text {
+  font-size: 14px;
+}
