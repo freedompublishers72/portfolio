@@ -95,5 +95,7 @@ Additional technical examples can be provided where appropriate and where disclo
 ---
 
 ## Contact
+
 freedompublishers72@gmail.com
+
 Available for remote technical work involving WordPress, PHP, Python, web performance, debugging, systems integration, automation, data processing, and technical problem solving.
