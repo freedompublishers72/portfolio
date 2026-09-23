@@ -5,20 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Technical Engineering Portfolio</title>
 <meta name="description" content="The requested page could not be found.">
-<link rel="stylesheet" href="assets/css/site.css">
+<!-- 404 pages are served for missing paths at any depth, so links here
+     must be root-relative to the site base (/portfolio/) rather than
+     document-relative. -->
+<link rel="stylesheet" href="/portfolio/assets/css/site.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="site-title" href="index.html">Technical Engineering Portfolio</a>
+    <a class="site-title" href="/portfolio/index.html">Technical Engineering Portfolio</a>
     <!-- NAV -->
     <nav aria-label="Primary">
       <ul class="nav-list">
-        <li><a href="index.html#work">Work</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="/portfolio/index.html#work">Work</a></li>
+        <li><a href="/portfolio/about.html">About</a></li>
+        <li><a href="/portfolio/about.html#contact">Contact</a></li>
       </ul>
     </nav>
     <!-- /NAV -->
@@ -31,7 +34,7 @@
     The page you requested does not exist or may have moved.
     Some sections of this site are still being prepared.
   </p>
-  <p><a href="index.html">Return to the homepage</a></p>
+  <p><a href="/portfolio/index.html">Return to the homepage</a></p>
 </main>
 
 <footer class="site-footer">
