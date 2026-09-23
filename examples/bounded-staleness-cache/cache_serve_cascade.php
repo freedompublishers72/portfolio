@@ -15,7 +15,8 @@
 /**
  * Default freshness windows (seconds).
  */
-const DEFAULT_TTL_SECONDS         = 2592000; // 30 days — safety fallback; cache is primarily event-driven.
+// Illustrative standalone default; this is not the production cache TTL.
+const DEFAULT_TTL_SECONDS         = 2592000;
 const DEFAULT_SWR_GRACE_SECONDS   = 600;     // Stale-while-revalidate grace for invalidated entries.
 const DEFAULT_BROWSER_MAX_AGE      = 300;    // Browser max-age — bounded below server SWR grace.
 
@@ -27,20 +28,17 @@ class CacheEntry {
     public ?int $generated_at;
     public ?int $invalidated_at;
     public ?int $pending_generation_id;
-    public int $size;
 
     public function __construct(
         bool $exists = false,
         ?int $generated_at = null,
         ?int $invalidated_at = null,
-        ?int $pending_generation_id = null,
-        int $size = 0
+        ?int $pending_generation_id = null
     ) {
         $this->exists = $exists;
         $this->generated_at = $generated_at;
         $this->invalidated_at = $invalidated_at;
         $this->pending_generation_id = $pending_generation_id;
-        $this->size = $size;
     }
 }
 
@@ -74,10 +72,11 @@ class CacheServeCascade {
      * Determine the serve decision for a cache entry at a given time.
      *
      * Decision table:
-     * 1. Entry does not exist or is pending generation → MISS
+     * 1. Entry does not exist → MISS
      * 2. Entry exists and generated_at is within TTL → HIT
      * 3. Entry exists but TTL-expired (generated_at present) → STALE (SWR)
-     * 4. Entry exists but invalidated (generated_at removed, invalidated_at set)
+     * 4. Entry exists but invalidated or pending regeneration
+     *    (generated_at removed, invalidated_at set)
      *    → STALE only inside the bounded SWR grace window; else MISS
      *
      * @param CacheEntry $entry  The route's cache metadata.
@@ -85,8 +84,9 @@ class CacheServeCascade {
      * @return string 'HIT' | 'STALE' | 'MISS'
      */
     public function decide( CacheEntry $entry, int $now ): string {
-        // No cache file or a generation is pending → MISS.
-        if ( ! $entry->exists || ! empty( $entry->pending_generation_id ) ) {
+        // No cache file → MISS. Pending generation may still serve the
+        // retained representation while it remains inside the grace window.
+        if ( ! $entry->exists ) {
             return 'MISS';
         }
 
@@ -137,14 +137,14 @@ class CacheServeCascade {
             return false;
         }
 
-        // Invalidated entry: SWR only inside the bounded grace window.
-        if ( ! empty( $entry->invalidated_at ) && empty( $entry->generated_at ) ) {
+        // Pending or invalidated entry: SWR only inside the bounded grace
+        // window. A pending generation without an invalidation timestamp has
+        // no valid grace anchor and therefore falls through to MISS.
+        if ( ! empty( $entry->pending_generation_id ) || ( ! empty( $entry->invalidated_at ) && empty( $entry->generated_at ) ) ) {
+            if ( empty( $entry->invalidated_at ) ) {
+                return false;
+            }
             return ( $now - (int) $entry->invalidated_at ) < $this->swr_grace_seconds;
-        }
-
-        // Pending generation: SWR only inside the bounded grace window.
-        if ( ! empty( $entry->pending_generation_id ) ) {
-            return false; // Handled as MISS by decide().
         }
 
         // TTL-expired entry with generated_at present: SWR-servable.

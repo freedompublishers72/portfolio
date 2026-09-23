@@ -16,7 +16,8 @@ stale, or render live? The answer depends on multiple factors:
 - Does a cache file exist?
 - Is it still within its TTL?
 - Was it invalidated (content changed) and if so, how long ago?
-- Is a background regeneration already pending?
+- Is a background regeneration already pending, and is the retained copy still
+  inside the invalidation grace window?
 
 The subtlety is in the **stale-while-revalidate** path. An invalidated cache
 entry should serve stale content *temporarily* while a background warm
@@ -38,10 +39,14 @@ so a browser can never hold an indefinitely stale representation.
   the bounded grace window. This asymmetry prevents a failed warm from
   leaving a route stale forever while still allowing TTL-expired content
   to serve during background regeneration.
-- **Pending generation → MISS:** if a background generation is already
-  pending, the entry is neither valid nor stale — it is MISS, so the
-  request renders live rather than serving content that is about to be
-  replaced.
+- **Pending generation follows the invalidation grace rule:** the normal
+  post-invalidation state retains the existing file while a background
+  generation is pending, so it serves STALE inside the bounded grace window
+  and becomes MISS at or after the boundary. A pending generation without a
+  valid invalidation timestamp is MISS because there is no grace anchor.
+- **Illustrative TTL:** the standalone demo defaults to a 30-day TTL as an
+  illustrative value only; it does not represent the production cache
+  configuration. Callers can inject the TTL explicitly.
 - **Browser max-age < server SWR grace:** the browser's `max-age` is
   deliberately shorter than the server's SWR grace so browser caching
   cannot outlive server-side staleness. Combined with `must-revalidate`,
@@ -52,15 +57,16 @@ so a browser can never hold an indefinitely stale representation.
 
 ## How it differs from the original production context
 
-The original cache engine was a WordPress plugin class with ~2000 lines
-handling cache storage, atomic writes, capture locking, invalidation
-hooks, asset fingerprinting, domain-mismatch detection, and WordPress
-conditional exclusions. This demonstration isolates the serving decision
-logic and the bounded staleness model into a ~200-line miniature with
+The original production cache engine is approximately 3,100 lines; this
+demonstration isolates the bounded-staleness serving decision. The original
+cache engine handled cache storage, atomic writes, capture locking,
+invalidation hooks, asset fingerprinting, domain-mismatch detection, and
+WordPress conditional exclusions. This demonstration isolates the serving
+decision logic and the bounded staleness model into a ~200-line miniature with
 injected dependencies (time, TTL, grace window). WordPress-specific calls,
-private domain references, plugin headers, and operational identifiers
-were removed. The decision table — HIT / STALE / MISS — and the freshness
-model derivation are preserved faithfully.
+private domain references, plugin headers, and operational identifiers were
+removed. The decision table — HIT / STALE / MISS — and the freshness model
+derivation are preserved faithfully.
 
 ## Files
 

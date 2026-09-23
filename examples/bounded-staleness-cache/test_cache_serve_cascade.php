@@ -45,13 +45,13 @@ function make_cascade(): CacheServeCascade {
 
 function test_hit_within_ttl() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_equals( 'HIT', $cascade->decide( $entry, 1050 ), 'Entry within TTL should HIT' );
 }
 
 function test_hit_at_ttl_boundary() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     // 99 seconds elapsed < 100 TTL
     assert_equals( 'HIT', $cascade->decide( $entry, 1099 ), 'Entry at TTL boundary should HIT' );
 }
@@ -62,14 +62,14 @@ function test_hit_at_ttl_boundary() {
 
 function test_stale_after_ttl_expiry() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     // 101 seconds elapsed > 100 TTL, but generated_at present → SWR
     assert_equals( 'STALE', $cascade->decide( $entry, 1101 ), 'TTL-expired entry should STALE' );
 }
 
 function test_stale_long_after_ttl() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     // Even far past TTL, generated_at present → still SWR-servable
     assert_equals( 'STALE', $cascade->decide( $entry, 999999 ), 'TTL-expired with generated_at should remain STALE' );
 }
@@ -80,27 +80,27 @@ function test_stale_long_after_ttl() {
 
 function test_stale_invalidated_within_grace() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000 );
     // 10 seconds since invalidation < 50 grace
     assert_equals( 'STALE', $cascade->decide( $entry, 1010 ), 'Invalidated entry within grace should STALE' );
 }
 
 function test_miss_invalidated_outside_grace() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000 );
     // 60 seconds since invalidation > 50 grace → MISS
     assert_equals( 'MISS', $cascade->decide( $entry, 1060 ), 'Invalidated entry outside grace should MISS' );
 }
 
 function test_miss_invalidated_at_grace_boundary() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000 );
     // Exactly at grace boundary (50s) → no longer stale
     assert_equals( 'MISS', $cascade->decide( $entry, 1050 ), 'Invalidated entry at grace boundary should MISS' );
 }
 
 // ---------------------------------------------------------------------------
-// MISS — no cache or pending generation
+// Pending generation and no cache
 // ---------------------------------------------------------------------------
 
 function test_miss_no_cache() {
@@ -109,16 +109,34 @@ function test_miss_no_cache() {
     assert_equals( 'MISS', $cascade->decide( $entry, 1000 ), 'No cache should MISS' );
 }
 
-function test_miss_pending_generation() {
+function test_stale_pending_generation_within_grace() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, pending_generation_id: 42, size: 5000 );
-    // Pending generation → not valid, not stale → MISS
-    assert_equals( 'MISS', $cascade->decide( $entry, 1010 ), 'Pending generation should MISS' );
+    $entry = new CacheEntry( exists: true, invalidated_at: 1000, pending_generation_id: 42 );
+    // Normal post-invalidation state: retain the file while warm is pending.
+    assert_equals( 'STALE', $cascade->decide( $entry, 1010 ), 'Pending generation within grace should STALE' );
+}
+
+function test_miss_pending_generation_outside_grace() {
+    $cascade = make_cascade();
+    $entry = new CacheEntry( exists: true, invalidated_at: 1000, pending_generation_id: 42 );
+    assert_equals( 'MISS', $cascade->decide( $entry, 1060 ), 'Pending generation outside grace should MISS' );
+}
+
+function test_miss_pending_generation_at_grace_boundary() {
+    $cascade = make_cascade();
+    $entry = new CacheEntry( exists: true, invalidated_at: 1000, pending_generation_id: 42 );
+    assert_equals( 'MISS', $cascade->decide( $entry, 1050 ), 'Pending generation at grace boundary should MISS' );
+}
+
+function test_miss_pending_generation_without_invalidation_timestamp() {
+    $cascade = make_cascade();
+    $entry = new CacheEntry( exists: true, pending_generation_id: 42 );
+    assert_equals( 'MISS', $cascade->decide( $entry, 1010 ), 'Pending generation without invalidation timestamp should MISS' );
 }
 
 function test_stale_legacy_entry_no_generated_at() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: null, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: null );
     // Legacy entry with no generated_at and no invalidated_at: the original
     // system serves it as STALE (safe fallback while regenerating).
     assert_equals( 'STALE', $cascade->decide( $entry, 1000 ), 'Legacy entry without generated_at should STALE' );
@@ -130,13 +148,13 @@ function test_stale_legacy_entry_no_generated_at() {
 
 function test_is_valid_fresh() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_true( $cascade->is_valid( $entry, 1050 ), 'Fresh entry should be valid' );
 }
 
 function test_is_valid_expired() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_false( $cascade->is_valid( $entry, 1101 ), 'Expired entry should not be valid' );
 }
 
@@ -148,26 +166,38 @@ function test_is_valid_missing() {
 
 function test_is_stale_valid_returns_false() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_false( $cascade->is_stale( $entry, 1050 ), 'Valid entry should not be stale' );
 }
 
 function test_is_stale_ttl_expired() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_true( $cascade->is_stale( $entry, 1101 ), 'TTL-expired entry should be stale' );
 }
 
 function test_is_stale_invalidated_within_grace() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000 );
     assert_true( $cascade->is_stale( $entry, 1010 ), 'Invalidated within grace should be stale' );
 }
 
 function test_is_stale_invalidated_outside_grace() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: null, invalidated_at: 1000 );
     assert_false( $cascade->is_stale( $entry, 1060 ), 'Invalidated outside grace should not be stale' );
+}
+
+function test_is_stale_pending_within_grace() {
+    $cascade = make_cascade();
+    $entry = new CacheEntry( exists: true, invalidated_at: 1000, pending_generation_id: 42 );
+    assert_true( $cascade->is_stale( $entry, 1010 ), 'Pending generation within grace should be stale' );
+}
+
+function test_is_stale_pending_without_invalidation_timestamp() {
+    $cascade = make_cascade();
+    $entry = new CacheEntry( exists: true, pending_generation_id: 42 );
+    assert_false( $cascade->is_stale( $entry, 1010 ), 'Pending generation without invalidation timestamp should not be stale' );
 }
 
 // ---------------------------------------------------------------------------
@@ -203,13 +233,13 @@ function test_worst_case_browser_staleness_bounded() {
 
 function test_status_active() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_equals( 'active', $cascade->get_status( $entry, 1050 ), 'Fresh entry status should be active' );
 }
 
 function test_status_expired() {
     $cascade = make_cascade();
-    $entry = new CacheEntry( exists: true, generated_at: 1000, size: 5000 );
+    $entry = new CacheEntry( exists: true, generated_at: 1000 );
     assert_equals( 'expired', $cascade->get_status( $entry, 1101 ), 'Expired entry status should be expired' );
 }
 
