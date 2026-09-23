@@ -12,7 +12,7 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="site-title" href="../index.html">Technical Engineering Portfolio</a>
+    <a class="site-title" href="../index.html">Marc: web engineering</a>
     <!-- NAV -->
     <nav aria-label="Primary">
       <ul class="nav-list">
@@ -27,7 +27,7 @@
 
 <main id="main" class="wrap">
 
-  <p class="breadcrumb"><a href="../index.html#work">&larr; All work</a></p>
+  <p class="breadcrumb"><a href="../index.html#work">&larr; Back to work</a></p>
 
   <article>
     <header>
@@ -144,76 +144,7 @@
         inconsistent "ghost" metadata are tested behaviors, not hopes.
       </p>
 
-      <figure class="diagram">
-        <svg viewBox="0 0 660 480" role="img" aria-labelledby="cache-diagram-title cache-diagram-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="cache-diagram-title">Cache request decision flow</title>
-          <desc id="cache-diagram-desc">Inside the WordPress lifecycle at template_redirect: a request is checked for eligibility, then HIT serves cached HTML and exits, STALE serves within a bounded window while regeneration is scheduled, and MISS triggers generate, validate, atomic write, and metadata update.</desc>
-          <defs>
-            <marker id="cache-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-            </marker>
-          </defs>
-          <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
-
-            <!-- Lifecycle boundary frame -->
-            <rect x="30" y="8" width="600" height="464" rx="6" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.55"/>
-            <text x="330" y="30" font-size="12" opacity="0.8">WordPress lifecycle — engine runs at template_redirect, after bootstrap</text>
-
-            <rect x="180" y="44"  width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="68">Request (GET/HEAD)</text>
-            <line x1="330" y1="82" x2="330" y2="98" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-
-            <rect x="180" y="100" width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="124">Cache eligibility + route lookup</text>
-            <line x1="330" y1="138" x2="330" y2="154" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-
-            <!-- Decision diamond -->
-            <path d="M330,156 L470,196 L330,236 L190,196 Z" fill="none" stroke="currentColor"/>
-            <text x="330" y="200">metadata state?</text>
-
-            <!-- HIT branch -->
-            <line x1="190" y1="196" x2="90" y2="196" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-            <text x="140" y="188" font-size="12">HIT</text>
-            <rect x="10" y="236" width="160" height="44" rx="4" fill="none" stroke="currentColor"/>
-            <text x="90" y="254" font-size="12">Serve cached HTML</text>
-            <text x="90" y="270" font-size="12">→ exit early</text>
-
-            <!-- STALE branch -->
-            <line x1="330" y1="236" x2="330" y2="252" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-            <text x="392" y="248" font-size="12">STALE</text>
-            <rect x="240" y="254" width="180" height="52" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="274" font-size="12">Serve stale (bounded)</text>
-            <text x="330" y="292" font-size="12">+ schedule regeneration</text>
-
-            <!-- MISS branch -->
-            <line x1="470" y1="196" x2="560" y2="196" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-            <text x="515" y="188" font-size="12">MISS</text>
-
-            <rect x="480" y="236" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
-            <text x="555" y="260" font-size="12">Generate (lock held)</text>
-            <line x1="555" y1="276" x2="555" y2="292" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-
-            <rect x="480" y="294" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
-            <text x="555" y="318" font-size="12">Validate output</text>
-            <line x1="555" y1="334" x2="555" y2="350" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-
-            <rect x="480" y="352" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
-            <text x="555" y="376" font-size="12">Atomic write (.tmp→rename)</text>
-            <line x1="555" y1="392" x2="555" y2="408" stroke="currentColor" marker-end="url(#cache-arrow)"/>
-
-            <rect x="480" y="410" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
-            <text x="555" y="434" font-size="12">Update metadata registry</text>
-
-            <!-- convergence hint -->
-            <text x="250" y="452" font-size="12" opacity="0.8">event-driven invalidation keeps routes synchronized with content changes</text>
-          </g>
-        </svg>
-        <figcaption>
-          Request decision flow. The engine operates inside the WordPress
-          lifecycle — it is not a pre-bootstrap or web-server static-file
-          cache.
-        </figcaption>
-      </figure>
+      <figure class="diagram diagram-system"><svg viewBox="0 0 760 430" role="img" aria-labelledby="cache-diagram-title cache-diagram-desc" xmlns="http://www.w3.org/2000/svg"><title id="cache-diagram-title">Cache serve and regeneration flow</title><desc id="cache-diagram-desc">A request reaches the cache engine at template redirect. Valid entries are served as hits, stale entries are served within a bounded window while regeneration is scheduled, and misses enter verified generation and atomic publication.</desc><defs><marker id="cache-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="currentColor"/></marker></defs><g font-family="inherit" fill="currentColor"><text x="20" y="28" class="diagram-label">CACHE SERVE CASCADE</text><g class="diagram-box"><rect x="20" y="58" width="150" height="58" rx="8"/><text x="95" y="93" text-anchor="middle">Request</text></g><path class="diagram-flow" d="M170 87H205" marker-end="url(#cache-arrow)"/><g class="diagram-box"><rect x="205" y="58" width="175" height="58" rx="8"/><text x="292" y="82" text-anchor="middle">Eligibility +</text><text x="292" y="100" text-anchor="middle">metadata lookup</text></g><path class="diagram-flow" d="M380 87H415" marker-end="url(#cache-arrow)"/><path class="diagram-decision" d="M470 42L525 87 470 132 415 87z"/><text x="470" y="91" text-anchor="middle">state</text><path class="diagram-flow" d="M525 87H565" marker-end="url(#cache-arrow)"/><g class="diagram-box diagram-key"><rect x="565" y="58" width="165" height="58" rx="8"/><text x="647" y="82" text-anchor="middle">MISS</text><text x="647" y="100" text-anchor="middle">generate + publish</text></g><path class="diagram-dash" d="M470 132V180" marker-end="url(#cache-arrow)"/><g class="diagram-box"><rect x="360" y="180" width="220" height="58" rx="8"/><text x="470" y="204" text-anchor="middle">STALE</text><text x="470" y="222" text-anchor="middle">serve + schedule warm</text></g><path class="diagram-dash" d="M360 209H270" marker-end="url(#cache-arrow)"/><g class="diagram-box"><rect x="80" y="180" width="190" height="58" rx="8"/><text x="175" y="204" text-anchor="middle">HIT</text><text x="175" y="222" text-anchor="middle">serve + exit early</text></g><path class="diagram-flow" d="M647 116V285" marker-end="url(#cache-arrow)"/><g class="diagram-note"><rect x="565" y="285" width="165" height="105" rx="8"/><text x="585" y="311" class="diagram-label">VERIFY</text><text x="585" y="335">generate</text><text x="585" y="354">validate</text><text x="585" y="373">atomic write</text></g><g class="diagram-note"><rect x="20" y="285" width="500" height="105" rx="8"/><text x="42" y="311" class="diagram-label">LIFECYCLE</text><text x="42" y="335">Content events invalidate affected routes.</text><text x="42" y="358">Locks prevent concurrent generation.</text><text x="42" y="381">Metadata makes freshness and recovery state explicit.</text></g></g></svg><figcaption>Serve first, regenerate safely: HIT exits early, STALE remains bounded, and MISS passes through verified generation before publication.</figcaption></figure>
     </section>
 
     <section aria-labelledby="outcome-heading">
