@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+<title id="title">Bounded-staleness cache request flow</title>
+<desc id="desc">A request enters cache eligibility and route lookup, then branches to HIT, STALE or MISS. Stale responses may schedule regeneration; misses generate, validate and atomically write new cache content.</desc>
+<defs>
+<style>
+.t{font:600 19px system-ui,sans-serif;fill:#172033}.s{font:15px system-ui,sans-serif;fill:#5d6675}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eef5ff;stroke:#2563eb;stroke-width:2}.green{fill:#eefbf4;stroke:#16a34a;stroke-width:2}.amber{fill:#fff8e8;stroke:#d97706;stroke-width:2}.line{stroke:#64748b;stroke-width:2.5;fill:none}.small{font:600 13px system-ui,sans-serif;fill:#2563eb;letter-spacing:.08em}
+</style>
+<marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9z" fill="#64748b"/></marker>
+</defs>
+<rect width="1000" height="600" rx="24" fill="#f7f9fc"/>
+<text x="60" y="52" class="small">REQUEST DECISION FLOW</text>
+<text x="60" y="82" class="t">Cache state determines the cheapest safe response</text>
+
+<rect x="330" y="115" width="340" height="78" rx="16" class="box"/>
+<text x="500" y="147" text-anchor="middle" class="t">GET / HEAD request</text>
+<text x="500" y="173" text-anchor="middle" class="s">eligibility + route lookup</text>
+<path d="M500 193v42" class="line" marker-end="url(#a)"/>
+
+<rect x="330" y="237" width="340" height="78" rx="16" class="blue"/>
+<text x="500" y="270" text-anchor="middle" class="t">What does the metadata say?</text>
+<text x="500" y="296" text-anchor="middle" class="s">valid · stale · unavailable</text>
+
+<path d="M330 276H155" class="line" marker-end="url(#a)"/>
+<path d="M670 276H845" class="line" marker-end="url(#a)"/>
+<path d="M500 315v55" class="line" marker-end="url(#a)"/>
+
+<rect x="45" y="215" width="220" height="122" rx="16" class="green"/>
+<text x="155" y="253" text-anchor="middle" class="t">HIT</text>
+<text x="155" y="280" text-anchor="middle" class="s">serve cached HTML</text>
+<text x="155" y="306" text-anchor="middle" class="s">exit early</text>
+
+<rect x="735" y="215" width="220" height="122" rx="16" class="amber"/>
+<text x="845" y="253" text-anchor="middle" class="t">STALE</text>
+<text x="845" y="280" text-anchor="middle" class="s">serve stale within bound</text>
+<text x="845" y="306" text-anchor="middle" class="s">schedule regeneration</text>
+
+<rect x="330" y="370" width="340" height="122" rx="16" class="box"/>
+<text x="500" y="407" text-anchor="middle" class="t">MISS → generate</text>
+<text x="500" y="434" text-anchor="middle" class="s">lock · render · validate</text>
+<text x="500" y="460" text-anchor="middle" class="s">atomic .tmp → rename · metadata</text>
+
+<path d="M500 492v48" class="line" marker-end="url(#a)"/>
+<rect x="270" y="540" width="460" height="42" rx="14" class="blue"/>
+<text x="500" y="567" text-anchor="middle" class="s">event-driven invalidation keeps route state synchronized</text>
+</svg>

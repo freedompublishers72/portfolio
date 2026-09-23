@@ -30,7 +30,7 @@
 
 <main id="main" class="wrap prose-page">
 
-  <p class="breadcrumb"><a href="../index.html#work">&larr; All work</a></p>
+  <p class="breadcrumb"><a href="../index.html#work">&larr; Back to work</a></p>
 
   <article>
     <header>
@@ -150,53 +150,7 @@
         pipeline.
       </p>
 
-      <figure class="diagram">
-        <svg viewBox="0 0 640 430" role="img" aria-labelledby="ml-diagram-title ml-diagram-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="ml-diagram-title">Multilingual request pipeline diagram</title>
-          <desc id="ml-diagram-desc">A request flows through language-prefix detection, language resolution, translated-content resolution — which supports native-language slugs — and query enforcement, before reaching the WordPress response.</desc>
-          <defs>
-            <marker id="ml-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-            </marker>
-          </defs>
-          <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
-            <rect x="170" y="10"  width="300" height="42" rx="4" fill="none" stroke="currentColor"/>
-            <text x="320" y="36">Incoming request — /lang/path/</text>
-            <line x1="320" y1="52" x2="320" y2="70" stroke="currentColor" marker-end="url(#ml-arrow)"/>
-
-            <rect x="170" y="72"  width="300" height="42" rx="4" fill="none" stroke="currentColor"/>
-            <text x="320" y="98">Language-prefix detection</text>
-            <line x1="320" y1="114" x2="320" y2="132" stroke="currentColor" marker-end="url(#ml-arrow)"/>
-
-            <rect x="170" y="134" width="300" height="42" rx="4" fill="none" stroke="currentColor"/>
-            <text x="320" y="160">Language / locale resolution</text>
-            <line x1="320" y1="176" x2="320" y2="194" stroke="currentColor" marker-end="url(#ml-arrow)"/>
-
-            <rect x="170" y="196" width="300" height="56" rx="4" fill="none" stroke="currentColor"/>
-            <text x="320" y="220">Translated-content resolution</text>
-            <text x="320" y="240" font-size="12">draft translations resolved under controlled rules</text>
-            <line x1="320" y1="252" x2="320" y2="270" stroke="currentColor" marker-end="url(#ml-arrow)"/>
-
-            <rect x="170" y="272" width="300" height="42" rx="4" fill="none" stroke="currentColor"/>
-            <text x="320" y="298">Query enforcement</text>
-            <line x1="320" y1="314" x2="320" y2="332" stroke="currentColor" marker-end="url(#ml-arrow)"/>
-
-            <rect x="170" y="334" width="300" height="42" rx="4" fill="none" stroke="currentColor"/>
-            <text x="320" y="360">WordPress response</text>
-
-            <!-- Native-slug side annotation -->
-            <rect x="490" y="196" width="140" height="56" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4 3"/>
-            <text x="560" y="218" font-size="12">Native-language</text>
-            <text x="560" y="234" font-size="12">slugs supported</text>
-            <line x1="490" y1="224" x2="470" y2="224" stroke="currentColor" stroke-dasharray="4 3"/>
-          </g>
-        </svg>
-        <figcaption>
-          Request path for a language-prefixed URL. Explicit prefixes take
-          precedence over browser language hints; resolution supports
-          native-language (non-Latin Unicode) slugs.
-        </figcaption>
-      </figure>
+      <figure class="diagram diagram-system"><svg viewBox="0 0 760 360" role="img" aria-labelledby="ml-diagram-title ml-diagram-desc" xmlns="http://www.w3.org/2000/svg"><title id="ml-diagram-title">Multilingual request pipeline</title><desc id="ml-diagram-desc">A multilingual request is resolved from explicit URL prefix through language context, translated content, query enforcement and the WordPress response. Native-language slugs are handled during content resolution.</desc><defs><marker id="ml-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="currentColor"/></marker></defs><g font-family="inherit" fill="currentColor"><text x="20" y="28" class="diagram-label">REQUEST PIPELINE</text><g class="diagram-box"><rect x="20" y="55" width="125" height="72" rx="8"/><text x="82" y="84" text-anchor="middle">Request</text><text x="82" y="104" text-anchor="middle" class="diagram-small">/lang/path/</text></g><path class="diagram-flow" d="M145 91H180" marker-end="url(#ml-arrow)"/><g class="diagram-box"><rect x="180" y="55" width="145" height="72" rx="8"/><text x="252" y="84" text-anchor="middle">Language</text><text x="252" y="104" text-anchor="middle">context</text></g><path class="diagram-flow" d="M325 91H360" marker-end="url(#ml-arrow)"/><g class="diagram-box diagram-key"><rect x="360" y="55" width="145" height="72" rx="8"/><text x="432" y="84" text-anchor="middle">Translation</text><text x="432" y="104" text-anchor="middle">resolution</text></g><path class="diagram-flow" d="M505 91H540" marker-end="url(#ml-arrow)"/><g class="diagram-box"><rect x="540" y="55" width="145" height="72" rx="8"/><text x="612" y="84" text-anchor="middle">Query</text><text x="612" y="104" text-anchor="middle">enforcement</text></g><path class="diagram-flow" d="M685 91H720" marker-end="url(#ml-arrow)"/><text x="742" y="96" text-anchor="end" class="diagram-small">WP</text><g class="diagram-note"><rect x="360" y="170" width="325" height="105" rx="8"/><text x="382" y="197" class="diagram-label">RESOLUTION RULES</text><text x="382" y="222">Explicit URL prefix wins.</text><text x="382" y="245">Browser language is fallback only.</text><text x="382" y="268">Native-script slugs and controlled drafts</text><text x="382" y="286">are resolved before query enforcement.</text></g><path class="diagram-dash" d="M432 127V170" marker-end="url(#ml-arrow)"/><g class="diagram-note"><rect x="20" y="190" width="295" height="85" rx="8"/><text x="42" y="217" class="diagram-label">BOUNDARY</text><text x="42" y="242">Only approved languages are routed.</text><text x="42" y="265">Admin, REST, login, cron and assets stay outside.</text></g></g></svg><figcaption>Request path: explicit language routing is resolved before translated content and subsequent WordPress queries are allowed to proceed.</figcaption></figure>
     </section>
 
     <section aria-labelledby="outcome-heading">

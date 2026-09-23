@@ -30,7 +30,7 @@
 
 <main id="main" class="wrap prose-page">
 
-  <p class="breadcrumb"><a href="../index.html#work">&larr; All work</a></p>
+  <p class="breadcrumb"><a href="../index.html#work">&larr; Back to work</a></p>
 
   <article>
     <header>
@@ -159,74 +159,7 @@
         output arrives as private draft posts awaiting human review.
       </p>
 
-      <figure class="diagram">
-        <svg viewBox="0 0 660 490" role="img" aria-labelledby="rde-diagram-title rde-diagram-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="rde-diagram-title">Research and data engine architecture</title>
-          <desc id="rde-diagram-desc">External data sources feed acquisition adapters inside a framework-independent engine boundary; data flows through normalization, persistence, and analysis/evaluation to research outputs, which cross a REST boundary to a WordPress presentation client. Scheduling is shown as external orchestration driving acquisition, outside the engine boundary.</desc>
-          <defs>
-            <marker id="rde-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-            </marker>
-          </defs>
-          <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
-
-            <rect x="190" y="8" width="280" height="40" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="32">External data sources</text>
-            <line x1="330" y1="48" x2="330" y2="66" stroke="currentColor" marker-end="url(#rde-arrow)"/>
-
-            <!-- Engine boundary frame -->
-            <rect x="170" y="66" width="320" height="322" rx="6" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.55"/>
-            <text x="330" y="86" font-size="12" opacity="0.8">Framework-independent engine — CLI + REST, no WordPress dependencies</text>
-
-            <rect x="195" y="94" width="270" height="44" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="112">Acquisition adapters</text>
-            <text x="330" y="130" font-size="12">collector + storage pair per source, shared contract</text>
-            <line x1="330" y1="138" x2="330" y2="152" stroke="currentColor" marker-end="url(#rde-arrow)"/>
-
-            <rect x="195" y="154" width="270" height="38" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="178">Normalization</text>
-            <line x1="330" y1="192" x2="330" y2="206" stroke="currentColor" marker-end="url(#rde-arrow)"/>
-
-            <rect x="195" y="208" width="270" height="44" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="226">Persistence</text>
-            <text x="330" y="244" font-size="12">canonical stores + ingestion catalog + migrations</text>
-            <line x1="330" y1="252" x2="330" y2="266" stroke="currentColor" marker-end="url(#rde-arrow)"/>
-
-            <rect x="195" y="268" width="270" height="48" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="288">Analysis / evaluation</text>
-            <text x="330" y="306" font-size="12">valuation · recommendation · Brier self-scoring</text>
-            <line x1="330" y1="316" x2="330" y2="330" stroke="currentColor" marker-end="url(#rde-arrow)"/>
-
-            <rect x="195" y="332" width="270" height="44" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="350">Research outputs</text>
-            <text x="330" y="368" font-size="12">private drafts for human review</text>
-
-            <!-- REST boundary crossing -->
-            <line x1="330" y1="376" x2="330" y2="404" stroke="currentColor" marker-end="url(#rde-arrow)"/>
-            <text x="368" y="396" font-size="12">REST</text>
-
-            <rect x="190" y="406" width="280" height="44" rx="4" fill="none" stroke="currentColor"/>
-            <text x="330" y="424">WordPress presentation</text>
-            <text x="330" y="442" font-size="12">thin client — admin views, health, REST endpoints</text>
-
-            <!-- External orchestration side box -->
-            <rect x="8" y="86" width="142" height="86" rx="4" fill="none" stroke="currentColor" stroke-dasharray="4 3"/>
-            <text x="79" y="106" font-size="12">External</text>
-            <text x="79" y="122" font-size="12">orchestration</text>
-            <text x="79" y="140" font-size="12">cron · cadence</text>
-            <text x="79" y="156" font-size="12">registry · watchdog</text>
-            <line x1="150" y1="126" x2="193" y2="118" stroke="currentColor" stroke-dasharray="4 3" marker-end="url(#rde-arrow)"/>
-
-            <text x="330" y="476" font-size="12" opacity="0.8">Scheduling lives outside the engine; WordPress is a client, not a dependency.</text>
-          </g>
-        </svg>
-        <figcaption>
-          Architectural separation. The engine boundary contains acquisition,
-          normalization, persistence, analysis, and output generation;
-          scheduling is external orchestration and WordPress is a
-          presentation client behind the REST boundary.
-        </figcaption>
-      </figure>
+      <figure class="diagram diagram-system"><svg viewBox="0 0 760 390" role="img" aria-labelledby="rde-diagram-title rde-diagram-desc" xmlns="http://www.w3.org/2000/svg"><title id="rde-diagram-title">Research and data engine architecture</title><desc id="rde-diagram-desc">External sources feed source adapters inside a framework-independent engine. Data is normalized, persisted and analyzed before crossing a REST boundary to WordPress. Scheduling remains external.</desc><defs><marker id="rde-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="currentColor"/></marker></defs><g font-family="inherit" fill="currentColor"><text x="20" y="28" class="diagram-label">FRAMEWORK-INDEPENDENT DATA FLOW</text><g class="diagram-note"><rect x="20" y="58" width="150" height="80" rx="8"/><text x="95" y="84" text-anchor="middle">External</text><text x="95" y="104" text-anchor="middle">sources</text><text x="95" y="124" text-anchor="middle" class="diagram-small">APIs / feeds</text></g><path class="diagram-flow" d="M170 98H205" marker-end="url(#rde-arrow)"/><rect x="205" y="42" width="470" height="245" rx="12" class="diagram-boundary"/><text x="225" y="68" class="diagram-label">ENGINE BOUNDARY</text><g class="diagram-box"><rect x="225" y="88" width="120" height="64" rx="8"/><text x="285" y="114" text-anchor="middle">Adapters</text><text x="285" y="134" text-anchor="middle" class="diagram-small">shared contract</text></g><path class="diagram-flow" d="M345 120H370" marker-end="url(#rde-arrow)"/><g class="diagram-box"><rect x="370" y="88" width="120" height="64" rx="8"/><text x="430" y="114" text-anchor="middle">Normalize</text><text x="430" y="134" text-anchor="middle" class="diagram-small">canonical form</text></g><path class="diagram-flow" d="M490 120H515" marker-end="url(#rde-arrow)"/><g class="diagram-box"><rect x="515" y="88" width="140" height="64" rx="8"/><text x="585" y="114" text-anchor="middle">Persist</text><text x="585" y="134" text-anchor="middle" class="diagram-small">source + catalog</text></g><path class="diagram-flow" d="M585 152V190" marker-end="url(#rde-arrow)"/><g class="diagram-box diagram-key"><rect x="370" y="190" width="200" height="64" rx="8"/><text x="470" y="216" text-anchor="middle">Analyze + evaluate</text><text x="470" y="236" text-anchor="middle" class="diagram-small">research + accuracy scoring</text></g><path class="diagram-flow" d="M370 222H345" marker-end="url(#rde-arrow)"/><path class="diagram-flow" d="M345 222H695" marker-end="url(#rde-arrow)"/><g class="diagram-box"><rect x="575" y="305" width="165" height="58" rx="8"/><text x="657" y="329" text-anchor="middle">WordPress client</text><text x="657" y="348" text-anchor="middle" class="diagram-small">REST presentation</text></g><path class="diagram-flow" d="M570 254L657 305" marker-end="url(#rde-arrow)"/><g class="diagram-note"><rect x="20" y="190" width="300" height="173" rx="8"/><text x="42" y="217" class="diagram-label">OUTSIDE THE ENGINE</text><text x="42" y="242">Scheduler / cadence / watchdog</text><text x="42" y="266">invokes collection but does not</text><text x="42" y="286">become part of the research core.</text><text x="42" y="321">WordPress is a client, not a dependency.</text><text x="42" y="345">REST is the boundary.</text></g></g></svg><figcaption>The research core owns acquisition, normalization, persistence and analysis; scheduling and WordPress remain outside its boundary.</figcaption></figure>
     </section>
 
     <section aria-labelledby="outcome-heading">

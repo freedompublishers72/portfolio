@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+<title id="title">Verification and certification lifecycle</title>
+<desc id="desc">A requirement enters implementation, testing, runtime verification, evidence collection and audit before an independent certification gate. The gate produces certified, remediation or deferred outcomes; remediation and deferral return to the lifecycle.</desc>
+<defs>
+<style>
+.t{font:600 18px system-ui,sans-serif;fill:#172033}.s{font:15px system-ui,sans-serif;fill:#5d6675}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.blue{fill:#eef5ff;stroke:#2563eb;stroke-width:2}.green{fill:#eefbf4;stroke:#16a34a;stroke-width:2}.amber{fill:#fff8e8;stroke:#d97706;stroke-width:2}.line{stroke:#64748b;stroke-width:2.5;fill:none}.dash{stroke:#94a3b8;stroke-width:2.5;stroke-dasharray:7 6;fill:none}.small{font:600 13px system-ui,sans-serif;fill:#2563eb;letter-spacing:.08em}
+</style>
+<marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9z" fill="#64748b"/></marker>
+</defs>
+<rect width="1000" height="650" rx="24" fill="#f7f9fc"/>
+<text x="55" y="48" class="small">DELIVERY LIFECYCLE</text>
+<text x="55" y="78" class="t">Certification is the gate at the end of evidence collection</text>
+
+<g transform="translate(55 110)">
+<rect width="240" height="64" rx="14" class="box"/><text x="120" y="39" text-anchor="middle" class="t">Requirement / change</text>
+<path d="M120 64v28" class="line" marker-end="url(#a)"/>
+<rect y="100" width="240" height="64" rx="14" class="box"/><text x="120" y="139" text-anchor="middle" class="t">Implementation</text>
+<path d="M120 164v28" class="line" marker-end="url(#a)"/>
+<rect y="200" width="240" height="82" rx="14" class="blue"/><text x="120" y="233" text-anchor="middle" class="t">Automated / dedicated tests</text><text x="120" y="258" text-anchor="middle" class="s">harnesses · static analysis</text>
+<path d="M120 282v28" class="line" marker-end="url(#a)"/>
+<rect y="318" width="240" height="64" rx="14" class="box"/><text x="120" y="357" text-anchor="middle" class="t">Runtime verification</text>
+</g>
+
+<g transform="translate(355 110)">
+<rect width="240" height="82" rx="14" class="box"/><text x="120" y="33" text-anchor="middle" class="t">Evidence collection</text><text x="120" y="58" text-anchor="middle" class="s">manifests · inventories</text>
+<path d="M120 82v28" class="line" marker-end="url(#a)"/>
+<rect y="110" width="240" height="82" rx="14" class="box"/><text x="120" y="143" text-anchor="middle" class="t">Audit / failure testing</text><text x="120" y="168" text-anchor="middle" class="s">adversarial re-checks</text>
+<path d="M120 192v28" class="line" marker-end="url(#a)"/>
+<rect y="220" width="240" height="92" rx="14" class="blue"/><text x="120" y="254" text-anchor="middle" class="t">Certification gate</text><text x="120" y="280" text-anchor="middle" class="s">independent verdict</text>
+</g>
+
+<path d="M295 492h60" class="line" marker-end="url(#a)"/>
+<path d="M595 422h60" class="line" marker-end="url(#a)"/>
+<text x="675" y="390" class="small">OUTCOMES</text>
+
+<rect x="655" y="410" width="275" height="58" rx="14" class="green"/><text x="792" y="446" text-anchor="middle" class="t">Certified</text>
+<rect x="655" y="485" width="275" height="58" rx="14" class="amber"/><text x="792" y="521" text-anchor="middle" class="t">Remediation</text>
+<rect x="655" y="560" width="275" height="58" rx="14" class="box"/><text x="792" y="596" text-anchor="middle" class="t">Deferred</text>
+
+<path d="M655 514H625V175H295" class="dash" marker-end="url(#a)"/>
+<path d="M655 589H615V175H295" class="dash" marker-end="url(#a)"/>
+<text x="55" y="575" class="s">Remediation and deferral are recorded states that re-enter the lifecycle — they are not converted into passes.</text>
+</svg>
