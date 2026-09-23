@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event-Driven Full-Page Caching — Technical Engineering Portfolio</title>
+<meta name="description" content="Case study: a custom event-driven full-page caching system for a production WordPress platform — atomic writes, capture locking, stale-while-revalidate, verified regeneration, and failure recovery.">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-title" href="../index.html">Technical Engineering Portfolio</a>
+    <!-- NAV -->
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../about.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- /NAV -->
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <p class="breadcrumb"><a href="../index.html#work">&larr; All work</a></p>
+
+  <article>
+    <header>
+      <h1>Event-Driven Full-Page Caching</h1>
+      <p class="lede">
+        A custom page-caching system for a production WordPress platform that
+        serves pre-generated HTML early in the WordPress lifecycle — skipping
+        template rendering and exiting before normal page generation — with
+        event-driven invalidation, self-verifying regeneration, and tested
+        failure recovery.
+      </p>
+      <p class="note">
+        Part of a larger private production system. Project names, domains,
+        and operational details are anonymized; the engineering described is
+        real and verifiable within that system.
+      </p>
+    </header>
+
+    <section aria-labelledby="context-heading">
+      <h2 id="context-heading">Context</h2>
+      <p>
+        The platform is a production WordPress site behind a CDN where most
+        traffic is anonymous and content changes are editorial rather than
+        continuous. For that traffic profile, repeatedly rendering unchanged
+        pages is wasted work — but a cache that silently serves stale content,
+        or breaks when generation fails, is worse than no cache.
+      </p>
+      <p>
+        What was needed was a cache whose lifecycle was <em>predictable</em>:
+        content changes invalidate the right routes, regeneration proves it
+        actually happened, failures are detected rather than masked, and the
+        whole thing can be reasoned about from its metadata.
+      </p>
+    </section>
+
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading">Problem</h2>
+      <p>The engineering problems a production page cache must solve:</p>
+      <ul>
+        <li><strong>Capturing complete HTML responses</strong> without corrupt files ever reaching visitors.</li>
+        <li><strong>Keeping cache synchronized with content</strong> — posts, menus, settings, and terms all change what pages should contain.</li>
+        <li><strong>Avoiding stale and orphaned entries</strong> — including the subtle case where a post's slug changes and the old route's cache becomes unreachable but still on disk.</li>
+        <li><strong>Handling concurrent generation</strong> — two requests for the same missing page must not produce racing writes.</li>
+        <li><strong>Detecting failed or incomplete generation</strong> — a regeneration that returns an HTTP 200 through a CDN is not proof that fresh HTML was captured.</li>
+        <li><strong>Recovering from inconsistency</strong> — "ghost" entries, stale locks, and divergent metadata all need tested recovery paths.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="constraints-heading">
+      <h2 id="constraints-heading">Constraints</h2>
+      <ul>
+        <li>
+          <strong>Lifecycle position.</strong> The cache engine runs inside
+          WordPress: it hooks <code>template_redirect</code>, by which point
+          core, plugins, theme, and the main query have already executed. What
+          it skips is template rendering and the rest of page generation — not
+          the bootstrap. That distinction drove every design decision below,
+          and it is the honest way to describe the mechanism.
+        </li>
+        <li>
+          Only safe requests may be cached — GET/HEAD, no logged-in users, no
+          admin/REST/AJAX/feeds/search/previews, and only canonical query
+          strings.
+        </li>
+        <li>
+          A stale response may only be served inside a bounded window — a
+          failed regeneration must never leave a route serving stale content
+          forever.
+        </li>
+        <li>
+          Cache freshness is primarily event-driven (content changes trigger
+          invalidation); the TTL exists as a safety fallback, not the primary
+          mechanism.
+        </li>
+        <li>
+          Regeneration runs behind a CDN, so success cannot be trusted to a
+          response header alone — it must be cross-checked against the cache's
+          own metadata.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="built-heading">
+      <h2 id="built-heading">What was built</h2>
+      <p>
+        A full-page HTML cache organized as a per-route lifecycle. On each
+        eligible request the engine computes a canonical route and consults a
+        metadata registry: a valid entry is served immediately with a HIT
+        status and the request exits; an invalidated entry inside its grace
+        window is served STALE while a background regeneration is scheduled; a
+        missing entry triggers capture.
+      </p>
+      <p>
+        Capture is deliberately defensive. A per-route <strong>lock</strong>
+        allows one generation at a time and expires on its own if a worker
+        dies. New HTML is written to a temporary file, <strong>validated</strong>
+        (including a minimum-size check that rejects error pages and truncated
+        output), and only then <strong>atomically renamed</strong> into the
+        live path — a visitor can never read a half-written file.
+        <strong>Invalidation is event-driven</strong>: content lifecycle hooks
+        (publish, update, delete, trash/restore, slug changes, menu edits,
+        customizer saves, term edits) invalidate the affected route, the
+        homepage when listings change, or the whole site when global elements
+        change — and schedule a warm so the next visitor gets a fresh page
+        rather than a cold rebuild.
+      </p>
+      <p>
+        <strong>Regeneration is verified, not assumed.</strong> A regeneration
+        response carries a cache-status marker plus a generation timestamp,
+        and the engine cross-checks both against the stored metadata — because
+        a CDN can legitimately return a marked response whose body was never
+        captured. A scheduled <strong>health check</strong> watches for
+        failures and alerts, and the recovery paths for stale locks and
+        inconsistent "ghost" metadata are tested behaviors, not hopes.
+      </p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 660 480" role="img" aria-labelledby="cache-diagram-title cache-diagram-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="cache-diagram-title">Cache request decision flow</title>
+          <desc id="cache-diagram-desc">Inside the WordPress lifecycle at template_redirect: a request is checked for eligibility, then HIT serves cached HTML and exits, STALE serves within a bounded window while regeneration is scheduled, and MISS triggers generate, validate, atomic write, and metadata update.</desc>
+          <defs>
+            <marker id="cache-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="middle">
+
+            <!-- Lifecycle boundary frame -->
+            <rect x="30" y="8" width="600" height="464" rx="6" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.55"/>
+            <text x="330" y="30" font-size="12" opacity="0.8">WordPress lifecycle — engine runs at template_redirect, after bootstrap</text>
+
+            <rect x="180" y="44"  width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="68">Request (GET/HEAD)</text>
+            <line x1="330" y1="82" x2="330" y2="98" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+
+            <rect x="180" y="100" width="300" height="38" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="124">Cache eligibility + route lookup</text>
+            <line x1="330" y1="138" x2="330" y2="154" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+
+            <!-- Decision diamond -->
+            <path d="M330,156 L470,196 L330,236 L190,196 Z" fill="none" stroke="currentColor"/>
+            <text x="330" y="200">metadata state?</text>
+
+            <!-- HIT branch -->
+            <line x1="190" y1="196" x2="90" y2="196" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+            <text x="140" y="188" font-size="12">HIT</text>
+            <rect x="10" y="236" width="160" height="44" rx="4" fill="none" stroke="currentColor"/>
+            <text x="90" y="254" font-size="12">Serve cached HTML</text>
+            <text x="90" y="270" font-size="12">→ exit early</text>
+
+            <!-- STALE branch -->
+            <line x1="330" y1="236" x2="330" y2="252" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+            <text x="392" y="248" font-size="12">STALE</text>
+            <rect x="240" y="254" width="180" height="52" rx="4" fill="none" stroke="currentColor"/>
+            <text x="330" y="274" font-size="12">Serve stale (bounded)</text>
+            <text x="330" y="292" font-size="12">+ schedule regeneration</text>
+
+            <!-- MISS branch -->
+            <line x1="470" y1="196" x2="560" y2="196" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+            <text x="515" y="188" font-size="12">MISS</text>
+
+            <rect x="480" y="236" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="555" y="260" font-size="12">Generate (lock held)</text>
+            <line x1="555" y1="276" x2="555" y2="292" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+
+            <rect x="480" y="294" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="555" y="318" font-size="12">Validate output</text>
+            <line x1="555" y1="334" x2="555" y2="350" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+
+            <rect x="480" y="352" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="555" y="376" font-size="12">Atomic write (.tmp→rename)</text>
+            <line x1="555" y1="392" x2="555" y2="408" stroke="currentColor" marker-end="url(#cache-arrow)"/>
+
+            <rect x="480" y="410" width="150" height="40" rx="4" fill="none" stroke="currentColor"/>
+            <text x="555" y="434" font-size="12">Update metadata registry</text>
+
+            <!-- convergence hint -->
+            <text x="250" y="452" font-size="12" opacity="0.8">event-driven invalidation keeps routes synchronized with content changes</text>
+          </g>
+        </svg>
+        <figcaption>
+          Request decision flow. The engine operates inside the WordPress
+          lifecycle — it is not a pre-bootstrap or web-server static-file
+          cache.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="outcome-heading">
+      <h2 id="outcome-heading">Outcome</h2>
+      <ul>
+        <li>
+          A complete custom caching subsystem of roughly <strong>4,000
+          lines</strong> — a ~2,600-line engine, a ~1,200-line administration
+          interface, and lifecycle wiring — plus a dedicated test suite.
+        </li>
+        <li>
+          Eight dedicated test files covering the properties that matter for a
+          cache: invalidation coverage, metadata concurrency, state-agreement
+          invariants, ghost-entry reconciliation, end-to-end ghost recovery,
+          and alert/remediation behavior.
+        </li>
+        <li>
+          The project record contains a formal <strong>certification and
+          freeze</strong> of this module. That is cited as <em>historical
+          project evidence</em>: it documents what was verified at that point,
+          not the current runtime state — indeed the recorded certification
+          values and the current constants have since drifted apart, which is
+          exactly why the distinction matters.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="evidence-heading">
+      <h2 id="evidence-heading">Technical evidence</h2>
+
+      <details>
+        <summary>Architecture</summary>
+        <ul>
+          <li><strong>Eligibility layer</strong> — decides whether a request is cacheable at all (method, auth state, request class, canonical query string).</li>
+          <li><strong>Route model</strong> — the cache is addressed by canonical route, not by URL accidentals.</li>
+          <li><strong>Lifecycle position</strong> — delivery hooks <code>template_redirect</code>; WordPress has fully bootstrapped when the engine runs. It skips rendering, not bootstrap.</li>
+          <li><strong>Store</strong> — generated HTML files plus a metadata registry recording generation time, duration, and invalidation state per route.</li>
+          <li><strong>Concurrency</strong> — per-route capture locks with automatic stale-lock expiry.</li>
+          <li><strong>Staleness policy</strong> — bounded stale-while-revalidate window; past the window a route regenerates rather than serving stale forever.</li>
+          <li><strong>Edge cooperation</strong> — short browser/CDN cache lifetimes with stale-while-revalidate semantics, and an origin-bypass path for internal generation requests. Some requests are served by the CDN edge without reaching the origin — that is ordinary HTTP caching, separate from this engine.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Implementation</summary>
+        <ul>
+          <li><strong>Atomic capture</strong> — write to a temporary file, validate (including a minimum-length check that rejects error responses), then rename into place.</li>
+          <li><strong>Capture locks</strong> — one generation per route; locks older than a fixed timeout are treated as dead and removed, so a crashed worker cannot wedge a route.</li>
+          <li><strong>Event-driven invalidation</strong> — content hooks invalidate the affected route and the listing homepage; slug changes hard-clear the <em>old</em> route to prevent orphaned files; global changes (menus, customizer, front-page setting) invalidate all.</li>
+          <li><strong>Verified regeneration</strong> — success requires the regeneration status marker <em>and</em> a generation timestamp <em>and</em> a metadata freshness check; the header alone is explicitly not trusted.</li>
+          <li><strong>Health monitoring</strong> — a scheduled check plus alerting on generation failure.</li>
+          <li><strong>Bounded storage</strong> — the cache log rotates within a capped line count on a deferred-rewrite threshold.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Verification</summary>
+        <p>Evidence held in the private project record:</p>
+        <ul>
+          <li>Dedicated cache test suite — eight test files.</li>
+          <li>Invalidation-coverage tests, a state-agreement invariant test, and metadata-concurrency tests.</li>
+          <li>Ghost-entry reconciliation and end-to-end ghost-recovery tests.</li>
+          <li>Alert/remediation regression tests.</li>
+          <li>A formal certification and freeze record for the module.</li>
+        </ul>
+        <p>
+          The certification is historical project documentation — it proves
+          the system passed a formal gate when certified, and is not presented
+          as live runtime verification. (The certification record and the
+          current code already differ on at least one constant, which the
+          project record itself documents.)
+        </p>
+      </details>
+
+      <details>
+        <summary>Limits</summary>
+        <ul>
+          <li><strong>The cache does not bypass the WordPress bootstrap.</strong> Serving happens at <code>template_redirect</code>, after core, plugins, theme, and the main query have run. The savings are in skipped template rendering and page generation, not in skipping WordPress.</li>
+          <li>It is not a web-server static-file cache — no <code>advanced-cache.php</code> drop-in or nginx cache-serving configuration is part of this implementation.</li>
+          <li>Edge-cache hits (CDN/browser) can bypass the origin entirely, but that is generic HTTP caching — not a property this engine claims.</li>
+          <li>The production codebase is private; this page describes the system rather than publishing it.</li>
+          <li>No performance percentages, throughput figures, or traffic outcomes are claimed — the evidence supports the engineering, not invented metrics.</li>
+        </ul>
+      </details>
+    </section>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Hand-built static site — plain HTML and CSS, no frameworks, no JavaScript, no tracking.</p>
+  </div>
+</footer>
+
+</body>
+</html>
