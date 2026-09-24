@@ -1,0 +1,292 @@
+{
+ "metadata": {
+  "phase": "1.1D project exploration",
+  "generated": "2026-09-24",
+  "corpus": "reuses 438-job corpus from upwork-phase-1-1c-winner-deep-dive-raw.json",
+  "get_samples_total": 61,
+  "aged_lifecycle_sample": 11
+ },
+ "aged_lifecycle_samples": [
+  {
+   "id": "2084478773474924542",
+   "age_d": 51,
+   "title": "Urgent email deliverability SPF/DKIM/DMARC",
+   "budget": 250,
+   "type": "FIXED",
+   "connects": 11,
+   "hired": 2,
+   "invites": 3,
+   "interviewed": 2,
+   "formal_gate": true,
+   "gate_detail": "min_earnings $10k+ JSS90 Conversational EN",
+   "repeat_evidence": "same-title job hired Aug, closed Sep, REPOSTED again ACTIVE; 3 related deliverability posts",
+   "client_spend": 6233,
+   "client_hires": 7,
+   "client_contracts": 8
+  },
+  {
+   "id": "2088353626291688337",
+   "age_d": 40,
+   "title": "Entra ID UPN/tenant migration expert",
+   "rate": "40-80",
+   "type": "HOURLY",
+   "connects": 13,
+   "hired": 1,
+   "invites": 5,
+   "interviewed": 3,
+   "formal_gate": true,
+   "gate_detail": "JSS90 + US pref",
+   "repeat_evidence": "client=$2.8M spend serial infra buyer (Cisco,3CX,Nimble,VMC)",
+   "client_spend": 2811801,
+   "client_hires": 41,
+   "client_contracts": 61
+  },
+  {
+   "id": "2091699636762215406",
+   "age_d": 31,
+   "title": "Python SMTP sending engine high-concurrency",
+   "budget": 300,
+   "type": "FIXED",
+   "connects": 14,
+   "hired": 0,
+   "invites": 0,
+   "interviewed": 3,
+   "formal_gate": false,
+   "repeat_evidence": "serial reposter: 4+ related SMTP/Playwright automation posts; prior Playwright contract ended 1/1 feedback; bulk-mail infra profile",
+   "client_spend": 2435,
+   "client_hires": 13,
+   "client_contracts": 15
+  },
+  {
+   "id": "2093662661217959999",
+   "age_d": 25,
+   "title": "Elementor forms+SMTP $10",
+   "budget": 10,
+   "type": "FIXED",
+   "connects": 11,
+   "hired": 1,
+   "invites": 1,
+   "interviewed": 0,
+   "formal_gate": false,
+   "repeat_evidence": "client=agency churner: 2143 contracts,2112 hires",
+   "client_spend": 25220,
+   "client_hires": 2112,
+   "client_contracts": 2143
+  },
+  {
+   "id": "2094035108551794902",
+   "age_d": 24,
+   "title": "MailWizz+SES setup $50",
+   "budget": 50,
+   "type": "FIXED",
+   "connects": 8,
+   "hired": 0,
+   "invites": 0,
+   "interviewed": 0,
+   "formal_gate": false,
+   "repeat_evidence": "parallel open post: Connect Amazon SES to Mumara $50-100",
+   "client_spend": 3611,
+   "client_hires": 19,
+   "client_contracts": 24
+  },
+  {
+   "id": "2094902823931378444",
+   "age_d": 22,
+   "title": "AWS Cloud/DevOps infra engineer FT",
+   "type": "HOURLY",
+   "connects": 15,
+   "hired": 0,
+   "invites": 1,
+   "interviewed": 1,
+   "formal_gate": false,
+   "repeat_evidence": "client=Upwork Inc itself (44k contracts); enterprise role not project",
+   "client_spend": 0,
+   "client_hires": 32793,
+   "client_contracts": 44038
+  },
+  {
+   "id": "2097259898420293563",
+   "age_d": 15,
+   "title": "Enterprise file server M&A discovery consultant",
+   "rate": "40-70",
+   "type": "HOURLY",
+   "connects": 22,
+   "hired": 0,
+   "invites": 0,
+   "interviewed": 0,
+   "formal_gate": true,
+   "gate_detail": "JSS90 Fluent EN Individuals",
+   "repeat_evidence": "consulting firm serial poster",
+   "client_spend": 285684,
+   "client_hires": 99,
+   "client_contracts": 103
+  },
+  {
+   "id": "2097982789316813969",
+   "age_d": 13,
+   "title": "Drupal 11 website updates",
+   "rate": "20-25",
+   "type": "HOURLY",
+   "connects": 26,
+   "hired": 0,
+   "invites": 0,
+   "interviewed": 0,
+   "formal_gate": false,
+   "repeat_evidence": "client has ACTIVE 'Find and remove malware from Drupal 7' contract open since 2022 \u2014 same site estate, EOL chain",
+   "client_spend": 18844,
+   "client_hires": 2,
+   "client_contracts": 2
+  },
+  {
+   "id": "2098433581515615896",
+   "age_d": 12,
+   "title": "Senior Data Engineer GCP",
+   "rate": "35-50",
+   "type": "HOURLY",
+   "connects": 27,
+   "hired": 0,
+   "invites": 39,
+   "interviewed": 2,
+   "formal_gate": true,
+   "gate_detail": "min_earnings $1k+ JSS80 Individuals + EST + mandatory Loom video",
+   "repeat_evidence": "5 concurrent open tech posts",
+   "client_spend": 12265,
+   "client_hires": 4,
+   "client_contracts": 7
+  },
+  {
+   "id": "2098975884378685576",
+   "age_d": 11,
+   "title": "Senior Drupal Developer $600/MONTH full-time",
+   "budget": 600,
+   "type": "FIXED",
+   "connects": 11,
+   "hired": 0,
+   "invites": 30,
+   "interviewed": 15,
+   "formal_gate": false,
+   "repeat_evidence": "ANOMALY: $600/mo FT senior role = ~$3.50/hr equivalent",
+   "client_spend": 0,
+   "client_hires": 0,
+   "client_contracts": 0
+  },
+  {
+   "id": "2099660855801787772",
+   "age_d": 9,
+   "title": "Senior legacy PHP e-commerce platform",
+   "rate": "25-50",
+   "type": "HOURLY",
+   "connects": 27,
+   "hired": 1,
+   "invites": 0,
+   "interviewed": 3,
+   "formal_gate": false,
+   "repeat_evidence": "client: Kommo CRM posts + marketplace build ongoing; paid trial + fractional CTO screening",
+   "client_spend": 22830,
+   "client_hires": 31,
+   "client_contracts": 41
+  }
+ ],
+ "computed_tables": {
+  "duration": {
+   "<1mo": 156,
+   "1-3mo": 145,
+   "3-6mo": 45,
+   ">6mo": 92
+  },
+  "markers": {
+   "urgent": 16,
+   "diagnose_first": 52,
+   "prod_access": 49,
+   "big_scope": 24,
+   "vague": 63,
+   "milestoned": 6
+  },
+  "prod_access_medF": 400,
+  "milestoned_medF": 2250,
+  "vague_medF": 50,
+  "short_contract": {
+   "<=50": {
+    "n": 38,
+    "propMed": 12.5,
+    "pct50": 5,
+    "urgent": 8
+   },
+   "50-150": {
+    "n": 18,
+    "propMed": 35,
+    "pct50": 6,
+    "urgent": 11
+   },
+   "150-400": {
+    "n": 12,
+    "propMed": 26.2,
+    "pct50": 0,
+    "urgent": 33
+   },
+   "400-1k": {
+    "n": 6,
+    "propMed": 35,
+    "pct50": 17
+   },
+   "1k+": {
+    "n": 3,
+    "propMed": 35,
+    "pct50": 33
+   }
+  },
+  "archetypes": {
+   "deliverability infra": {
+    "n": 15,
+    "medF": 300,
+    "propMed": 17.5,
+    "pct50": 7
+   },
+   "perf/speed": {
+    "n": 31,
+    "medF": 135,
+    "propMed": 17.5,
+    "pct50": 6
+   },
+   "prod deploy/config": {
+    "n": 42,
+    "medF": 100,
+    "propMed": 17.5,
+    "pct50": 17
+   },
+   "record-fix": {
+    "n": 10,
+    "medF": 77.5,
+    "propMed": 35,
+    "pct50": 10
+   },
+   "migration": {
+    "n": 36,
+    "medF": 300,
+    "propMed": 35,
+    "pct50": 31
+   },
+   "integration build": {
+    "n": 42,
+    "medF": 100,
+    "propMed": 35,
+    "pct50": 24
+   }
+  },
+  "connects_all": {
+   "n": 61,
+   "median": 14,
+   "range": [
+    6,
+    27
+   ]
+  },
+  "aged_fill": {
+   "n": 11,
+   "hired": 4,
+   "dead_no_activity": 3,
+   "stalled_funnel": 3,
+   "gated": 4
+  }
+ }
+}
