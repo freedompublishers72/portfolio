@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "dataset": "Upwork Phase 1.1B — per-job find_jobs:get sample (connects_cost, preferred_qualifications, activityStat)",
+    "collected_utc": "2026-09-24 ~06:00",
+    "n": 21,
+    "selection": "most recent verified-client jobs per candidate area; NOT random — biased toward fresh, real-client postings",
+    "note": "connects_cost is the Connects price to apply; activityStat.totalHired=1 with personsToHire=0 = already filled; preferred_qualifications{} mostly empty = no formal freelancer-facing gate; description-level soft gates noted in notes field"
+  },
+  "records": [
+    {"id":"2102782725079238711","area":"Magento specialist","title":"eCommerce Platform Migration Roadmap (Magento 2 / Shopify / Sylius)","connects":18,"hard_gate_formal":false,"soft_gate":"similar audit/replatform project requested","hired":0,"invites_sent":3,"can_apply":false},
+    {"id":"2102698116613546276","area":"Magento specialist","title":"Senior Magento 2 Developer for Upgrade","connects":26,"hard_gate_formal":false,"soft_gate":"5+ yrs Magento 2.4.x upgrades; Adobe cert a plus; 5 screening questions","hired":0,"invites_sent":1,"can_apply":false},
+    {"id":"2102880908342657585","area":"Email / DNS / deliverability","title":"Email Domain Blocking Check","connects":14,"hard_gate_formal":false,"soft_gate":"asks for email-domain verification experience","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102976268804389656","area":"Email / DNS / deliverability","title":"Expert Newsletter Writer & Operator (beehiiv, Deliverability)","connects":16,"hard_gate_formal":false,"soft_gate":"demands proven list-growth metrics + samples; senior hybrid role","hired":0,"invites_sent":1,"can_apply":false},
+    {"id":"2102988091621383469","area":"Automation (n8n/Zapier/scripts)","title":"Automation: Airtable CRM + Zoom/YouTube workflow + email platform setup","connects":14,"hard_gate_formal":false,"soft_gate":"examples requested","hired":0,"invites_sent":1,"can_apply":false},
+    {"id":"2102932481094704296","area":"Automation (n8n/Zapier/scripts)","title":"Microsoft Copilot Setup & Automation Expert","connects":20,"hard_gate_formal":false,"soft_gate":"no agencies; must have deployed Copilot agents","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102975590561226029","area":"Network & SysAdmin","title":"Maintenance of a VPS server at Contabo","connects":15,"hard_gate_formal":false,"soft_gate":"Individuals only (contractor_type)","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102973874897520781","area":"Network & SysAdmin","title":"Microsoft 365 Administrator Recovery & Business Email Setup","connects":6,"hard_gate_formal":false,"soft_gate":"asks prior tenant-lockout recovery experience","hired":1,"invites_sent":1,"can_apply":false,"note":"ALREADY FILLED at fetch time"},
+    {"id":"2102936369344535720","area":"Blockchain / Web3","title":"Web3/Blockchain Engineer","connects":13,"hard_gate_formal":false,"soft_gate":"EVM/Solidity hands-on","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102932703139694733","area":"AI apps & ML","title":"AI SEO & Automation Expert — Scalable Lead Generation System","connects":21,"hard_gate_formal":false,"soft_gate":"demands proven programmatic-SEO results + screenshots","hired":0,"invites_sent":19,"can_apply":false},
+    {"id":"2102962455057103640","area":"InfoSec & compliance","title":"SOC 2 Auditor / CPA — Independent SOC 2 Audit","connects":17,"hard_gate_formal":false,"soft_gate":"licensed CPA required in description — HARD SKILL/CREDENTIAL GATE","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102940090638633101","area":"ERP/CRM / Salesforce","title":"Monday CRM Developer / Implementation Consultant","connects":13,"hard_gate_formal":false,"soft_gate":"deep current Monday CRM experience demanded","hired":0,"invites_sent":1,"can_apply":false},
+    {"id":"2102892190046747376","area":"DevOps / Cloud / AWS","title":"Azure Cloud Engineer Mentor","connects":17,"hard_gate_formal":false,"soft_gate":"none","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102877217425554200","area":"Payments (Stripe)","title":"Bubble Developer — Creator/Brand Agreement Platform (Stripe Connect + DocuSign)","connects":15,"hard_gate_formal":false,"soft_gate":"BUBBLE-ONLY — production Bubble URLs demanded; stack non-negotiable","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102967226846347825","area":"ERP/CRM / Salesforce","title":"Microsoft Dynamics 365 Business Central Consultant","connects":10,"hard_gate_formal":false,"soft_gate":"AL extensions + BC configuration experience","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102920059423228465","area":"ERP/CRM / Salesforce","title":"HubSpot + Salesforce RevOps Developer","connects":9,"hard_gate_formal":false,"soft_gate":"HubSpot+Salesforce experience","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102983490732783531","area":"Data eng / DBA","title":"Technical Business Analyst (Data and Analytics) - MUST BE IN AUSTRALIA or NEW ZEALAND","connects":21,"hard_gate_formal":true,"soft_gate":"preferred_qualifications: Individuals only, Native English, min_job_success_score=80, rising_talent, AU/NZ working rights","hired":0,"invites_sent":0,"can_apply":false,"note":"FORMAL GATE — JSS 80 + location blocks a new account"},
+    {"id":"2102928742664307249","area":"Data eng / DBA","title":"Report Builder Specialist - Inspection Reports","connects":15,"hard_gate_formal":false,"soft_gate":"preferred_locations Malaysia/India (location_required=false — soft)","hired":0,"invites_sent":30,"can_apply":false},
+    {"id":"2102682116485699426","area":"Desktop & legacy apps","title":"GP Leave and Session Tracker Portal","connects":26,"hard_gate_formal":false,"soft_gate":"show a portal you've built","hired":0,"invites_sent":0,"can_apply":false},
+    {"id":"2102663695376390295","area":"Desktop & legacy apps","title":"Crystal Reports Update for Merlin Business Software","connects":9,"hard_gate_formal":false,"soft_gate":"none; 'quick job 2-3 hours'","hired":1,"invites_sent":1,"can_apply":false,"note":"ALREADY FILLED at fetch time"},
+    {"id":"2102987566213504301","area":"WordPress repair & ecosystem","title":"Wordpress website from Theme","connects":14,"hard_gate_formal":false,"soft_gate":"none","hired":0,"invites_sent":0,"can_apply":false}
+  ],
+  "summary": {
+    "connects": {"n":21,"median":15,"min":6,"max":26,"p25":13,"p75":18},
+    "connects_usd_median": 2.25,
+    "formal_gates": "1/21 (JSS80+location); soft description gates ~5/21",
+    "already_hired": "2/21 (~10%) — search corpus contains already-filled jobs",
+    "account_connects_balance": 0
+  }
+}
