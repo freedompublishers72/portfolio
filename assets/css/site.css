@@ -217,8 +217,7 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
-.eyebrow,
-.project-label {
+.eyebrow {
   margin-bottom: 0.75rem;
   color: var(--ink-muted);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
@@ -425,20 +424,10 @@ body:has(.home-main--simple) .back-to-top:focus-visible {
   font-size: 0.92rem;
 }
 
-code,
-pre {
+code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
     "Liberation Mono", monospace;
   font-size: 0.9em;
-}
-
-pre {
-  padding: 1rem 1.1rem;
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0.4rem;
-  overflow-x: auto;
-  line-height: 1.5;
 }
 
 details {
@@ -646,7 +635,6 @@ body:has(.home-main--simple) {
   --home-ochre: #bd8d32;
   --home-red: #a34a42;
   --home-blue-wash: #e2e9e9;
-  --home-ochre-wash: #eee4ca;
   --home-rule: #c8c0b3;
   --home-rule-strong: #8e877d;
   --on-dark-muted: #c8d2d2;
@@ -679,7 +667,6 @@ body:has(.home-main--simple) {
   --lede: 1.125rem;
   --lede-lg: 1.5rem;
   --small: 0.78rem;
-  --code-size: 0.76rem;
   --ls-tight: -0.04em;
   --ls-label: 0.12em;
   --lh-display: 1.05;
@@ -828,13 +815,8 @@ body:has(.home-main--simple) .nav-list a {
   transition: color var(--motion);
 }
 
-body:has(.home-main--simple) .nav-list a:hover,
-body:has(.home-main--simple) .nav-list a[aria-current] {
+body:has(.home-main--simple) .nav-list a:hover {
   color: #fff;
-}
-
-body:has(.home-main--simple) .nav-list a[aria-current] {
-  box-shadow: none;
 }
 
 body:has(.home-main--simple) .nav-list .nav-separator {
@@ -896,14 +878,6 @@ body:has(.home-main--simple) .portfolio-hero h1 .title-main {
   }
 }
 
-body:has(.home-main--simple) .portfolio-hero__lede {
-  max-width: 32.5rem;
-  margin: 0 0 2rem;
-  color: var(--on-dark-muted);
-  font-size: var(--lede);
-  line-height: var(--lh-lede);
-}
-
 /* ─── Home: shared control system ────────────────────────────────────────
    One spec; colour variants per surface. */
 
@@ -950,18 +924,6 @@ body:has(.home-main--simple) .portfolio-hero__action:hover {
   color: var(--home-surface);
 }
 
-body:has(.home-main--simple) .contact-actions .button {
-  border-color: var(--home-red);
-  background: var(--home-red);
-  color: #fff;
-}
-
-body:has(.home-main--simple) .contact-actions .button:hover {
-  border-color: var(--home-paper);
-  background: var(--home-paper);
-  color: var(--home-navy);
-}
-
 /* ─── Home: section headings ───────────────────────────────────────────── */
 
 body:has(.home-main--simple) .simple-section-heading {
@@ -1003,8 +965,7 @@ body:has(.home-main--simple) #systems .simple-section-heading > p:last-child {
 
 /* ─── Home: labels and links ───────────────────────────────────────────── */
 
-body:has(.home-main--simple) .eyebrow,
-body:has(.home-main--simple) .project-label {
+body:has(.home-main--simple) .eyebrow {
   color: var(--home-red);
   font-size: var(--label);
   letter-spacing: var(--ls-label);
@@ -1013,16 +974,6 @@ body:has(.home-main--simple) .project-label {
 body:has(.home-main--simple) .text-link {
   color: var(--home-red);
   transition: color var(--motion);
-}
-
-body:has(.home-main--simple) .contact-section--simple .text-link,
-body:has(.home-main--simple) .portfolio-hero .text-link {
-  color: var(--home-paper);
-}
-
-body:has(.home-main--simple) .contact-section--simple .text-link:hover,
-body:has(.home-main--simple) .portfolio-hero .text-link:hover {
-  color: #fff;
 }
 
 /* ─── Home: feature section (page canvas zone) ─────────────────────────── */
@@ -1094,7 +1045,7 @@ body:has(.home-main--simple) .feature-project-copy h3::after {
   content: "";
 }
 
-body:has(.home-main--simple) .feature-project-copy > p:not(.project-label):not(.project-facts) {
+body:has(.home-main--simple) .feature-project-copy > p:not(.project-facts) {
   max-width: 48rem;
   margin-bottom: 0;
   color: var(--home-navy);
@@ -1151,29 +1102,6 @@ body:has(.home-main--simple) .performance-evidence-heading h2 {
 body:has(.home-main--simple) .performance-evidence-heading > p:last-child {
   max-width: 62rem;
   color: var(--home-navy);
-}
-
-body:has(.home-main--simple) .performance-evidence-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 2rem;
-  max-width: 70rem;
-  margin: 0 auto 1.5rem;
-  color: var(--home-navy);
-  font-size: var(--small);
-}
-
-body:has(.home-main--simple) .performance-evidence-meta p {
-  margin: 0;
-}
-
-body:has(.home-main--simple) .performance-evidence-meta a,
-body:has(.home-main--simple) .performance-evidence-meta a:visited {
-  color: var(--home-steel);
-}
-
-body:has(.home-main--simple) .performance-evidence-meta a:hover {
-  color: var(--home-hero-bg);
 }
 
 body:has(.home-main--simple) .performance-evidence-figure {
@@ -1248,12 +1176,6 @@ body:has(.home-main--simple) .performance-evidence-cta:hover {
   list-style: none;
 }
 
-.project-facts li + li::before {
-  margin-right: 0.8rem;
-  color: var(--rule-strong);
-  content: "/";
-}
-
 /* ─── Home: systems section (light zone) ───────────────────────────────── */
 
 body:has(.home-main--simple) .systems-section {
@@ -1316,6 +1238,13 @@ body:has(.home-main--simple) .case-study__summary {
   cursor: pointer;
 }
 
+/* Paragraph descriptions remain semantic content while participating in the
+   summary's flex row. */
+body:has(.home-main--simple) .accordion-description {
+  font-size: 0.9em;
+  font-weight: normal;
+}
+
 body:has(.home-main--simple) .case-study__summary::-webkit-details-marker {
   display: none;
 }
@@ -1365,13 +1294,6 @@ body:has(.home-main--simple) .case-study__meta {
 body:has(.home-main--simple) .case-study__body {
   max-width: 62rem;
   padding: 0.1rem 0 1.9rem;
-}
-
-body:has(.home-main--simple) .case-study__desc {
-  max-width: 44rem;
-  margin: 0 0 1.35rem;
-  color: var(--home-blue);
-  font-size: var(--body);
 }
 
 /* Integrated case-study content stays inside the parent disclosure. */
@@ -1450,26 +1372,6 @@ body:has(.home-main--simple) .case-study__full figcaption {
   margin-top: 0.35rem;
 }
 
-body:has(.home-main--simple) .case-study__intro {
-  max-width: 58rem;
-}
-
-body:has(.home-main--simple) .case-study__intro .lede {
-  max-width: 54rem;
-  margin: 0 0 0.9rem;
-  color: var(--home-ink);
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-  line-height: var(--lh-body);
-}
-
-body:has(.home-main--simple) .case-study__intro .note {
-  max-width: 54rem;
-  margin: 0;
-  color: var(--home-blue);
-  font-size: var(--small);
-  line-height: var(--lh-body);
-}
-
 body:has(.home-main--simple) .case-study__section {
   max-width: 58rem;
   margin: 2.15rem 0 0;
@@ -1505,8 +1407,7 @@ body:has(.home-main--simple) .case-study__section li:last-child {
   margin-bottom: 0;
 }
 
-body:has(.home-main--simple) .case-study__section code,
-body:has(.home-main--simple) .case-study__evidence code {
+body:has(.home-main--simple) .case-study__section code {
   padding: 0.05em 0.3em;
   border: 1px solid var(--home-rule);
   background: var(--home-surface);
@@ -1548,254 +1449,6 @@ body:has(.home-main--simple) .case-study__full figcaption {
   line-height: var(--lh-body);
 }
 
-body:has(.home-main--simple) .case-study__evidence {
-  max-width: 58rem;
-  margin-top: 1.45rem;
-  padding-top: 1.15rem;
-  border-top: 1px solid var(--home-rule);
-}
-
-body:has(.home-main--simple) .case-study__evidence-heading {
-  margin: 0 0 0.65rem;
-  color: var(--home-blue);
-  font-family: var(--font-mono);
-  font-size: var(--small);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-body:has(.home-main--simple) .case-study__evidence p,
-body:has(.home-main--simple) .case-study__evidence ul {
-  max-width: 56rem;
-  margin: 0 0 0.75rem;
-  font-size: var(--body);
-  line-height: var(--lh-body);
-}
-
-body:has(.home-main--simple) .case-study__evidence ul {
-  padding-left: 1.25rem;
-}
-
-body:has(.home-main--simple) .case-study__evidence li {
-  margin-bottom: 0.35rem;
-}
-
-body:has(.home-main--simple) .code-examples {
-  padding-top: 1.15rem;
-  border-top: 1px solid var(--home-rule);
-}
-
-body:has(.home-main--simple) .code-examples__title {
-  margin: 0 0 1.15rem;
-  color: var(--home-blue);
-  font-family: var(--font-mono);
-  font-size: var(--label);
-  font-weight: 700;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-}
-
-/* Static code-example rows inside the elevated case-study card. */
-
-body:has(.home-main--simple) .code-example-stack {
-  border-top: 1px solid var(--home-rule);
-}
-
-body:has(.home-main--simple) .code-item {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid var(--home-rule);
-  border-radius: 0;
-  background: transparent;
-}
-
-body:has(.home-main--simple) .code-item__summary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 1rem;
-  min-height: 3.75rem;
-  padding: 0.55rem 0;
-  color: var(--home-ink);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.3;
-  list-style: none;
-}
-
-body:has(.home-main--simple) .code-item__title {
-  color: var(--home-steel);
-  transition: color var(--motion);
-}
-
-body:has(.home-main--simple) .code-item__summary:hover .code-item__title {
-  color: var(--home-steel);
-}
-
-body:has(.home-main--simple) .code-item__lang {
-  padding: 0.1rem 0.5rem;
-  border: 1px solid var(--home-rule-strong);
-  color: var(--home-blue);
-  font-family: var(--font-mono);
-  font-size: var(--label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-}
-
-body:has(.home-main--simple) .code-item__body {
-  max-width: 58rem;
-  padding: 0.15rem 0 1.6rem;
-}
-
-body:has(.home-main--simple) .code-item__section {
-  margin-bottom: 1.2rem;
-}
-
-body:has(.home-main--simple) .code-item__heading {
-  margin: 0 0 0.55rem;
-  color: var(--home-blue);
-  font-family: var(--font-mono);
-  font-size: var(--small);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-body:has(.home-main--simple) .code-item__section p {
-  max-width: 56rem;
-  margin: 0 0 0.7rem;
-  font-size: var(--body);
-  line-height: var(--lh-body);
-}
-
-body:has(.home-main--simple) .code-item__section ul,
-body:has(.home-main--simple) .code-item__section ol {
-  max-width: 56rem;
-  margin: 0 0 0.7rem;
-  padding-left: 1.25rem;
-  font-size: var(--body);
-  line-height: var(--lh-body);
-}
-
-body:has(.home-main--simple) .code-item__section li {
-  margin-bottom: 0.35rem;
-}
-
-body:has(.home-main--simple) .code-item__section li:last-child {
-  margin-bottom: 0;
-}
-
-body:has(.home-main--simple) .code-item__section p code,
-body:has(.home-main--simple) .code-item__section li code {
-  padding: 0.05em 0.3em;
-  border: 1px solid var(--home-rule);
-  background: var(--home-surface);
-  font-family: var(--font-mono);
-  font-size: 0.84em;
-}
-
-body:has(.home-main--simple) .code-item__body a,
-body:has(.home-main--simple) .code-item__body a:visited {
-  color: var(--home-steel);
-  text-decoration: none;
-  transition: color var(--motion);
-}
-
-body:has(.home-main--simple) .code-item__body a:hover {
-  color: var(--home-steel);
-  text-decoration: underline;
-}
-
-body:has(.home-main--simple) .code-item pre {
-  margin: 0 0 0.7rem;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--home-rule);
-  border-left: 0.3rem solid var(--home-ochre);
-  border-radius: 0;
-  background: var(--home-surface);
-  overflow-x: auto;
-  font-size: var(--code-size);
-  line-height: var(--lh-code);
-}
-
-body:has(.home-main--simple) .code-item pre code {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--home-navy);
-  font-family: var(--font-mono);
-  font-size: inherit;
-}
-
-body:has(.home-main--simple) .code-item__body .code-item__file {
-  margin: 0.4rem 0 0;
-  color: var(--home-blue);
-  font-family: var(--font-mono);
-  font-size: var(--small);
-}
-
-body:has(.home-main--simple) .code-item__note {
-  margin: 1.15rem 0 0;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--home-rule);
-  color: var(--home-blue);
-  font-size: var(--small);
-}
-
-/* Travel Bonanza mark: navy block inside accordion item 06. */
-
-body:has(.home-main--simple) .technical-paper-mark {
-  position: relative;
-  display: flex;
-  min-height: 22rem;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  padding: clamp(1.5rem, 4vw, 4rem);
-  border-radius: 0;
-  background: var(--home-navy);
-  color: var(--home-paper);
-  font-family: var(--font-mono);
-  letter-spacing: 0.08em;
-}
-
-body:has(.home-main--simple) .technical-paper-mark::before {
-  position: absolute;
-  top: -18%;
-  right: -12%;
-  width: 75%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(242, 237, 227, 0.7);
-  border-radius: 50%;
-  content: "";
-}
-
-body:has(.home-main--simple) .technical-paper-mark::after {
-  position: absolute;
-  top: 54%;
-  left: -10%;
-  width: 130%;
-  height: 0.25rem;
-  background: var(--home-red);
-  content: "";
-  transform: rotate(-28deg);
-}
-
-body:has(.home-main--simple) .technical-paper-mark strong,
-body:has(.home-main--simple) .technical-paper-mark span {
-  position: relative;
-  z-index: 1;
-}
-
-body:has(.home-main--simple) .technical-paper-mark strong {
-  font-size: clamp(2.5rem, 6vw, 7rem);
-  font-weight: 600;
-}
-
-body:has(.home-main--simple) .technical-paper-mark span:last-child {
-  color: var(--on-dark-muted);
-  font-size: var(--small);
-}
 
 body:has(.home-main--simple) .travel-bonanza-image img {
   display: block;
@@ -1955,12 +1608,6 @@ body:has(.home-main--simple) .about-section a:hover {
 body:has(.home-main--simple) .feature-project-copy .text-link,
 body:has(.home-main--simple) .feature-project-copy .text-link:visited {
   color: var(--home-steel);
-}
-
-body:has(.home-main--simple) .contact-section--simple .text-link,
-body:has(.home-main--simple) .contact-section--simple .text-link:visited,
-body:has(.home-main--simple) .contact-section--simple .text-link:hover {
-  color: var(--home-ink);
 }
 
 body:has(.home-main--simple) .site-header :focus-visible,
@@ -2150,8 +1797,7 @@ body:has(.home-main--simple) .elevated {
     box-shadow: var(--elev-highlight), var(--elev-card-hover);
   }
 
-  body:has(.home-main--simple) .portfolio-hero__action:hover,
-  body:has(.home-main--simple) .contact-actions .button:hover {
+  body:has(.home-main--simple) .portfolio-hero__action:hover {
     transform: translateY(var(--lift-control));
     box-shadow: var(--elev-control-hover);
   }
@@ -2166,8 +1812,7 @@ body:has(.home-main--simple) :focus-visible {
 body:has(.home-main--simple) .site-header :focus-visible,
 body:has(.home-main--simple) .portfolio-hero :focus-visible,
 body:has(.home-main--simple) .feature-section :focus-visible,
-body:has(.home-main--simple) .contact-section--simple :focus-visible,
-body:has(.home-main--simple) .technical-paper-mark :focus-visible {
+body:has(.home-main--simple) .contact-section--simple :focus-visible {
   outline-color: var(--home-ochre);
 }
 
@@ -2324,10 +1969,6 @@ body:has(.home-main--simple) .feature-project-image-link:focus-visible {
     padding-top: 3rem;
   }
 
-  body:has(.home-main--simple) .portfolio-hero__lede {
-    font-size: 1rem;
-  }
-
   body:has(.home-main--simple) .case-study {
     padding-inline: 1rem;
   }
@@ -2340,15 +1981,6 @@ body:has(.home-main--simple) .feature-project-image-link:focus-visible {
   body:has(.home-main--simple) .case-study__meta {
     flex-basis: 100%;
     margin-left: 0;
-  }
-
-  body:has(.home-main--simple) .code-item__summary {
-    min-height: 3.5rem;
-    padding-right: 0;
-  }
-
-  body:has(.home-main--simple) .code-item pre {
-    padding: 0.75rem 0.85rem;
   }
 
   body:has(.home-main--simple) .offer-ticker {
@@ -2397,18 +2029,10 @@ body:has(.home-main--simple) .feature-project-image-link:focus-visible {
 
   body:has(.home-main--simple) .elevated,
   body:has(.home-main--simple) .portfolio-hero__action,
-  body:has(.home-main--simple) .contact-actions .button,
   body:has(.home-main--simple) .nav-list a,
   body:has(.home-main--simple) .text-link,
-  body:has(.home-main--simple) .case-study__name,
-  body:has(.home-main--simple) .code-item__title,
-  body:has(.home-main--simple) .code-item__body a {
+  body:has(.home-main--simple) .case-study__name {
     transform: none;
     transition: none;
   }
-}
-
-p.accordion-description {
-font-weight: normal !important ;
-font-size: 0.9em !important ;
 }
