@@ -241,24 +241,36 @@ a:hover {
   gap: 0.55rem;
   min-height: 2.9rem;
   padding: 0.65rem 1rem;
-  border: 1px solid var(--accent);
-  border-radius: 0.35rem;
-  background: var(--accent);
-  color: #fff;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--ink);
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    border-color var(--motion, 180ms ease-out),
+    background-color var(--motion, 180ms ease-out),
+    color var(--motion, 180ms ease-out);
 }
 
 .button:visited,
 .button:hover {
-  color: #fff;
+  color: var(--ink);
 }
 
 .button:hover {
-  background: var(--accent-dark);
-  border-color: var(--accent-dark);
+  background: rgba(255, 255, 255, 0.3);
+  border-color: currentColor;
   text-decoration: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .text-link {
@@ -736,6 +748,7 @@ body:has(.home-main--simple) .wrap {
 body:has(.home-main--simple) .title-section,
 body:has(.home-main--simple) .feature-section,
 body:has(.home-main--simple) .performance-evidence-section,
+body:has(.home-main--simple) .workflow-section,
 body:has(.home-main--simple) .systems-section,
 body:has(.home-main--simple) .about-section,
 body:has(.home-main--simple) .contact-section--simple {
@@ -878,6 +891,58 @@ body:has(.home-main--simple) .portfolio-hero h1 .title-main {
   }
 }
 
+/* ─── Home: capability strip — single technical signature row ──────────── */
+
+body:has(.home-main--simple) .capability-strip {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 1.1rem max(var(--gutter), (100% - var(--home-measure)) / 2);
+  background: var(--home-paper);
+}
+
+body:has(.home-main--simple) .tech-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 0.6rem;
+  max-width: var(--home-measure);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  color: var(--home-navy);
+}
+
+body:has(.home-main--simple) .tech-strip__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: var(--ls-label);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+body:has(.home-main--simple) .tech-strip__item + .tech-strip__item {
+  margin-left: 0.65rem;
+}
+
+body:has(.home-main--simple) .tech-strip__item:not(:last-child)::after {
+  content: "|";
+  margin-left: 0.65rem;
+  color: rgba(21, 43, 67, 0.35);
+}
+
+body:has(.home-main--simple) .tech-strip__icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: none;
+  fill: currentColor;
+}
+
 /* ─── Home: shared control system ────────────────────────────────────────
    One spec; colour variants per surface. */
 
@@ -888,26 +953,58 @@ body:has(.home-main--simple) .portfolio-hero__action {
   justify-content: center;
   min-height: 3rem;
   padding: 0.75rem 1.25rem;
-  border: 1px solid transparent;
-  border-radius: 0;
+  border: 1px solid rgba(21, 43, 67, 0.34);
+  border-radius: 999px;
+  background: rgba(250, 247, 239, 0.4);
+  color: var(--home-ink);
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.2;
   text-decoration: none;
-  box-shadow: var(--elev-control);
-  transform: translateY(0);
   transition:
-    transform var(--motion),
-    box-shadow var(--motion),
-    background-color var(--motion),
-    border-color var(--motion),
-    color var(--motion);
+    border-color var(--motion, 180ms ease-out),
+    background-color var(--motion, 180ms ease-out),
+    color var(--motion, 180ms ease-out);
 }
 
-body:has(.home-main--simple) .portfolio-hero__action {
-  border-color: var(--home-navy);
-  background: var(--home-navy);
+body:has(.home-main--simple) .portfolio-hero .button,
+body:has(.home-main--simple) .about-section .button,
+body:has(.home-main--simple) .contact-section--simple .button {
+  border-color: rgba(242, 237, 227, 0.52);
+  background: rgba(21, 43, 67, 0.2);
+  color: var(--home-surface);
+}
+
+body:has(.home-main--simple) .feature-project-copy .button,
+body:has(.home-main--simple) .performance-evidence-cta,
+body:has(.home-main--simple) .whitepapers-cta {
+  border-color: rgba(21, 43, 67, 0.34);
+  background: rgba(250, 247, 239, 0.42);
+  color: var(--home-navy);
+}
+
+body:has(.home-main--simple) .button:hover,
+body:has(.home-main--simple) .button:visited:hover,
+body:has(.home-main--simple) .portfolio-hero__action:hover,
+body:has(.home-main--simple) .portfolio-hero__action:visited:hover,
+body:has(.home-main--simple) .feature-project-copy .button:hover,
+body:has(.home-main--simple) .feature-project-copy .button:visited:hover,
+body:has(.home-main--simple) .performance-evidence-cta:hover,
+body:has(.home-main--simple) .performance-evidence-cta:visited:hover,
+body:has(.home-main--simple) .whitepapers-cta:hover,
+body:has(.home-main--simple) .whitepapers-cta:visited:hover {
+  border-color: var(--home-ochre);
+  background-color: rgba(189, 141, 50, 0.18);
+}
+
+body:has(.home-main--simple) .portfolio-hero .button:hover,
+body:has(.home-main--simple) .portfolio-hero .button:visited:hover,
+body:has(.home-main--simple) .about-section .button:hover,
+body:has(.home-main--simple) .about-section .button:visited:hover,
+body:has(.home-main--simple) .contact-section--simple .button:hover,
+body:has(.home-main--simple) .contact-section--simple .button:visited:hover {
+  background-color: rgba(21, 43, 67, 0.38);
   color: var(--home-surface);
 }
 
@@ -916,12 +1013,6 @@ body:has(.home-main--simple) .portfolio-hero__offers {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
   width: min(100%, 600px);
-}
-
-body:has(.home-main--simple) .portfolio-hero__action:hover {
-  border-color: var(--home-ink);
-  background: var(--home-ink);
-  color: var(--home-surface);
 }
 
 /* ─── Home: section headings ───────────────────────────────────────────── */
@@ -961,6 +1052,7 @@ body:has(.home-main--simple) .simple-section-heading > p:last-child {
 
 body:has(.home-main--simple) #systems .simple-section-heading > p:last-child {
   max-width: none;
+  color: var(--home-navy);
 }
 
 /* ─── Home: labels and links ───────────────────────────────────────────── */
@@ -1129,19 +1221,6 @@ body:has(.home-main--simple) .performance-evidence-cta {
   display: flex;
   width: fit-content;
   margin: clamp(1.5rem, 3vw, 2.5rem) 0 0 auto;
-  border-color: var(--home-navy);
-  background: var(--home-navy);
-  color: var(--home-surface);
-}
-
-body:has(.home-main--simple) .performance-evidence-cta:visited,
-body:has(.home-main--simple) .performance-evidence-cta:hover {
-  color: var(--home-surface);
-}
-
-body:has(.home-main--simple) .performance-evidence-cta:hover {
-  border-color: var(--home-ink);
-  background: var(--home-ink);
 }
 
 /* Keep the project presentation intact and return to a single column at the
@@ -1183,9 +1262,18 @@ body:has(.home-main--simple) .systems-section {
   padding-bottom: var(--section-pad);
   /* Quiet structural rule: same-colour neighbour below (about). */
   border-bottom: 1px solid var(--home-rule-strong);
-  background-color: var(--home-blue-wash);
+  background-color: #8f9470;
   background-image: var(--home-texture);
   background-size: 18px 18px;
+}
+
+body:has(.home-main--simple) #systems .simple-section-heading::before {
+  background: var(--home-navy);
+}
+
+body:has(.home-main--simple) .systems-section .whitepapers-cta {
+  border-color: rgba(21, 43, 67, 0.5);
+  background: rgba(250, 247, 239, 0.55);
 }
 
 body:has(.home-main--simple) .case-study-list {
@@ -1199,19 +1287,6 @@ body:has(.home-main--simple) .whitepapers-cta {
   display: flex;
   width: fit-content;
   margin: clamp(2rem, 4vw, 3rem) 0 0 auto;
-  border-color: var(--home-navy);
-  background: var(--home-navy);
-  color: var(--home-surface);
-}
-
-body:has(.home-main--simple) .whitepapers-cta:visited,
-body:has(.home-main--simple) .whitepapers-cta:hover {
-  color: var(--home-surface);
-}
-
-body:has(.home-main--simple) .whitepapers-cta:hover {
-  border-color: var(--home-ink);
-  background: var(--home-ink);
 }
 
 body:has(.home-main--simple) .case-study {
@@ -1610,6 +1685,13 @@ body:has(.home-main--simple) .feature-project-copy .text-link:visited {
   color: var(--home-steel);
 }
 
+body:has(.home-main--simple) .feature-project-copy .button,
+body:has(.home-main--simple) .feature-project-copy .button:visited,
+body:has(.home-main--simple) .feature-project-copy .button:hover {
+  color: var(--home-navy);
+  text-decoration: none;
+}
+
 body:has(.home-main--simple) .site-header :focus-visible,
 body:has(.home-main--simple) .about-section :focus-visible,
 body:has(.home-main--simple) .contact-section--simple :focus-visible {
@@ -1749,7 +1831,7 @@ body:has(.home-main--simple) .contact-resource-link:visited {
   align-items: center;
   gap: 0.85rem;
   min-width: 0;
-  padding: 0.7rem 0;
+  padding: 0.7rem 0.9rem;
   color: var(--home-paper);
   font-size: var(--body);
   font-weight: 700;
@@ -1760,8 +1842,7 @@ body:has(.home-main--simple) .contact-resource-link:visited {
 
 body:has(.home-main--simple) .contact-resource-link:hover {
   color: #fff;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+  text-decoration: none;
 }
 
 body:has(.home-main--simple) .contact-resource-link img {
@@ -1797,10 +1878,6 @@ body:has(.home-main--simple) .elevated {
     box-shadow: var(--elev-highlight), var(--elev-card-hover);
   }
 
-  body:has(.home-main--simple) .portfolio-hero__action:hover {
-    transform: translateY(var(--lift-control));
-    box-shadow: var(--elev-control-hover);
-  }
 }
 
 /* ─── Home: per-surface focus ──────────────────────────────────────────── */
