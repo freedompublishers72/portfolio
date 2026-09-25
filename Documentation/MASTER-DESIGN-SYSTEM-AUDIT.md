@@ -268,7 +268,7 @@ Header & Navigation
 
 | Asset | Treatment |
 |---|---|
-| `hero-artwork.webp` (approved master) | `background: var(--home-hero-bg) url(...) 55% center / cover`; mobile `auto 15rem` at `100% 100%` — **authoritative; must not be regenerated, redesigned, or approximated** (`hero-artwork-policy.md`) |
+| `hero-artwork.jpg` (approved master) | `background: var(--home-hero-bg) url(...) 55% center / cover`; mobile `auto 15rem` at `100% 100%` — **authoritative; must not be regenerated, redesigned, or approximated** (`hero-artwork-policy.md`) |
 | `sria-homepage.jpg` 1600×760 | `width:100%; height:auto`; `filter: saturate(.82) contrast(1.04)` **[EXCEPTION]**; container `overflow:hidden`, navy bg; `min-height` removed (killed the navy-strip gap at 1024/768) |
 | `.technical-paper-mark` | pure CSS navy block + paper circle + red slash; `min-height:22rem`; `aria-hidden` **[EXCEPTION]** |
 | `.pacman-wrap` | CSS pseudo-elements only (navy hairline + red circle + ochre dot); 7rem **[EXCEPTION]** |

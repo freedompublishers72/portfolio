@@ -455,7 +455,7 @@ REASON: real a11y defect on dark sections.
 
 | Asset | Intrinsic | Displayed (1440) | Fit | Notes |
 |---|---|---|---|---|
-| hero-artwork.webp | 1549×471 | cover @ 55% centre in 1427×520 hero | cover | approved; steel bg merges seamlessly; ≤48 rem becomes `auto 15rem` bottom-right band — mostly cropped off-screen, only strands/sliver visible |
+| hero-artwork.jpg | 1549×471 | cover @ 55% centre in 1427×520 hero | cover | approved; steel bg merges seamlessly; ≤48 rem becomes `auto 15rem` bottom-right band — mostly cropped off-screen, only strands/sliver visible |
 | sria-homepage.jpg | 1600×760 | 1224×581 | width 100%, height auto (cover inert) | `filter: saturate(.82) contrast(1.04)` — graded, undocumented |
 | technical-paper-mark | CSS art | 929×352 | – | navy panel + ring + red slash; decorative, `aria-hidden` |
 | pacman SVG | 540×40 | **display:none** | – | replaced by ::before/::after geometry; dead markup |

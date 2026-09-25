@@ -857,7 +857,7 @@ body:has(.home-main--simple) .portfolio-hero {
   margin-top: 0;
   padding-block: 0;
   overflow: visible;
-  background: var(--home-hero-bg) url("../images/hero/hero-artwork.webp") 55% center / 100% no-repeat;
+  background: var(--home-hero-bg) url("../images/hero/hero-artwork.jpg") 55% center / 100% no-repeat;
 }
 
 body:has(.home-main--simple) .portfolio-hero__copy {
