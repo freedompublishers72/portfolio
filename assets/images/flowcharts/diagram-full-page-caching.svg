@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 760 430" role="img"
+aria-labelledby="cache-cache-diagram-title cache-cache-diagram-desc"
+xmlns="http://www.w3.org/2000/svg">
+<style>
+svg { color: #151719; font-family: 'Helvetica Neue', 'Avenir Next', 'Segoe UI', Arial, sans-serif; }
+.diagram-box rect, .diagram-note rect, .diagram-boundary { fill: #f2ede3; stroke: #c8c0b3; stroke-width: 1.5; }
+.diagram-key rect, .diagram-key .diagram-decision { fill: #faf7ef; stroke: #152b43; stroke-width: 1.8; }
+.diagram-decision { fill: #faf7ef; stroke: #c8c0b3; stroke-width: 1.5; }
+.diagram-flow { fill: none; stroke: #152b43; stroke-width: 1.7; }
+.diagram-dash { fill: none; stroke: #4c6272; stroke-width: 1.4; stroke-dasharray: 5 4; }
+.diagram-label { fill: #4c6272; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; }
+.diagram-small { fill: #4c6272; font-size: 11px; }
+.diagram-box text { font-size: 14px; }
+</style>
+
+<title id="cache-cache-diagram-title">Cache serve and regeneration flow</title>
+<desc id="cache-cache-diagram-desc">A request reaches the cache engine at template redirect. Valid
+entries are served as hits, stale entries are served within a bounded window while regeneration is
+scheduled, and misses enter verified generation and atomic publication.</desc>
+<defs>
+<marker id="cache-cache-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
+markerHeight="7" orient="auto">
+<path d="M0 0L10 5 0 10z" fill="currentColor" />
+</marker>
+</defs>
+<g font-family="inherit" fill="currentColor"><text x="20" y="28" class="diagram-label">CACHE SERVE
+CASCADE</text>
+<g class="diagram-box">
+<rect x="20" y="58" width="150" height="58" rx="8" /><text x="95" y="93"
+text-anchor="middle">Request</text>
+</g>
+<path class="diagram-flow" d="M170 87H205" marker-end="url(#cache-arrow)" />
+<g class="diagram-box">
+<rect x="205" y="58" width="175" height="58" rx="8" /><text x="292" y="82"
+text-anchor="middle">Eligibility +</text><text x="292" y="100" text-anchor="middle">metadata
+lookup</text>
+</g>
+<path class="diagram-flow" d="M380 87H415" marker-end="url(#cache-arrow)" />
+<path class="diagram-decision" d="M470 42L525 87 470 132 415 87z" /><text x="470" y="91"
+text-anchor="middle">state</text>
+<path class="diagram-flow" d="M525 87H565" marker-end="url(#cache-arrow)" />
+<g class="diagram-box diagram-key">
+<rect x="565" y="58" width="165" height="58" rx="8" /><text x="647" y="82"
+text-anchor="middle">MISS</text><text x="647" y="100" text-anchor="middle">generate +
+publish</text>
+</g>
+<path class="diagram-dash" d="M470 132V180" marker-end="url(#cache-arrow)" />
+<g class="diagram-box">
+<rect x="360" y="180" width="220" height="58" rx="8" /><text x="470" y="204"
+text-anchor="middle">STALE</text><text x="470" y="222" text-anchor="middle">serve + schedule
+warm</text>
+</g>
+<path class="diagram-dash" d="M360 209H270" marker-end="url(#cache-arrow)" />
+<g class="diagram-box">
+<rect x="80" y="180" width="190" height="58" rx="8" /><text x="175" y="204"
+text-anchor="middle">HIT</text><text x="175" y="222" text-anchor="middle">serve + exit
+early</text>
+</g>
+<path class="diagram-flow" d="M647 116V285" marker-end="url(#cache-arrow)" />
+<g class="diagram-note">
+<rect x="565" y="285" width="165" height="105" rx="8" /><text x="585" y="311"
+class="diagram-label">VERIFY</text><text x="585" y="335">generate</text><text x="585"
+y="354">validate</text><text x="585" y="373">atomic write</text>
+</g>
+<g class="diagram-note">
+<rect x="20" y="285" width="500" height="105" rx="8" /><text x="42" y="311"
+class="diagram-label">LIFECYCLE</text><text x="42" y="335">Content events invalidate affected
+routes.</text><text x="42" y="358">Locks prevent concurrent generation.</text><text x="42"
+y="381">Metadata makes freshness and recovery state explicit.</text>
+</g>
+</g>
+</svg>

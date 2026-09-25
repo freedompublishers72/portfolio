@@ -328,7 +328,7 @@
                 </ul>
 
                 <figure class="diagram diagram-system">
-                  <img src="assets/img/diagram-multilingual.svg"
+                  <img src="assets/images/flowcharts/diagram-multilingual.svg"
                     alt="Multilingual publishing architecture flowchart showing three ways language is chosen: a language URL resolves directly to that language; an English URL uses browser language automatically or remains English; and a manual translation selector can be used from either location. The resolved language then determines translated content and query scope before WordPress delivers the localized response."
                     loading="lazy">
                   <figcaption>Language selection and routing: language URLs resolve directly, English URLs can use
@@ -506,66 +506,9 @@
                     reconciliation are explicit tested behaviors.</li>
                 </ul>
 
-                <figure class="diagram diagram-system"><svg viewBox="0 0 760 430" role="img"
-                    aria-labelledby="cache-cache-diagram-title cache-cache-diagram-desc"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <title id="cache-cache-diagram-title">Cache serve and regeneration flow</title>
-                    <desc id="cache-cache-diagram-desc">A request reaches the cache engine at template redirect. Valid
-                      entries are served as hits, stale entries are served within a bounded window while regeneration is
-                      scheduled, and misses enter verified generation and atomic publication.</desc>
-                    <defs>
-                      <marker id="cache-cache-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
-                        markerHeight="7" orient="auto">
-                        <path d="M0 0L10 5 0 10z" fill="currentColor" />
-                      </marker>
-                    </defs>
-                    <g font-family="inherit" fill="currentColor"><text x="20" y="28" class="diagram-label">CACHE SERVE
-                        CASCADE</text>
-                      <g class="diagram-box">
-                        <rect x="20" y="58" width="150" height="58" rx="8" /><text x="95" y="93"
-                          text-anchor="middle">Request</text>
-                      </g>
-                      <path class="diagram-flow" d="M170 87H205" marker-end="url(#cache-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="205" y="58" width="175" height="58" rx="8" /><text x="292" y="82"
-                          text-anchor="middle">Eligibility +</text><text x="292" y="100" text-anchor="middle">metadata
-                          lookup</text>
-                      </g>
-                      <path class="diagram-flow" d="M380 87H415" marker-end="url(#cache-arrow)" />
-                      <path class="diagram-decision" d="M470 42L525 87 470 132 415 87z" /><text x="470" y="91"
-                        text-anchor="middle">state</text>
-                      <path class="diagram-flow" d="M525 87H565" marker-end="url(#cache-arrow)" />
-                      <g class="diagram-box diagram-key">
-                        <rect x="565" y="58" width="165" height="58" rx="8" /><text x="647" y="82"
-                          text-anchor="middle">MISS</text><text x="647" y="100" text-anchor="middle">generate +
-                          publish</text>
-                      </g>
-                      <path class="diagram-dash" d="M470 132V180" marker-end="url(#cache-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="360" y="180" width="220" height="58" rx="8" /><text x="470" y="204"
-                          text-anchor="middle">STALE</text><text x="470" y="222" text-anchor="middle">serve + schedule
-                          warm</text>
-                      </g>
-                      <path class="diagram-dash" d="M360 209H270" marker-end="url(#cache-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="80" y="180" width="190" height="58" rx="8" /><text x="175" y="204"
-                          text-anchor="middle">HIT</text><text x="175" y="222" text-anchor="middle">serve + exit
-                          early</text>
-                      </g>
-                      <path class="diagram-flow" d="M647 116V285" marker-end="url(#cache-arrow)" />
-                      <g class="diagram-note">
-                        <rect x="565" y="285" width="165" height="105" rx="8" /><text x="585" y="311"
-                          class="diagram-label">VERIFY</text><text x="585" y="335">generate</text><text x="585"
-                          y="354">validate</text><text x="585" y="373">atomic write</text>
-                      </g>
-                      <g class="diagram-note">
-                        <rect x="20" y="285" width="500" height="105" rx="8" /><text x="42" y="311"
-                          class="diagram-label">LIFECYCLE</text><text x="42" y="335">Content events invalidate affected
-                          routes.</text><text x="42" y="358">Locks prevent concurrent generation.</text><text x="42"
-                          y="381">Metadata makes freshness and recovery state explicit.</text>
-                      </g>
-                    </g>
-                  </svg>
+                <figure class="diagram diagram-system"><img src="assets/images/flowcharts/diagram-full-page-caching.svg"
+                                                         alt="Cache serve and regeneration flow: a request reaches the cache engine at template redirect. Valid entries are served as hits, stale entries are served within a bounded window while regeneration is scheduled, and misses enter verified generation and atomic publication."
+                                                         loading="lazy">
                   <figcaption>Serve first, regenerate safely: HIT exits early, STALE remains bounded, and MISS passes
                     through verified generation before publication.</figcaption>
                 </figure>
@@ -707,70 +650,9 @@
                     run collection unattended; the WordPress client receives private drafts over REST.</li>
                 </ul>
 
-                <figure class="diagram diagram-system"><svg viewBox="0 0 760 390" role="img"
-                    aria-labelledby="research-rde-diagram-title research-rde-diagram-desc"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <title id="research-rde-diagram-title">Research and data engine architecture</title>
-                    <desc id="research-rde-diagram-desc">External sources feed source adapters inside a
-                      framework-independent engine. Data is normalized, persisted and analyzed before crossing a REST
-                      boundary to WordPress. Scheduling remains external.</desc>
-                    <defs>
-                      <marker id="research-rde-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
-                        markerHeight="7" orient="auto">
-                        <path d="M0 0L10 5 0 10z" fill="currentColor" />
-                      </marker>
-                    </defs>
-                    <g font-family="inherit" fill="currentColor"><text x="20" y="28"
-                        class="diagram-label">FRAMEWORK-INDEPENDENT DATA FLOW</text>
-                      <g class="diagram-note">
-                        <rect x="20" y="58" width="150" height="80" rx="8" /><text x="95" y="84"
-                          text-anchor="middle">External</text><text x="95" y="104"
-                          text-anchor="middle">sources</text><text x="95" y="124" text-anchor="middle"
-                          class="diagram-small">APIs / feeds</text>
-                      </g>
-                      <path class="diagram-flow" d="M170 98H205" marker-end="url(#rde-arrow)" />
-                      <rect x="205" y="42" width="470" height="245" rx="12" class="diagram-boundary" /><text x="225"
-                        y="68" class="diagram-label">ENGINE BOUNDARY</text>
-                      <g class="diagram-box">
-                        <rect x="225" y="88" width="120" height="64" rx="8" /><text x="285" y="114"
-                          text-anchor="middle">Adapters</text><text x="285" y="134" text-anchor="middle"
-                          class="diagram-small">shared contract</text>
-                      </g>
-                      <path class="diagram-flow" d="M345 120H370" marker-end="url(#rde-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="370" y="88" width="120" height="64" rx="8" /><text x="430" y="114"
-                          text-anchor="middle">Normalize</text><text x="430" y="134" text-anchor="middle"
-                          class="diagram-small">canonical form</text>
-                      </g>
-                      <path class="diagram-flow" d="M490 120H515" marker-end="url(#rde-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="515" y="88" width="140" height="64" rx="8" /><text x="585" y="114"
-                          text-anchor="middle">Persist</text><text x="585" y="134" text-anchor="middle"
-                          class="diagram-small">source + catalog</text>
-                      </g>
-                      <path class="diagram-flow" d="M585 152V190" marker-end="url(#rde-arrow)" />
-                      <g class="diagram-box diagram-key">
-                        <rect x="370" y="190" width="200" height="64" rx="8" /><text x="470" y="216"
-                          text-anchor="middle">Analyze + evaluate</text><text x="470" y="236" text-anchor="middle"
-                          class="diagram-small">research + accuracy scoring</text>
-                      </g>
-                      <path class="diagram-flow" d="M370 222H345" marker-end="url(#rde-arrow)" />
-                      <path class="diagram-flow" d="M345 222H695" marker-end="url(#rde-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="575" y="305" width="165" height="58" rx="8" /><text x="657" y="329"
-                          text-anchor="middle">WordPress client</text><text x="657" y="348" text-anchor="middle"
-                          class="diagram-small">REST presentation</text>
-                      </g>
-                      <path class="diagram-flow" d="M570 254L657 305" marker-end="url(#rde-arrow)" />
-                      <g class="diagram-note">
-                        <rect x="20" y="190" width="300" height="173" rx="8" /><text x="42" y="217"
-                          class="diagram-label">OUTSIDE THE ENGINE</text><text x="42" y="242">Scheduler / cadence /
-                          watchdog</text><text x="42" y="266">invokes collection but does not</text><text x="42"
-                          y="286">become part of the research core.</text><text x="42" y="321">WordPress is a client,
-                          not a dependency.</text><text x="42" y="345">REST is the boundary.</text>
-                      </g>
-                    </g>
-                  </svg>
+                <figure class="diagram diagram-system"><img src="assets/images/flowcharts/diagram-research-data-engine.svg"
+                                                         alt="Research and data engine architecture: external sources feed source adapters inside a framework-independent engine. Data is normalized, persisted and analyzed before crossing a REST boundary to WordPress. Scheduling remains external."
+                                                         loading="lazy">
                   <figcaption>The research core owns acquisition, normalization, persistence and analysis; scheduling
                     and WordPress remain outside its boundary.</figcaption>
                 </figure>
@@ -918,70 +800,9 @@
                     silently absorbed into a pass.</li>
                 </ul>
 
-                <figure class="diagram diagram-system"><svg viewBox="0 0 760 390" role="img"
-                    aria-labelledby="verify-vc-diagram-title verify-vc-diagram-desc" xmlns="http://www.w3.org/2000/svg">
-                    <title id="verify-vc-diagram-title">Verification and certification lifecycle</title>
-                    <desc id="verify-vc-diagram-desc">Authorized work moves through implementation, focused testing,
-                      runtime verification and independent audit to a certification gate. Certification, remediation and
-                      deferral are distinct outcomes.</desc>
-                    <defs>
-                      <marker id="verify-vc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
-                        markerHeight="7" orient="auto">
-                        <path d="M0 0L10 5 0 10z" fill="currentColor" />
-                      </marker>
-                    </defs>
-                    <g font-family="inherit" fill="currentColor"><text x="20" y="28"
-                        class="diagram-label">EVIDENCE-BASED DELIVERY</text>
-                      <g class="diagram-box">
-                        <rect x="20" y="62" width="135" height="62" rx="8" /><text x="87" y="88"
-                          text-anchor="middle">Scope</text><text x="87" y="108" text-anchor="middle"
-                          class="diagram-small">requirements</text>
-                      </g>
-                      <path class="diagram-flow" d="M155 93H185" marker-end="url(#vc-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="185" y="62" width="135" height="62" rx="8" /><text x="252" y="88"
-                          text-anchor="middle">Implement</text><text x="252" y="108" text-anchor="middle"
-                          class="diagram-small">authorized change</text>
-                      </g>
-                      <path class="diagram-flow" d="M320 93H350" marker-end="url(#vc-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="350" y="62" width="145" height="62" rx="8" /><text x="422" y="88"
-                          text-anchor="middle">Verify</text><text x="422" y="108" text-anchor="middle"
-                          class="diagram-small">tests + runtime</text>
-                      </g>
-                      <path class="diagram-flow" d="M495 93H525" marker-end="url(#vc-arrow)" />
-                      <g class="diagram-box">
-                        <rect x="525" y="62" width="145" height="62" rx="8" /><text x="597" y="88"
-                          text-anchor="middle">Independent</text><text x="597" y="108" text-anchor="middle"
-                          class="diagram-small">audit</text>
-                      </g>
-                      <path class="diagram-flow" d="M670 93H710" marker-end="url(#vc-arrow)" />
-                      <g class="diagram-key">
-                        <path class="diagram-decision" d="M710 55L755 93 710 131 665 93z" /><text x="710" y="90"
-                          text-anchor="middle">Gate</text><text x="710" y="107" text-anchor="middle"
-                          class="diagram-small">evidence</text>
-                      </g>
-                      <g class="diagram-note">
-                        <rect x="170" y="190" width="500" height="155" rx="12" /><text x="195" y="218"
-                          class="diagram-label">THREE LEGITIMATE OUTCOMES</text>
-                        <g class="diagram-box">
-                          <rect x="195" y="240" width="130" height="58" rx="8" /><text x="260" y="274"
-                            text-anchor="middle">CERTIFIED</text>
-                        </g>
-                        <g class="diagram-box">
-                          <rect x="350" y="240" width="130" height="58" rx="8" /><text x="415" y="274"
-                            text-anchor="middle">REMEDIATE</text>
-                        </g>
-                        <g class="diagram-box">
-                          <rect x="505" y="240" width="130" height="58" rx="8" /><text x="570" y="274"
-                            text-anchor="middle">DEFER</text>
-                        </g><text x="195" y="326" class="diagram-small">Remediation and deferral return to controlled
-                          work; neither is silently treated as a pass.</text>
-                      </g>
-                      <path class="diagram-dash" d="M415 298V365H252V124" marker-end="url(#vc-arrow)" />
-                      <path class="diagram-dash" d="M570 298V365H252" />
-                    </g>
-                  </svg>
+                <figure class="diagram diagram-system"><img src="assets/images/flowcharts/diagram-verification-certification.svg"
+                                                         alt="Verification and certification lifecycle: authorized work moves through implementation, focused testing, runtime verification and independent audit to a certification gate. Certification, remediation and deferral are distinct outcomes."
+                                                         loading="lazy">
                   <figcaption>Certification is a gate, not a formality: the evidence can produce certification,
                     remediation, or deferral.</figcaption>
                 </figure>
@@ -1224,7 +1045,7 @@
                   the backend sequence.
                 </p>
                 <figure class="diagram diagram-system">
-                  <img src="assets/images/travel_bonanza_architecture.webp"
+                  <img src="assets/images/flowcharts/diagram-travel-bonanza.webp"
                     alt="Closed-loop Travel Bonanza architecture showing Viator Sandbox scheduled acquisition feeding the local wp_sria_bonanza_products catalogue and read-only frontend and email sequence delivery"
                     width="1503" height="675">
                   <figcaption>Closed-loop architecture: Viator is isolated to acquisition, while the catalogue and
