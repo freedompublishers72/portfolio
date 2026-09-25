@@ -923,6 +923,12 @@
 
               <section class="case-study__section" aria-labelledby="resilient-architecture-heading">
                 <h2 id="resilient-architecture-heading">Architecture</h2>
+                <figure class="diagram diagram-system">
+                  <img src="assets/images/flowcharts/diagram-resilient-collection.svg"
+                    alt="Resilient collection architecture showing external sources flowing through collection, failure handling, persistence, recovery, and run-lock controls"
+                    width="760" height="390">
+                  <figcaption>Resilient collection boundary: failures are handled explicitly while persisted partial results remain available for recovery and verification.</figcaption>
+                </figure>
                 <ul>
                   <li><strong>Resumable offset pagination.</strong> Yields an offset and failure value so the caller
                     chooses whether to keep partial results or abort.</li>
