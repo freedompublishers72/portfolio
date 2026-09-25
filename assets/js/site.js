@@ -42,3 +42,26 @@
   document.body.appendChild(button);
   update();
 })();
+
+/* Deep-link whitepapers: open the targeted disclosure before the browser scrolls to it. */
+(function () {
+  'use strict';
+
+  function openTargetedWhitepaper() {
+    var hash = window.location.hash;
+    if (!hash) return;
+
+    var target = document.getElementById(hash.slice(1));
+    if (!target || !target.closest('.case-study')) return;
+
+    var disclosure = target.closest('.case-study');
+    disclosure.open = true;
+
+    window.requestAnimationFrame(function () {
+      target.scrollIntoView({ block: 'start' });
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', openTargetedWhitepaper);
+  window.addEventListener('hashchange', openTargetedWhitepaper);
+})();
