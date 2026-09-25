@@ -2036,3 +2036,107 @@ body:has(.home-main--simple) .feature-project-image-link:focus-visible {
     transition: none;
   }
 }
+
+
+/* ─── Home: engineering workflow ───────────────────────────────────────── */
+body:has(.home-main--simple) .workflow-section {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+  background: var(--home-paper);
+}
+
+body:has(.home-main--simple) .workflow-section .simple-section-heading {
+  max-width: 62rem;
+  margin-bottom: 2.5rem;
+}
+
+body:has(.home-main--simple) .workflow-section .simple-section-heading > p:last-child {
+  max-width: 60rem;
+  color: var(--home-blue);
+  font-size: var(--lede);
+  line-height: var(--lh-lede);
+}
+
+body:has(.home-main--simple) .workflow {
+  max-width: 75rem;
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--home-surface);
+}
+
+body:has(.home-main--simple) .workflow__steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body:has(.home-main--simple) .workflow__steps li {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.5rem clamp(0.65rem, 1.5vw, 1.25rem);
+}
+
+body:has(.home-main--simple) .workflow__steps li + li {
+  border-left: 1px solid var(--home-rule);
+}
+
+body:has(.home-main--simple) .workflow__number {
+  color: var(--home-steel);
+  font-family: var(--font-mono);
+  font-size: var(--small);
+  font-weight: 700;
+  letter-spacing: var(--ls-label);
+}
+
+body:has(.home-main--simple) .workflow__steps strong {
+  color: var(--home-ink);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: -0.02em;
+}
+
+body:has(.home-main--simple) .workflow__steps li > span:last-child {
+  color: var(--home-blue);
+  font-size: var(--small);
+  line-height: 1.45;
+}
+
+@media (max-width: 64rem) {
+  body:has(.home-main--simple) .workflow__steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 1.25rem;
+  }
+
+  body:has(.home-main--simple) .workflow__steps li:nth-child(4) {
+    border-left: 0;
+  }
+}
+
+@media (max-width: 48rem) {
+  body:has(.home-main--simple) .workflow__steps {
+    grid-template-columns: 1fr;
+  }
+
+  body:has(.home-main--simple) .workflow__steps li + li,
+  body:has(.home-main--simple) .workflow__steps li:nth-child(4) {
+    border-top: 1px solid var(--home-rule);
+    border-left: 0;
+  }
+
+  body:has(.home-main--simple) .workflow__steps li {
+    padding: 1rem 0;
+  }
+
+  body:has(.home-main--simple) .workflow__steps li:first-child {
+    padding-top: 0.5rem;
+  }
+
+  body:has(.home-main--simple) .workflow__steps li:last-child {
+    padding-bottom: 0.5rem;
+  }
+}
