@@ -2217,3 +2217,15 @@ body:has(.home-main--simple) .workflow__steps li > span:last-child {
     padding-bottom: 0.5rem;
   }
 }
+
+/* Keep the contact prompt on one line at desktop widths; allow wrapping on small screens. */
+body:has(.home-main--simple) .contact-section--simple > div > p:last-child {
+  max-width: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 48rem) {
+  body:has(.home-main--simple) .contact-section--simple > div > p:last-child {
+    white-space: normal;
+  }
+}
