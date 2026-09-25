@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 760 390" role="img" aria-labelledby="resilient-title resilient-desc" xmlns="http://www.w3.org/2000/svg">
+<style>
+svg{color:#151719;font-family:Helvetica Neue,Avenir Next,Segoe UI,Arial,sans-serif}
+.box,.note{fill:#f2ede3;stroke:#c8c0b3;stroke-width:1.5}
+.key{fill:#faf7ef;stroke:#152b43;stroke-width:1.8}
+.flow{fill:none;stroke:#152b43;stroke-width:1.7}
+.dash{fill:none;stroke:#4c6272;stroke-width:1.4;stroke-dasharray:5 4}
+.label{fill:#4c6272;font-size:11px;font-weight:700;letter-spacing:.1em}
+.small{fill:#4c6272;font-size:11px}
+text{fill:#151719;font-size:14px}
+</style>
+<title id="resilient-title">Resilient collection primitives</title>
+<desc id="resilient-desc">A resilient collection flow that requests and normalizes external data, handles transient failures with bounded retry and resume behavior, and persists verified partial results.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="currentColor"/></marker></defs>
+
+<text x="20" y="28" class="label">RESILIENT COLLECTION</text>
+
+<g class="box">
+  <rect x="20" y="78" width="160" height="78" rx="8"/>
+  <text x="100" y="108" text-anchor="middle">External source</text>
+  <text x="100" y="130" text-anchor="middle" class="small">APIs · feeds · websites</text>
+</g>
+
+<path class="flow" d="M180 117H220" marker-end="url(#a)"/>
+
+<g class="key">
+  <rect x="220" y="58" width="190" height="118" rx="8"/>
+  <text x="315" y="91" text-anchor="middle">Collection primitive</text>
+  <text x="315" y="116" text-anchor="middle" class="small">request · parse · normalize</text>
+  <text x="315" y="138" text-anchor="middle" class="small">paginate · pace</text>
+</g>
+
+<path class="flow" d="M410 117H450" marker-end="url(#a)"/>
+
+<g class="box">
+  <rect x="450" y="78" width="145" height="78" rx="8"/>
+  <text x="522" y="108" text-anchor="middle">Handle failure</text>
+  <text x="522" y="130" text-anchor="middle" class="small">retry · backoff · resume</text>
+</g>
+
+<path class="flow" d="M595 117H635" marker-end="url(#a)"/>
+
+<g class="box">
+  <rect x="635" y="78" width="105" height="78" rx="8"/>
+  <text x="687" y="108" text-anchor="middle">Persist</text>
+  <text x="687" y="130" text-anchor="middle" class="small">partial data</text>
+</g>
+
+<path class="dash" d="M522 156V222H315V176" marker-end="url(#a)"/>
+
+<g class="note">
+  <rect x="150" y="222" width="430" height="68" rx="10"/>
+  <text x="175" y="249" class="label">RECOVERY BOUNDARY</text>
+  <text x="175" y="273">Transient failure returns control without discarding persisted work.</text>
+</g>
+
+<path class="dash" d="M580 256H630V200" marker-end="url(#a)"/>
+
+<g class="box">
+  <rect x="590" y="222" width="150" height="68" rx="8"/>
+  <text x="665" y="250" text-anchor="middle">Run lock</text>
+  <text x="665" y="272" text-anchor="middle" class="small">prevent overlap</text>
+</g>
+
+<g class="note">
+  <rect x="90" y="320" width="580" height="48" rx="10"/>
+  <text x="115" y="340" class="label">COLLECTION CONTINUES</text>
+  <text x="115" y="359">Failures remain explicit; partial results remain usable and verifiable.</text>
+</g>
+</svg>
