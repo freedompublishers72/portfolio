@@ -1136,9 +1136,9 @@
         <details class="case-study elevated">
           <summary class="case-study__summary">
             <span class="case-study__index">07</span>
-            <span id="whitepaper-workbot" class="case-study__name">WorkBot — Automated Work-Market Research</span>
-            <p class="accordion-description">A private automation system for researching technical work markets, qualifying opportunities, and supporting a controlled acquisition workflow.</p>
-            <span class="case-study__meta">Python · Automation · Web Scraping · API Integration</span>
+            <span id="workbot" class="case-study__name">WorkBot — Automated Work-Market Research</span>
+            <p class="accordion-description">A private automation system for researching technical work markets, qualifying opportunities, and supporting a controlled, human-reviewed acquisition workflow.</p>
+            <span class="case-study__meta">Python · Market research · Automation · Upwork MCP</span>
           </summary>
           <div class="case-study__body">
             <div class="case-study__full">
@@ -1146,18 +1146,40 @@
                 <p class="case-study__toc-title">Contents</p>
                 <ul>
                   <li><a href="#workbot-context-heading">Context</a></li>
+                  <li><a href="#workbot-problem-heading">Problem</a></li>
                   <li><a href="#workbot-architecture-heading">Architecture</a></li>
-                  <li><a href="#workbot-workflow-heading">Workflow</a></li>
-                  <li><a href="#workbot-boundary-heading">Automation Boundary</a></li>
+                  <li><a href="#workbot-collection-heading">Market Collection</a></li>
+                  <li><a href="#workbot-qualification-heading">Qualification</a></li>
+                  <li><a href="#workbot-mios-heading">MIOS Boundary</a></li>
+                  <li><a href="#workbot-control-heading">Human Control</a></li>
+                  <li><a href="#workbot-evidence-heading">Evidence &amp; Status</a></li>
+                  <li><a href="#workbot-limits-heading">Limits</a></li>
                 </ul>
               </nav>
 
               <section class="case-study__section" aria-labelledby="workbot-context-heading">
                 <h2 id="workbot-context-heading">Context</h2>
                 <p>
-                  WorkBot is a private automation system for researching technical work markets,
-                  collecting marketplace data, qualifying opportunities, and supporting a controlled
-                  acquisition workflow.
+                  WorkBot is a private automation system for investigating paid technical work opportunities.
+                  Its purpose is to turn marketplace activity into structured information that can be researched,
+                  filtered, qualified, and presented for controlled acquisition decisions.
+                </p>
+                <p>
+                  The project is deliberately separated from MIOS's prediction-market domain. WorkBot may reuse
+                  MIOS infrastructure and architectural patterns, but it owns its work-market domain logic.
+                </p>
+              </section>
+
+              <section class="case-study__section" aria-labelledby="workbot-problem-heading">
+                <h2 id="workbot-problem-heading">Problem</h2>
+                <p>
+                  Raw marketplace listings are not sufficient for acquisition decisions. WorkBot needs to collect
+                  opportunity data, distinguish relevant technical work from unsuitable projects, examine scope and
+                  commercial characteristics, and preserve enough evidence for later analysis.
+                </p>
+                <p>
+                  The documented discovery work therefore treats collection, qualification, market analysis, and
+                  acquisition as separate stages rather than collapsing them into an unrestricted bidding process.
                 </p>
               </section>
 
@@ -1167,26 +1189,93 @@
                   <img src="assets/images/flowcharts/diagram-workbot.svg"
                     alt="WorkBot architecture showing marketplace sources flowing through data collection, qualification, MIOS intelligence, human decision, and controlled acquisition workflow"
                     width="1600" height="800">
-                  <figcaption>WorkBot structures marketplace data and intelligence while keeping project acquisition under human control.</figcaption>
+                  <figcaption>WorkBot separates marketplace collection and intelligence from the human-controlled acquisition decision.</figcaption>
                 </figure>
-              </section>
-
-              <section class="case-study__section" aria-labelledby="workbot-workflow-heading">
-                <h2 id="workbot-workflow-heading">Workflow</h2>
                 <p>
-                  WorkBot combines automated collection, filtering, technical classification, and market
-                  analysis with human-reviewed decision processes. The objective is to turn raw marketplace
-                  activity into structured intelligence that can support selective project acquisition.
+                  The intended dependency direction is WorkBot → MIOS shared infrastructure, not MIOS core →
+                  WorkBot. WorkBot-specific domain logic remains outside MIOS's prediction-market logic.
                 </p>
               </section>
 
-              <section class="case-study__section" aria-labelledby="workbot-boundary-heading">
-                <h2 id="workbot-boundary-heading">Automation Boundary</h2>
+              <section class="case-study__section" aria-labelledby="workbot-collection-heading">
+                <h2 id="workbot-collection-heading">Market Collection</h2>
                 <p>
-                  Automation handles research and qualification; the decision to pursue an opportunity
-                  remains a controlled human step. WorkBot is therefore designed as a decision-support
-                  and acquisition workflow rather than unrestricted automated bidding.
+                  The documented WorkBot architecture uses marketplace connectors and collection workflows to
+                  acquire structured opportunity data. The current acquisition architecture uses the official
+                  Upwork MCP for marketplace access, with collection and retrieval separated from later analysis.
                 </p>
+                <p>
+                  Earlier WorkBot discovery work established the need for persistent collection, normalization,
+                  evidence preservation, and repeatable sampling rather than relying on individual manual searches.
+                </p>
+              </section>
+
+              <section class="case-study__section" aria-labelledby="workbot-qualification-heading">
+                <h2 id="workbot-qualification-heading">Qualification</h2>
+                <p>
+                  Qualification is domain-specific WorkBot logic. The documented model separates raw market data
+                  from technical fit, scope, budget, competition, client characteristics, and other acquisition
+                  signals. The objective is to produce an opportunity queue rather than automatically treating every
+                  matching listing as a job to pursue.
+                </p>
+                <p>
+                  The acquisition research also distinguishes short-duration technical opportunities from unsuitable
+                  long-term or full-time work and uses evidence from collected marketplace records to support the
+                  qualification process.
+                </p>
+              </section>
+
+              <section class="case-study__section" aria-labelledby="workbot-mios-heading">
+                <h2 id="workbot-mios-heading">MIOS Boundary</h2>
+                <p>
+                  MIOS provides research and intelligence infrastructure; WorkBot provides the work-market domain.
+                  The documented boundary allows WorkBot to reuse generic MIOS infrastructure such as orchestration,
+                  pipelines, execution conventions, data infrastructure, operational controls, and governance where
+                  dependency tracing shows that reuse is appropriate.
+                </p>
+                <p>
+                  Prediction-market schemas, market-specific collectors, forecasting logic, valuation, prediction
+                  scoring, weather or market-specific analytical models, and MIOS-specific research workflows remain
+                  outside the WorkBot domain.
+                </p>
+              </section>
+
+              <section class="case-study__section" aria-labelledby="workbot-control-heading">
+                <h2 id="workbot-control-heading">Human Control</h2>
+                <p>
+                  The documented acquisition architecture is human-in-the-loop:
+                  <strong>market data → MIOS intelligence and qualification → opportunity queue → human review → WorkBot execution → marketplace connector.</strong>
+                </p>
+                <p>
+                  This boundary keeps research and qualification automated while retaining a controlled decision point
+                  before acquisition activity. WorkBot is therefore an operational workflow, not an unrestricted
+                  autonomous bidding system.
+                </p>
+              </section>
+
+              <section class="case-study__section" aria-labelledby="workbot-evidence-heading">
+                <h2 id="workbot-evidence-heading">Evidence &amp; Status</h2>
+                <p>
+                  WorkBot discovery has included controlled marketplace collection, capability and policy research,
+                  competition analysis, acquisition-model research, and structured economic analysis. The documented
+                  roadmap places this work in a staged sequence: economic viability, MCP/MIOS feasibility, then
+                  WorkBot refactoring and implementation feasibility.
+                </p>
+                <p>
+                  The architecture described here is therefore the documented target architecture for the project;
+                  the whitepaper does not claim that every proposed WorkBot component is already implemented.
+                </p>
+              </section>
+
+              <section class="case-study__section" aria-labelledby="workbot-limits-heading">
+                <h2 id="workbot-limits-heading">Limits</h2>
+                <ul>
+                  <li>WorkBot implementation is dependent on the documented economic and MCP/MIOS feasibility gates.</li>
+                  <li>Marketplace data is time-sensitive and must be treated as a collected evidence set rather than a permanent representation of supply.</li>
+                  <li>Qualification logic is WorkBot-specific and must not be embedded into MIOS's prediction-market domain.</li>
+                  <li>Automation does not remove the need for controlled human acquisition decisions.</li>
+                  <li>The implementation and operational data are private; this paper describes the architecture and documented research process without exposing proprietary code or credentials.</li>
+                </ul>
               </section>
             </div>
           </div>
