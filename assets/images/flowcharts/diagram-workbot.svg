@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1600 800" width="1600" height="800" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg">
+<rect width="1600" height="800" fill="#f6f1e7"/>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#152b43}
+.title{font-size:58px;font-weight:700}.subtitle{font-size:28px;fill:#4c6272}.heading{font-size:25px;font-weight:700}.body{font-size:22px}.small{font-size:20px}.box{fill:#f2eadc;stroke:#827867;stroke-width:3}.key{fill:#e9f0f4;stroke:#152b43;stroke-width:4}.band{fill:#f2eadc;stroke:#827867;stroke-width:3}.arrow{fill:none;stroke:#152b43;stroke-width:4;marker-end:url(#arrow)}.dash{fill:none;stroke:#4c6272;stroke-width:3;stroke-dasharray:10 9;marker-end:url(#arrow)}.label{font-size:18px;font-weight:700;letter-spacing:3px;fill:#4c6272}
+</style>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#152b43"/></marker></defs>
+<text x="60" y="82" class="title">WorkBot — Automated Work-Market Research</text>
+<text x="60" y="126" class="subtitle">Structured marketplace intelligence for selective, human-controlled project acquisition.</text>
+
+<rect x="60" y="190" width="270" height="110" rx="14" class="box"/>
+<text x="195" y="232" text-anchor="middle" class="heading">MARKET SOURCES</text>
+<text x="195" y="269" text-anchor="middle" class="body">Upwork MCP · Job Data</text>
+<path d="M330 245H380" class="arrow"/>
+
+<rect x="380" y="175" width="360" height="140" rx="14" class="key"/>
+<text x="560" y="222" text-anchor="middle" class="heading">DATA COLLECTION</text>
+<text x="560" y="260" text-anchor="middle" class="body">Search · Retrieval</text>
+<text x="560" y="293" text-anchor="middle" class="body">Normalization · Storage</text>
+<path d="M740 245H790" class="arrow"/>
+
+<rect x="790" y="190" width="270" height="110" rx="14" class="box"/>
+<text x="925" y="232" text-anchor="middle" class="heading">QUALIFICATION</text>
+<text x="925" y="269" text-anchor="middle" class="body">Technical Fit · Scope</text>
+<path d="M1060 245H1110" class="arrow"/>
+
+<rect x="1110" y="190" width="330" height="110" rx="14" class="box"/>
+<text x="1275" y="232" text-anchor="middle" class="heading">MARKET ANALYSIS</text>
+<text x="1275" y="269" text-anchor="middle" class="body">Economics · Competition</text>
+
+<path d="M925 300V370" class="dash"/><path d="M1275 300V370" class="arrow"/>
+
+<rect x="100" y="370" width="1120" height="120" rx="16" class="band"/>
+<text x="660" y="418" text-anchor="middle" class="heading">MIOS INTELLIGENCE</text>
+<text x="660" y="457" text-anchor="middle" class="body">Research · Statistical Analysis · Market Signals · Qualification Support</text>
+
+<path d="M1220 430H1270" class="arrow"/>
+
+<rect x="1270" y="370" width="270" height="120" rx="16" class="key"/>
+<text x="1405" y="418" text-anchor="middle" class="heading">HUMAN DECISION</text>
+<text x="1405" y="457" text-anchor="middle" class="body">Review · Select · Acquire</text>
+
+<rect x="60" y="545" width="1480" height="100" rx="16" class="band"/>
+<text x="800" y="585" text-anchor="middle" class="heading">CONTROLLED ACQUISITION WORKFLOW</text>
+<text x="800" y="620" text-anchor="middle" class="body">Qualified opportunities · Evidence · Decision criteria · Proposal preparation · Upwork action</text>
+
+<text x="60" y="704" class="label">ARCHITECTURE PRINCIPLE</text>
+<text x="60" y="742" class="small">Automation structures the market data; acquisition remains selective and human-controlled.</text>
+</svg>
