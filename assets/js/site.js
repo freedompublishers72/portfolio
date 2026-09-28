@@ -66,28 +66,4 @@
   window.addEventListener('hashchange', openTargetedWhitepaper);
 })();
 
-/* Measured performance history: append the next dated report directly below the current one. */
-(function () {
-  'use strict';
 
-  function addPerformanceHistoryEntry() {
-    var current = document.querySelector('.performance-evidence-figure');
-    if (!current || current.dataset.historyExtended === 'true') return;
-
-    var next = document.createElement('figure');
-    next.className = 'performance-evidence-figure';
-    next.dataset.historyEntry = '2026-09-28';
-
-    var image = document.createElement('img');
-    image.src = 'assets/images/gtmetrix-score-sria-2026-09-28.webp';
-    image.alt = 'GTmetrix performance report for siemreapinside.asia: Grade A, Performance 98 percent, Structure 98 percent, Largest Contentful Paint 929 milliseconds, Total Blocking Time 98 milliseconds, and Cumulative Layout Shift 0.01.';
-    image.width = 1024;
-    image.height = 140;
-
-    next.appendChild(image);
-    current.insertAdjacentElement('afterend', next);
-    current.dataset.historyExtended = 'true';
-  }
-
-  window.addEventListener('DOMContentLoaded', addPerformanceHistoryEntry);
-})();
