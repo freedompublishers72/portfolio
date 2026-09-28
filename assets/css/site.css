@@ -1196,15 +1196,23 @@ body:has(.home-main--simple) .performance-evidence-heading > p:last-child {
   color: var(--home-navy);
 }
 
-body:has(.home-main--simple) .performance-evidence-figure {
+body:has(.home-main--simple) .performance-evidence-history {
+  display: grid;
+  gap: 1.5rem;
   max-width: 70rem;
   margin: 0 auto;
+}
+
+body:has(.home-main--simple) .performance-evidence-figure {
+  margin: 0;
 }
 
 body:has(.home-main--simple) .performance-evidence-figure img {
   display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 7.25 / 1;
+  object-fit: cover;
+  object-position: center bottom;
   border: 1px solid var(--home-rule-strong);
   background: var(--home-surface);
 }
