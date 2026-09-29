@@ -793,6 +793,16 @@ body:has(.home-main--simple) .site-brand {
   text-transform: uppercase;
 }
 
+body:has(.home-main--simple) .site-brand--freedom {
+  flex: none;
+}
+
+body:has(.home-main--simple) .brand-logo {
+  display: block;
+  width: 190px;
+  height: auto;
+}
+
 body:has(.home-main--simple) .site-brand:visited {
   color: var(--home-paper);
 }
