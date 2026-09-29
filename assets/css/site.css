@@ -1015,6 +1015,12 @@ body:has(.home-main--simple) .portfolio-hero__offers {
   width: min(100%, 600px);
 }
 
+body:has(.home-main--simple) .portfolio-hero__offers .portfolio-hero__action:nth-child(3) {
+  min-width: 11rem;
+  padding-inline: 1.6rem;
+  white-space: nowrap;
+}
+
 /* ─── Home: section headings ───────────────────────────────────────────── */
 
 body:has(.home-main--simple) .simple-section-heading {
