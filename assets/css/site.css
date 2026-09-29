@@ -1010,7 +1010,7 @@ body:has(.home-main--simple) .contact-section--simple .button:visited:hover {
 
 body:has(.home-main--simple) .portfolio-hero__offers {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
   width: min(100%, 600px);
 }
@@ -1641,6 +1641,74 @@ body:has(.home-main--simple) .about-column + .about-column {
   border-left: 1px solid rgba(242, 237, 227, 0.28);
 }
 
+body:has(.home-main--simple) .about-contact__links {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.9rem 0 1.25rem;
+}
+
+body:has(.home-main--simple) .about-contact__links a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--home-paper);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body:has(.home-main--simple) .about-contact__links a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+body:has(.home-main--simple) .about-contact__links img {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+body:has(.home-main--simple) .about-contact__label {
+  margin: 0 0 0.6rem;
+  color: var(--home-paper);
+  font-family: var(--font-mono);
+  font-size: var(--small);
+  font-weight: 700;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+body:has(.home-main--simple) .about-contact__offers {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body:has(.home-main--simple) .about-contact__offers li {
+  border-top: 1px solid rgba(242, 237, 227, 0.22);
+}
+
+body:has(.home-main--simple) .about-contact__offers a {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.45rem;
+  color: var(--on-dark-muted);
+  font-size: var(--small);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+body:has(.home-main--simple) .about-contact__offers a:hover {
+  color: var(--home-paper);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+
 body:has(.home-main--simple) .about-column ul {
   display: grid;
   gap: 0.35rem;
@@ -1911,6 +1979,24 @@ body:has(.home-main--simple) .feature-project-image-link:focus-visible {
    Three breakpoints: ≤64rem tablet, ≤48rem mobile stack, ≤38rem small. */
 
 @media (max-width: 64rem) {
+  body:has(.home-main--simple) .about-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body:has(.home-main--simple) .about-column:nth-child(3) {
+    border-left: 0;
+  }
+
+  body:has(.home-main--simple) .about-column:nth-child(n + 3) {
+    border-top: 1px solid rgba(242, 237, 227, 0.28);
+    padding-top: 1.5rem;
+  }
+
+  body:has(.home-main--simple) .about-column:nth-child(3),
+  body:has(.home-main--simple) .about-column:nth-child(4) {
+    margin-top: 1.5rem;
+  }
+
   body:has(.home-main--simple) .portfolio-hero {
     grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
     min-height: 32rem;
