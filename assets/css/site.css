@@ -1868,9 +1868,13 @@ body:has(.home-main--simple) .contact-resource-link img {
 }
 
 body:has(.home-main--simple) .contact-resource-link__icon {
-  display: block;
+  display: flex;
   width: 2.5rem;
   height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  line-height: 1;
 }
 
 body:has(.home-main--simple) .contact-resource-link__icon--upwork {
