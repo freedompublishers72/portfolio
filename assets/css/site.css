@@ -1867,6 +1867,16 @@ body:has(.home-main--simple) .contact-resource-link img {
   height: 2.5rem;
 }
 
+body:has(.home-main--simple) .contact-resource-link__icon {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+body:has(.home-main--simple) .contact-resource-link__icon--upwork {
+  color: #6FDA44;
+}
+
 body:has(.home-main--simple) .contact-resource-link__text {
   min-width: 0;
   overflow-wrap: anywhere;
